@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    SingletonObjectStates state_Param_;
-
+    //Change accessibility and change triple-split to multi-split. Make it more dynamic :) 
+    //Sort in the variables above the functions
     public SingletonObjectStates.Player_State state_;
     public SingletonObjectStates.Weapon_Type weapon_Type_;
 
@@ -13,24 +13,27 @@ public class PlayerController : MonoBehaviour
     public Vector3 acceleration_;
     public Vector3 deacceleration_;
 
+    float range_Normal_, range_Triple_, range_Split_;
     public GameObject bullet_Template_;
     public Vector3 bullet_Speed_;
     public float triple_Distance_;
     public List<GameObject> bullets_ = new List<GameObject>();
     private short bullet_Index_ = 0;
+
     public float shooting_Cooldown_;
-    public float shooting_Cooldown_Max_;
 
+    public float normal_Shooting_Cooldown_;
+    public float normal_Shooting_Cooldown_Max_;
 
-    void Awake()
+    public float triple_Shooting_Cooldown_;
+    public float triple_Shooting_Cooldown_Max_;
+
+    public float split_Triple_Shooting_Cooldown_;
+    public float split_Triple_Shooting_Cooldown_Max_;
+
+    void Start()
     {
-        for(int i = 0; i < bullets_.Count; i++)
-        {
-            bullets_[i] = Instantiate<GameObject>(bullet_Template_);
-            bullets_[i].transform.parent = transform.parent;
-            bullets_[i].SetActive(false);
-            bullets_[i].GetComponent<BulletController>().bullet_Speed_ = bullet_Speed_;
-        }
+        Init_Bullet_Clip();
     }
 
     void Update()
@@ -40,6 +43,17 @@ public class PlayerController : MonoBehaviour
         Choose_Weapon();
         Shooting_Mechanic();
         Update_Cooldowns();
+    }
+
+    void Init_Bullet_Clip() //Bullet POol
+    {
+        bullet_Template_.SetActive(false);
+        bullet_Template_.GetComponent<BulletController>().bullet_Speed_ = bullet_Speed_;
+
+        for (int i = 0; i < bullets_.Count; i++)
+        {
+            bullets_[i] = Instantiate<GameObject>(bullet_Template_);
+        }
     }
 
     void Choose_Weapon()
@@ -163,7 +177,7 @@ public class PlayerController : MonoBehaviour
                 {
 
                     Shoot_Bullet(0, SingletonObjectStates.Bullet_Type.NORMAL);
-                    shooting_Cooldown_ = shooting_Cooldown_Max_;
+                    shooting_Cooldown_ = normal_Shooting_Cooldown_Max_;
                 }
                 break;
 
@@ -178,7 +192,7 @@ public class PlayerController : MonoBehaviour
                             Shoot_Bullet(i * triple_Distance_, SingletonObjectStates.Bullet_Type.TRIPLE);
                         }
                     }
-                    shooting_Cooldown_ = shooting_Cooldown_Max_;
+                    shooting_Cooldown_ = triple_Shooting_Cooldown_Max_;
                 }
                 break;
 
@@ -193,7 +207,7 @@ public class PlayerController : MonoBehaviour
                             Shoot_Bullet(i * triple_Distance_, SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_MIDDLE + i);
                         }
                     }
-                    shooting_Cooldown_ = shooting_Cooldown_Max_;
+                    shooting_Cooldown_ = split_Triple_Shooting_Cooldown_Max_;
                 }
                 break;
 
@@ -237,11 +251,33 @@ public class PlayerController : MonoBehaviour
 
     void Update_Cooldowns()
     {
+        if (normal_Shooting_Cooldown_ != 0)
+        {
+            normal_Shooting_Cooldown_ -= Time.deltaTime;
+            if (normal_Shooting_Cooldown_ < 0)
+                normal_Shooting_Cooldown_ = 0;
+        }
+
+        if (triple_Shooting_Cooldown_ != 0)
+        {
+            triple_Shooting_Cooldown_ -= Time.deltaTime;
+            if (triple_Shooting_Cooldown_ < 0)
+                triple_Shooting_Cooldown_ = 0;
+        }
+
+        if (split_Triple_Shooting_Cooldown_ != 0)
+        {
+            split_Triple_Shooting_Cooldown_ -= Time.deltaTime;
+            if (split_Triple_Shooting_Cooldown_ < 0)
+                split_Triple_Shooting_Cooldown_ = 0;
+        }
+
         if (shooting_Cooldown_ != 0)
         {
             shooting_Cooldown_ -= Time.deltaTime;
             if (shooting_Cooldown_ < 0)
                 shooting_Cooldown_ = 0;
         }
+
     }
 }

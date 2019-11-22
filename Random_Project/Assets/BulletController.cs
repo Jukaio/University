@@ -6,43 +6,73 @@ public class BulletController : MonoBehaviour
 {
     SingletonObjectStates state_Param_;
     public SingletonObjectStates.Bullet_Type bullet_Type_;
-    PlayerController player_Controller_;
 
     public Vector3 bullet_Speed_;
     float range_;
+    public float range_Normal_, range_Triple_, range_Split_;
+    public Vector3 shoot_Angles_;
+    Matrix4x4 rotation_Matrix_Positive_;
+    Matrix4x4 rotation_Matrix_Negative_;
+    Vector3 vec;
 
-    public void Set_Bullet_Type(SingletonObjectStates.Bullet_Type type)
-    {
-        bullet_Type_ = type;
-    }
 
-    void Start()
+    void Awake()
     {
-        player_Controller_ = transform.parent.GetComponent<PlayerParent>().player_Parent.GetComponent<PlayerController>();
+        Init_Bullet_Param();
     }
 
     void OnEnable()
     {
-        switch (transform.parent.GetComponent<PlayerParent>().player_Parent.GetComponent<PlayerController>().weapon_Type_)
-        {
-            case SingletonObjectStates.Weapon_Type.NORMAL:
-                range_ = 20;
-                break;
-
-            case SingletonObjectStates.Weapon_Type.TRIPLE:
-                range_ = 10;
-                break;
-
-            case SingletonObjectStates.Weapon_Type.TRIPLE_SPLIT:
-                range_ = 10;
-                break;
-        }
+        Init_Bullet();
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch(bullet_Type_)
+        Update_Bullet();
+        Reset_Bullet();
+
+    }
+
+    public void Set_Bullet_Type(SingletonObjectStates.Bullet_Type type)
+    {
+        bullet_Type_ = type;
+    }
+    void Init_Bullet_Param()
+    {
+        Quaternion rotation = Quaternion.Euler(shoot_Angles_.x, shoot_Angles_.y, shoot_Angles_.z);
+        rotation_Matrix_Positive_ = Matrix4x4.Rotate(rotation);
+        rotation = Quaternion.Euler(-shoot_Angles_.x, -shoot_Angles_.y, -shoot_Angles_.z);
+        rotation_Matrix_Negative_ = Matrix4x4.Rotate(rotation);
+        vec = new Vector3(0, 0, range_Split_);
+        vec = rotation_Matrix_Negative_.MultiplyPoint3x4(vec);
+    }
+    void Init_Bullet()
+    {
+        switch (bullet_Type_)
+        {
+            case SingletonObjectStates.Bullet_Type.NORMAL:
+                range_ = range_Normal_;
+                break;
+
+            case SingletonObjectStates.Bullet_Type.TRIPLE:
+                range_ = range_Triple_;
+                break;
+
+            case SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_LEFT:
+                range_ = vec.z;
+                break;
+            case SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_MIDDLE:
+                range_ = range_Split_;
+                break;
+            case SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_RIGHT:
+                range_ = vec.z;
+                break;
+        }
+    }
+    void Update_Bullet()
+    {
+        switch (bullet_Type_)
         {
             case SingletonObjectStates.Bullet_Type.NORMAL:
                 transform.position += bullet_Speed_;
@@ -53,7 +83,7 @@ public class BulletController : MonoBehaviour
                 break;
 
             case SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_LEFT:
-                //Rotate to the left (Rotation Matrix left * with Range)
+                transform.position += (rotation_Matrix_Negative_.MultiplyPoint3x4(bullet_Speed_));
                 break;
 
             case SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_MIDDLE:
@@ -61,10 +91,12 @@ public class BulletController : MonoBehaviour
                 break;
 
             case SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_RIGHT:
-                //Rotate to the right (Rotation Matrix right * with Range)
+                transform.position += (rotation_Matrix_Positive_.MultiplyPoint3x4(bullet_Speed_));
                 break;
         }
-
+    }
+    void Reset_Bullet()
+    {
         if (transform.position.z >= range_)
         {
             gameObject.SetActive(false);
