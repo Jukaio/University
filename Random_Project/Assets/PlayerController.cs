@@ -52,6 +52,10 @@ public class PlayerController : MonoBehaviour
         {
             weapon_Type_ = SingletonObjectStates.Weapon_Type.TRIPLE;
         }
+        else if (Input.GetKey(KeyCode.Alpha3))
+        {
+            weapon_Type_ = SingletonObjectStates.Weapon_Type.TRIPLE_SPLIT;
+        }
     }
 
     void Update_States()
@@ -158,7 +162,7 @@ public class PlayerController : MonoBehaviour
                     shooting_Cooldown_ == 0)
                 {
 
-                    Shoot_Bullet(0);
+                    Shoot_Bullet(0, SingletonObjectStates.Bullet_Type.NORMAL);
                     shooting_Cooldown_ = shooting_Cooldown_Max_;
                 }
                 break;
@@ -171,16 +175,32 @@ public class PlayerController : MonoBehaviour
                     {
                         for (int i = -1; i <= 1; i++)
                         {
-                            Shoot_Bullet(i * triple_Distance_);
+                            Shoot_Bullet(i * triple_Distance_, SingletonObjectStates.Bullet_Type.TRIPLE);
                         }
                     }
                     shooting_Cooldown_ = shooting_Cooldown_Max_;
                 }
                 break;
+
+            case SingletonObjectStates.Weapon_Type.TRIPLE_SPLIT:
+                if (Input.GetKey(KeyCode.Space) &&
+                    shooting_Cooldown_ == 0)
+                {
+                    if (Inactive_Bullet_Count() >= 3)
+                    {
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            Shoot_Bullet(i * triple_Distance_, SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_MIDDLE + i);
+                        }
+                    }
+                    shooting_Cooldown_ = shooting_Cooldown_Max_;
+                }
+                break;
+
         }
     }
 
-    void Shoot_Bullet(float x_Modifier)
+    void Shoot_Bullet(float x_Modifier, SingletonObjectStates.Bullet_Type p_bullet_Type)
     {
         for (int i = 0; ; i++)
         {
@@ -190,10 +210,10 @@ public class PlayerController : MonoBehaviour
 
             if (bullets_[bullet_Index_].activeSelf == false)
             {
-                
-                bullets_[bullet_Index_].transform.Translate(new Vector3(transform.position.x + x_Modifier,
+                bullets_[bullet_Index_].transform.position = new Vector3(transform.position.x + x_Modifier,
                                                                 transform.position.y,
-                                                                transform.position.z));
+                                                                transform.position.z);
+                bullets_[bullet_Index_].GetComponent<BulletController>().Set_Bullet_Type(p_bullet_Type);
                 bullets_[bullet_Index_].SetActive(true);
                 break;
             }

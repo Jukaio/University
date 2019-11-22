@@ -16,13 +16,17 @@ public class SingletonObjectStates : ScriptableObject
     public enum Weapon_Type
     {
         NORMAL,
-        TRIPLE
+        TRIPLE,
+        TRIPLE_SPLIT,
     }
 
     public enum Bullet_Type
     {
         INACTIVE,
         NORMAL,
-        TRIPLE
+        TRIPLE,
+        TRIPLE_SPLIT_LEFT,
+        TRIPLE_SPLIT_MIDDLE,
+        TRIPLE_SPLIT_RIGHT,
     }
 }

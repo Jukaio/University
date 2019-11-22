@@ -9,7 +9,12 @@ public class BulletController : MonoBehaviour
     PlayerController player_Controller_;
 
     public Vector3 bullet_Speed_;
-    float range;
+    float range_;
+
+    public void Set_Bullet_Type(SingletonObjectStates.Bullet_Type type)
+    {
+        bullet_Type_ = type;
+    }
 
     void Start()
     {
@@ -18,16 +23,18 @@ public class BulletController : MonoBehaviour
 
     void OnEnable()
     {
-        switch(transform.parent.GetComponent<PlayerParent>().player_Parent.GetComponent<PlayerController>().weapon_Type_)
+        switch (transform.parent.GetComponent<PlayerParent>().player_Parent.GetComponent<PlayerController>().weapon_Type_)
         {
             case SingletonObjectStates.Weapon_Type.NORMAL:
-                bullet_Type_ = SingletonObjectStates.Bullet_Type.NORMAL;
-                range = 20;
+                range_ = 20;
                 break;
 
             case SingletonObjectStates.Weapon_Type.TRIPLE:
-                bullet_Type_ = SingletonObjectStates.Bullet_Type.TRIPLE;
-                range = 10;
+                range_ = 10;
+                break;
+
+            case SingletonObjectStates.Weapon_Type.TRIPLE_SPLIT:
+                range_ = 10;
                 break;
         }
     }
@@ -44,12 +51,23 @@ public class BulletController : MonoBehaviour
             case SingletonObjectStates.Bullet_Type.TRIPLE:
                 transform.position += bullet_Speed_;
                 break;
+
+            case SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_LEFT:
+                //Rotate to the left (Rotation Matrix left * with Range)
+                break;
+
+            case SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_MIDDLE:
+                transform.position += bullet_Speed_;
+                break;
+
+            case SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_RIGHT:
+                //Rotate to the right (Rotation Matrix right * with Range)
+                break;
         }
 
-        if (transform.position.z >= range)
+        if (transform.position.z >= range_)
         {
             gameObject.SetActive(false);
-            transform.position = player_Controller_.transform.position;
         }
     }
 }

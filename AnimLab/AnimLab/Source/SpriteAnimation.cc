@@ -40,7 +40,7 @@ bool SpriteAnimation::load(const char* filename, const char* id)
 		Keyframe tempKeyframe;
 		if (fscanf_s(stream, "%ld", &tempKeyframe.id_) == 0)
 			return false;
-		tempKeyframe.duration_ = 1.5f;
+		tempKeyframe.duration_ = 0.5f;
 		keyframes_.push_back(tempKeyframe);
 	}
 	fclose(stream);

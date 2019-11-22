@@ -15,11 +15,13 @@ SpriteAnimator::SpriteAnimator(Sprite &sprite, SpriteAnimation &animation)
 
 void SpriteAnimator::update(float deltatime)
 {
-	frameDuration = frameDuration + deltatime;
-	if (frameDuration < animation_.getKeyFrameDuration(frame))
+	frameDuration = frameDuration - deltatime;
+	if (frameDuration > 0)
 		return;
-	else
-		frameDuration = 0;
+
+	spinach_rect_t tempRect;
+	SingletonAtlasManager::Instance()->get(sprite_._id).get(animation_.getKeyFrameID(frame), tempRect);
+	sprite_.set_rectangle(tempRect);
 
 	switch (animation_._type)
 	{
@@ -50,9 +52,7 @@ void SpriteAnimator::update(float deltatime)
 				frame++;
 			break;
 	}
-	spinach_rect_t tempRect;
-	SingletonAtlasManager::Instance()->get(sprite_._id).get(animation_.getKeyFrameID(frame), tempRect);
-	sprite_.set_rectangle(tempRect);
+	frameDuration = animation_.getKeyFrameDuration(frame);
 }
 
 void SpriteAnimator::draw()
