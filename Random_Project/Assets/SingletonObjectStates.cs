@@ -11,6 +11,8 @@ public class SingletonObjectStates : ScriptableObject
         MOVE_RIGHT,
         DEACCELERATE_LEFT,
         DEACCELERATE_RIGHT,
+        DODGE_LEFT,
+        DODGE_RIGHT
     }
 
     public enum Weapon_Type

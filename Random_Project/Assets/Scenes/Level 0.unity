@@ -154,13 +154,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state_: 0
   weapon_Type_: 0
-  velocity_: {x: 0, y: 0, z: 0}
-  acceleration_: {x: 0.01, y: 0, z: 0}
-  deacceleration_: {x: 0.015, y: 0, z: 0}
   bullet_Template_: {fileID: 271340310950949555, guid: 83437aaf2b1ece846bb9424776d035a7,
     type: 3}
+  range_Normal_: 20
+  range_Triple_: 10
+  range_Split_: 15
+  triple_Offset_: 0.3
+  split_angle_: 40
   bullet_Speed_: {x: 0, y: 0, z: 0.2}
-  triple_Distance_: 0.4
   bullets_:
   - {fileID: 0}
   - {fileID: 0}
@@ -212,13 +213,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  shooting_Cooldown_: 0
-  normal_Shooting_Cooldown_: 0
+  acceleration_: {x: 0.02, y: 0, z: 0}
+  deacceleration_: {x: 0.015, y: 0, z: 0}
+  max_Speed_: 0.3
+  velocity_: {x: 0, y: 0, z: 0}
+  dodge_Speed_: 0.5
+  dodge_Distance_: 5
+  dodge_Cooldown_Max_: 0.5
+  dodge_Done_: 0
+  dodge_Cooldown_: 0
   normal_Shooting_Cooldown_Max_: 0.2
-  triple_Shooting_Cooldown_: 0
   triple_Shooting_Cooldown_Max_: 0.6
-  split_Triple_Shooting_Cooldown_: 0
   split_Triple_Shooting_Cooldown_Max_: 0.4
+  shooting_Cooldown_: 0
 --- !u!135 &1083456269
 SphereCollider:
   m_ObjectHideFlags: 0

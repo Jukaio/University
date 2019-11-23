@@ -15,6 +15,14 @@ public class BulletController : MonoBehaviour
     Matrix4x4 rotation_Matrix_Negative_;
     Vector3 vec;
 
+    public void Set_Data(float p_Range_Normal, float p_Range_Triple, float p_Range_Split, float p_Angle_Split, float p_Bullet_Speed)
+    {
+        range_Normal_ = p_Range_Normal;
+        range_Triple_ = p_Range_Triple;
+        range_Split_ = p_Range_Split;
+        shoot_Angles_.y = p_Angle_Split;
+        bullet_Speed_.z = p_Bullet_Speed;
+    }
 
     void Awake()
     {
@@ -31,7 +39,6 @@ public class BulletController : MonoBehaviour
     {
         Update_Bullet();
         Reset_Bullet();
-
     }
 
     public void Set_Bullet_Type(SingletonObjectStates.Bullet_Type type)
