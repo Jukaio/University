@@ -7,8 +7,8 @@ public class SingletonObjectStates : ScriptableObject
     public enum Player_State
     {
         IDLE,
-        MOVE_LEFT,
-        MOVE_RIGHT,
+        ACCELERATE_LEFT,
+        ACCELERATE_RIGHT,
         DEACCELERATE_LEFT,
         DEACCELERATE_RIGHT,
         DODGE_LEFT,
@@ -30,6 +30,13 @@ public class SingletonObjectStates : ScriptableObject
         TRIPLE_SPLIT_LEFT,
         TRIPLE_SPLIT_MIDDLE,
         TRIPLE_SPLIT_RIGHT,
+    }
+
+    public enum Soul_State
+    {
+        INSTANCE,
+        FLY_FORWARD,
+        FLY_UP,
     }
 
     public float range_Normal_, range_Triple_, range_Split_;

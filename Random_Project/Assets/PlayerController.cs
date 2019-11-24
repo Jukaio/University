@@ -81,12 +81,12 @@ public class PlayerController : MonoBehaviour
                 Idle_State();
                 break;
 
-            case SingletonObjectStates.Player_State.MOVE_LEFT:
-                Move_Left_State();
+            case SingletonObjectStates.Player_State.ACCELERATE_LEFT:
+                Accelerate_Left_State();
                 break;
 
-            case SingletonObjectStates.Player_State.MOVE_RIGHT:
-                Move_Right_State();
+            case SingletonObjectStates.Player_State.ACCELERATE_RIGHT:
+                Accelerate_Right_State();
                 break;
 
             case SingletonObjectStates.Player_State.DEACCELERATE_LEFT:
@@ -125,11 +125,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            state_ = SingletonObjectStates.Player_State.MOVE_LEFT;
+            state_ = SingletonObjectStates.Player_State.ACCELERATE_LEFT;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            state_ = SingletonObjectStates.Player_State.MOVE_RIGHT;
+            state_ = SingletonObjectStates.Player_State.ACCELERATE_RIGHT;
         }
     }
 
@@ -146,8 +146,8 @@ public class PlayerController : MonoBehaviour
     //Data
     public Vector3 velocity_;
 
-    //General Movement
-    void Move_Left_State()
+    //Acceleration
+    void Accelerate_Left_State()
     {
         velocity_ += acceleration_;
         transform.position -= velocity_;
@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour
             state_ = SingletonObjectStates.Player_State.DEACCELERATE_LEFT;
         }
     }
-    void Move_Right_State()
+    void Accelerate_Right_State()
     {
         velocity_ += acceleration_;
         transform.position += velocity_;

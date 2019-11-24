@@ -67,6 +67,7 @@
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\PlayerParent.cs" />
     <Compile Include="Assets\SingletonObjectStates.cs" />
+    <Compile Include="Assets\SoulAI.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/repos/University/Random_Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
