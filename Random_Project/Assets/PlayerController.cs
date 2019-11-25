@@ -169,10 +169,19 @@ public class PlayerController : MonoBehaviour
     //Deacceleration
     void Deaccel_Left_State()
     {
-        if (velocity_.x > 0)
+        if (velocity_.x > 0 && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
             velocity_ -= deacceleration_;
             transform.position -= velocity_;
+        }
+        else if(Input.GetKey(KeyCode.A))
+        {
+            state_ = SingletonObjectStates.Player_State.ACCELERATE_LEFT;
+        }
+        else if(Input.GetKey(KeyCode.D))
+        {
+            state_ = SingletonObjectStates.Player_State.ACCELERATE_RIGHT;
+
         }
         else
         {
@@ -182,10 +191,18 @@ public class PlayerController : MonoBehaviour
     }
     void Deaccel_Right_State()
     {
-        if (velocity_.x > 0)
+        if (velocity_.x > 0 && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
             velocity_ -= deacceleration_;
             transform.position += velocity_;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            state_ = SingletonObjectStates.Player_State.ACCELERATE_RIGHT;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            state_ = SingletonObjectStates.Player_State.ACCELERATE_LEFT;
         }
         else
         {
