@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public SingletonObjectStates.Player_State state_;
-    public SingletonObjectStates.Weapon_Type weapon_Type_;
 
-
+    public XMovementMechanic x_Movement_;
+    public ShootingMechanic shooting_Mechanic_;
 
     ////////////////////////////////////////////
     ////////////////////////////////////////////
@@ -17,38 +17,15 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Init_Bullet_Clip();
+        Get_Components();
+        Init_Movement_Data();
     }
 
-
-    ///////////////////////////////////////
-    //// Bullet Pool and Configuration ////
-    ///////////////////////////////////////
-
-    //Modifiable Data
-    public GameObject bullet_Template_;
-    public float range_Normal_, range_Triple_, range_Split_;
-    public float triple_Offset_, split_angle_;
-    public Vector3 bullet_Speed_;
-
-    //Data
-    public List<GameObject> bullets_ = new List<GameObject>();
-    private short bullet_Index_ = 0;
-
-    //Config and Pooling
-    void Init_Bullet_Clip()
+    void Get_Components()
     {
-        bullet_Template_.SetActive(false);
-        bullet_Template_.GetComponent<BulletController>().Set_Data(range_Normal_, range_Triple_, range_Split_, split_angle_, bullet_Speed_.z);
-
-        for (int i = 0; i < bullets_.Count; i++)
-        {
-            bullets_[i] = Instantiate<GameObject>(bullet_Template_);
-        }
+        shooting_Mechanic_ = GetComponent<ShootingMechanic>();
+        x_Movement_ = GetComponent<XMovementMechanic>();
     }
-
-    // *END OF START AND INITIALIZATION!
-
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     ///////// Update and Input Handling /////////
@@ -60,8 +37,8 @@ public class PlayerController : MonoBehaviour
         Update_States();
 
         Dodge_Mechanic();
-        Choose_Weapon();
-        Shooting_Mechanic();
+        shooting_Mechanic_.Choose_Weapon();
+        shooting_Mechanic_.Shooting_Mechanic();
         Update_Cooldowns();
         if (velocity_.x > +max_Speed_)
         {
@@ -138,9 +115,18 @@ public class PlayerController : MonoBehaviour
     //// Movement States  ////
     //////////////////////////
 
+    void Init_Movement_Data()
+    {
+        if(counter_Deaccel_Factor_ == 0)
+        {
+            counter_Deaccel_Factor_ = 1;
+        }
+    }
+
     //Modifiable Data
     public Vector3 acceleration_;
     public Vector3 deacceleration_;
+    public float counter_Deaccel_Factor_;
     public float max_Speed_;
 
     //Data
@@ -180,7 +166,13 @@ public class PlayerController : MonoBehaviour
         }
         else if(Input.GetKey(KeyCode.D))
         {
-            state_ = SingletonObjectStates.Player_State.ACCELERATE_RIGHT;
+            if(velocity_.x > 0)
+            {
+                velocity_ -= deacceleration_ * counter_Deaccel_Factor_;
+                transform.position -= velocity_;
+            }
+            else
+                state_ = SingletonObjectStates.Player_State.ACCELERATE_RIGHT;
 
         }
         else
@@ -202,7 +194,13 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            state_ = SingletonObjectStates.Player_State.ACCELERATE_LEFT;
+            if (velocity_.x > 0)
+            {
+                velocity_ -= deacceleration_ * counter_Deaccel_Factor_;
+                transform.position += velocity_;
+            }
+            else
+                state_ = SingletonObjectStates.Player_State.ACCELERATE_LEFT;
         }
         else
         {
@@ -283,148 +281,6 @@ public class PlayerController : MonoBehaviour
     }
 
     // *END OF PLAYER STATE MACHINE
-  
-
-    //////////////////////////////
-    //// Weapon State Machine ////
-    //////////////////////////////
-
-    //Selection
-    void Choose_Weapon()
-    {
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-            weapon_Type_ = SingletonObjectStates.Weapon_Type.NORMAL;
-        }
-        else if (Input.GetKey(KeyCode.Alpha2))
-        {
-            weapon_Type_ = SingletonObjectStates.Weapon_Type.TRIPLE;
-        }
-        else if (Input.GetKey(KeyCode.Alpha3))
-        {
-            weapon_Type_ = SingletonObjectStates.Weapon_Type.TRIPLE_SPLIT;
-        }
-    }
-
-    //Modifiable Data
-    public float normal_Shooting_Cooldown_Max_;
-    public float triple_Shooting_Cooldown_Max_;
-    public float split_Triple_Shooting_Cooldown_Max_;
-
-    //Data
-    public float shooting_Cooldown_;
-
-    //Check Weapon Input and Conditions
-    void Shooting_Mechanic()
-    {
-        switch (weapon_Type_)
-        {
-            case SingletonObjectStates.Weapon_Type.NORMAL:
-                Shooting_Normal();
-                break;
-
-            case SingletonObjectStates.Weapon_Type.TRIPLE:
-                if (Input.GetKey(KeyCode.Space) &&
-                    shooting_Cooldown_ == 0)
-                {
-                    Shooting_Triple();
-                }
-                break;
-
-            case SingletonObjectStates.Weapon_Type.TRIPLE_SPLIT:
-                if (Input.GetKey(KeyCode.Space) &&
-                    shooting_Cooldown_ == 0)
-                {
-                    Shooting_Split_Triple();
-                }
-                break;
-
-        }
-    }
-
-    //Normal Shooting Mode
-    //    O
-    //    O
-    //  |===| <- This is the Player
-    void Shooting_Normal()
-    {
-        if (Input.GetKey(KeyCode.Space) &&
-                    shooting_Cooldown_ == 0)
-        {
-
-            Shoot_Bullet(0, SingletonObjectStates.Bullet_Type.NORMAL);
-            shooting_Cooldown_ = normal_Shooting_Cooldown_Max_;
-        }
-    }
-
-    //Triple Shooting Mode
-    //  O O O
-    //  O O O
-    //  |===| <- This is the Player
-    void Shooting_Triple()
-    {
-        if (Inactive_Bullet_Count() >= 3)
-        {
-            for (int i = -1; i <= 1; i++)
-            {
-                Shoot_Bullet(i * triple_Offset_, SingletonObjectStates.Bullet_Type.TRIPLE);
-            }
-        }
-        shooting_Cooldown_ = triple_Shooting_Cooldown_Max_;
-    }
-
-    //Split Triple Shooting Mode
-    // O   O   O
-    //   O O O
-    //   |===| <- This is the Player
-    void Shooting_Split_Triple()
-    {
-        if (Inactive_Bullet_Count() >= 3)
-        {
-            for (int i = -1; i <= 1; i++)
-            {
-                Shoot_Bullet(i * triple_Offset_, SingletonObjectStates.Bullet_Type.TRIPLE_SPLIT_MIDDLE + i);
-            }
-        }
-        shooting_Cooldown_ = split_Triple_Shooting_Cooldown_Max_;
-    }
-
-    //Dynamic Bullet Activation (Independent from Bullet Behaviour)
-    void Shoot_Bullet(float p_x_Modifier, SingletonObjectStates.Bullet_Type p_bullet_Type)
-    {
-        for (int i = 0; ; i++)
-        {
-            bullet_Index_++;
-            if (bullet_Index_ >= bullets_.Count)
-                bullet_Index_ = 0;
-
-            if (bullets_[bullet_Index_].activeSelf == false)
-            {
-                bullets_[bullet_Index_].transform.position = new Vector3(transform.position.x + p_x_Modifier,
-                                                                transform.position.y,
-                                                                transform.position.z);
-                bullets_[bullet_Index_].GetComponent<BulletController>().Set_Bullet_Type(p_bullet_Type);
-                bullets_[bullet_Index_].SetActive(true);
-                break;
-            }
-            if (i >= bullets_.Count - 1)
-            {
-                break;
-            }
-        }
-    }
-    int Inactive_Bullet_Count()
-    {
-        int count = 0;
-        for (int i = 0; i < bullets_.Count; i++)
-        {
-            if (bullets_[i].activeSelf == false)
-                count++;
-        }
-        return count;
-    }
-
-    // *END OF WEAPON STATE MACHINE
 
 
     //////////////////////////
@@ -433,13 +289,6 @@ public class PlayerController : MonoBehaviour
     
     void Update_Cooldowns()
     {
-        if (shooting_Cooldown_ != 0)
-        {
-            shooting_Cooldown_ -= Time.deltaTime;
-            if (shooting_Cooldown_ < 0)
-                shooting_Cooldown_ = 0;
-        }
-
         if (dodge_Cooldown_ != 0)
         {
             dodge_Cooldown_ -= Time.deltaTime;

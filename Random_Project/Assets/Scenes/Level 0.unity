@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 1083456270}
   - component: {fileID: 1083456269}
   - component: {fileID: 1083456268}
+  - component: {fileID: 1083456273}
   m_Layer: 0
   m_Name: PlayerBody
   m_TagString: Untagged
@@ -153,68 +154,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state_: 0
-  weapon_Type_: 0
-  bullet_Template_: {fileID: 271340310950949555, guid: 83437aaf2b1ece846bb9424776d035a7,
-    type: 3}
-  range_Normal_: 20
-  range_Triple_: 10
-  range_Split_: 15
-  triple_Offset_: 0.3
-  split_angle_: 40
-  bullet_Speed_: {x: 0, y: 0, z: 0.2}
-  bullets_:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  x_Movement: {fileID: 0}
+  shooting_Mechanic_: {fileID: 0}
   acceleration_: {x: 0.02, y: 0, z: 0}
-  deacceleration_: {x: 0.015, y: 0, z: 0}
+  deacceleration_: {x: 0.01, y: 0, z: 0}
+  counter_Deaccel_Factor_: 1.5
   max_Speed_: 0.3
   velocity_: {x: 0, y: 0, z: 0}
   dodge_Speed_: 0.5
@@ -222,10 +166,6 @@ MonoBehaviour:
   dodge_Cooldown_Max_: 0.5
   dodge_Done_: 0
   dodge_Cooldown_: 0
-  normal_Shooting_Cooldown_Max_: 0.2
-  triple_Shooting_Cooldown_Max_: 0.6
-  split_Triple_Shooting_Cooldown_Max_: 0.4
-  shooting_Cooldown_: 0
 --- !u!135 &1083456269
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -299,6 +239,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1083456273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083456267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4624642d256e4a41920d22ccf242c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet_Template_: {fileID: 271340310950949555, guid: 83437aaf2b1ece846bb9424776d035a7,
+    type: 3}
+  range_Normal_: 20
+  range_Triple_: 10
+  range_Split_: 15
+  triple_Offset_: 0.25
+  split_angle_: 35
+  bullet_Speed_: {x: 0, y: 0, z: 0.2}
+  bullets_:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  weapon_Type_: 0
+  normal_Shooting_Cooldown_Max_: 0.2
+  triple_Shooting_Cooldown_Max_: 0.3
+  split_Triple_Shooting_Cooldown_Max_: 0.25
+  shooting_Cooldown_: 0
 --- !u!1 &1108136023
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,16 +22,6 @@ public class SingletonObjectStates : ScriptableObject
         TRIPLE_SPLIT,
     }
 
-    public enum Bullet_Type
-    {
-        INACTIVE,
-        NORMAL,
-        TRIPLE,
-        TRIPLE_SPLIT_LEFT,
-        TRIPLE_SPLIT_MIDDLE,
-        TRIPLE_SPLIT_RIGHT,
-    }
-
     public enum Soul_State
     {
         INSTANCE,
