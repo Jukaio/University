@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using States = PlayerStates.Player_State;
+
 public class ShootingMechanic : MonoBehaviour
 {
     void Start()

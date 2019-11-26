@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using States = PlayerStates.Player_State;
+
 public class BulletController : MonoBehaviour
 {
     public Vector3 bullet_Speed_;
@@ -26,15 +28,15 @@ public class BulletController : MonoBehaviour
 
     void Update_Bullet()
     {
-        Bullet_Transformation(bullet_Speed_, shoot_Angles_);
+        Bullet_Transformation(bullet_Speed_ * Time.deltaTime, shoot_Angles_);
     }
 
     void Bullet_Transformation(Vector3 direction, Vector3 angles)
     {
         Quaternion rotation = Quaternion.Euler(angles);
         Matrix4x4 rotation_Matrix = Matrix4x4.Rotate(rotation);
-
-        transform.Translate(rotation_Matrix.MultiplyPoint3x4(direction));
+        Vector3 temp = rotation_Matrix.MultiplyPoint3x4(direction);
+        transform.position += temp;
         distance_Travelled_ += rotation_Matrix.MultiplyPoint3x4(direction);
     }
 

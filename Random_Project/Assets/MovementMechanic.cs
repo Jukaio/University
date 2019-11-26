@@ -1,27 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MovementMechanic : MonoBehaviour
+using States = PlayerStates.Player_State;
+
+
+public class MovementMechanic : PlayerController
 {
     public Vector3 velocity_;
     [SerializeField] private Vector3 acceleration_;
     [SerializeField] private float counter_Deceleration_Factor_;
     [SerializeField] private Vector3 deceleration_;
     [SerializeField] private float max_Speed_x_;
-
-    public PlayerStates.Player_State Enter_Acceleration(PlayerStates.Player_State current_state)
-    {
-        if (Input.GetKey(KeyCode.A))
-        {
-            return PlayerStates.Player_State.ACCELERATE_LEFT;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            return PlayerStates.Player_State.ACCELERATE_RIGHT;
-        }
-        return current_state;
-    }
+    public int last_Axis_Input_;
 
 
     void Awake()
@@ -31,7 +23,7 @@ public class MovementMechanic : MonoBehaviour
 
     void Update()
     {
-        Correction();
+
     }
 
     void Init_Default()
@@ -43,60 +35,106 @@ public class MovementMechanic : MonoBehaviour
 
     }
 
-    void Correction()
+    public States Enter_Accerlation(States from, States to, KeyCode move_Left, KeyCode move_Right) //YAY
     {
-        if (velocity_.x > max_Speed_x_)
-            velocity_.x = max_Speed_x_;
-    }
-
-    public PlayerStates.Player_State Accelerate(PlayerStates.Player_State current_state, KeyCode keyCode,int direction)
-    {
-        velocity_ += acceleration_;
-        transform.position += velocity_ * direction;
-        if (!Input.GetKey(keyCode))
-            return current_state + direction;
-        return current_state;
-    }
-
-    public PlayerStates.Player_State Enter_Deceleration(PlayerStates.Player_State state, KeyCode accel, KeyCode counter, int direction)
-    {
-        if (Input.GetKey(accel))
+        int temp_Press = Command.check_Axis_(move_Left, move_Right);
+        if (temp_Press != 0)
         {
-            return PlayerStates.Player_State.ACCELERATE_LEFT;
+            last_Axis_Input_ = temp_Press;
+            velocity_ += acceleration_;
+            transform.position += velocity_ * last_Axis_Input_ * Time.deltaTime;
+            return to;
         }
-        else if (Input.GetKey(counter))
+        return from;
+    }
+    //Rewise functions
+    public States Acceleration(States from, States to, States fail, States counter,
+                               KeyCode move_Left, KeyCode move_Right)
+
+    { 
+        int temp_Press = Command.check_Axis_(move_Left, move_Right);
+        if (temp_Press == -last_Axis_Input_)
         {
-            if (Counter_Accelerate(direction))
-                return PlayerStates.Player_State.IDLE;
-            return state;
+            last_Axis_Input_ = temp_Press;
+            return counter;
         }
-        else if (Decelerate(direction))
-            return PlayerStates.Player_State.IDLE;
-        return state;
+
+        if (temp_Press != 0)
+        {
+            last_Axis_Input_ = temp_Press;
+            velocity_ += acceleration_;
+            if (velocity_.x >= max_Speed_x_)
+            {
+                velocity_.x = max_Speed_x_;
+                return to;
+            }
+            transform.position += velocity_ * last_Axis_Input_ * Time.deltaTime;
+            return from;
+        }
+        return fail;
     }
 
-    public bool Decelerate(int direction)
+    public States High_Speed(States from, States to, States counter, KeyCode move_Left, KeyCode move_Right)
     {
-        if (velocity_.x >= 0)
+        int temp_Press = Command.check_Axis_(move_Left, move_Right);
+        if (temp_Press == -last_Axis_Input_)
+        {
+            last_Axis_Input_ = temp_Press;
+            return counter;
+        }
+        if (temp_Press != 0)
+        {
+            if (temp_Press == last_Axis_Input_)
+            {
+                transform.position += velocity_ * last_Axis_Input_ * Time.deltaTime;
+                return from;
+            }
+            last_Axis_Input_ = temp_Press;
+        }
+        return to;
+    }
+
+    public States Deceleration(States from, States to, States fail, States counter, KeyCode move_Left, KeyCode move_Right)
+    {
+        int temp_Press = Command.check_Axis_(move_Left, move_Right);
+        if (-last_Axis_Input_ == temp_Press)
+        {
+            last_Axis_Input_ = temp_Press;
+            return counter;
+        }
+        if (temp_Press != 0)
+        {
+            return fail;
+        }
+        else
         {
             velocity_ -= deceleration_;
-            transform.position -= velocity_ * direction;
-            return false;
+            if (velocity_.x <= 0)
+            {
+                velocity_ = Vector3.zero;
+                return to;
+            }
+            transform.position -= velocity_ * -last_Axis_Input_ * Time.deltaTime;
+            return from;
         }
-        velocity_ = Vector3.zero;
-        return true;
-
     }
 
-    public bool Counter_Accelerate(int direction)
+    public States Counterceleration(States from, States to, States fail, States rewind, KeyCode move_Left, KeyCode move_Right)
     {
-        if (velocity_.x >= 0)
+        print(velocity_);
+        int temp_Press = Command.check_Axis_(move_Left, move_Right);
+        if (temp_Press == last_Axis_Input_)
         {
             velocity_ -= deceleration_ * counter_Deceleration_Factor_;
-            transform.position -= velocity_ * direction;
-            return false;
+            if (velocity_.x >= 0)
+            {
+                transform.position -= velocity_ * last_Axis_Input_ * Time.deltaTime;
+                return from;
+            }
+            velocity_ = Vector3.zero;
+            return to;
         }
-        velocity_ = Vector3.zero;
-        return true;
+        return fail;
     }
+
 }
