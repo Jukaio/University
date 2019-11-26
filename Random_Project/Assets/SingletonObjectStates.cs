@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class SingletonObjectStates : ScriptableObject
 {
+    public enum Player_State
+    {
+        IDLE = 0,
+    }
     public enum Weapon_Type
     {
         NORMAL,
@@ -16,13 +20,5 @@ public class SingletonObjectStates : ScriptableObject
         INSTANCE,
         FLY_FORWARD,
         FLY_UP,
-    }
-
-    public float range_Normal_, range_Triple_, range_Split_;
-    public void Set_Range_(float range_Normal, float range_Triple, float range_Split)
-    {
-        range_Normal_ = range_Normal;
-        range_Triple_ = range_Triple;
-        range_Split_ = range_Split;
     }
 }

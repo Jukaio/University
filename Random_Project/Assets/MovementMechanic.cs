@@ -10,6 +10,20 @@ public class MovementMechanic : MonoBehaviour
     [SerializeField] private Vector3 deceleration_;
     [SerializeField] private float max_Speed_x_;
 
+    public PlayerStates.Player_State Enter_Acceleration(PlayerStates.Player_State current_state)
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            return PlayerStates.Player_State.ACCELERATE_LEFT;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            return PlayerStates.Player_State.ACCELERATE_RIGHT;
+        }
+        return current_state;
+    }
+
+
     void Awake()
     {
         Init_Default();
@@ -35,10 +49,30 @@ public class MovementMechanic : MonoBehaviour
             velocity_.x = max_Speed_x_;
     }
 
-    public void Accelerate(int direction)
+    public PlayerStates.Player_State Accelerate(PlayerStates.Player_State current_state, KeyCode keyCode,int direction)
     {
         velocity_ += acceleration_;
         transform.position += velocity_ * direction;
+        if (!Input.GetKey(keyCode))
+            return current_state + direction;
+        return current_state;
+    }
+
+    public PlayerStates.Player_State Enter_Deceleration(PlayerStates.Player_State state, KeyCode accel, KeyCode counter, int direction)
+    {
+        if (Input.GetKey(accel))
+        {
+            return PlayerStates.Player_State.ACCELERATE_LEFT;
+        }
+        else if (Input.GetKey(counter))
+        {
+            if (Counter_Accelerate(direction))
+                return PlayerStates.Player_State.IDLE;
+            return state;
+        }
+        else if (Decelerate(direction))
+            return PlayerStates.Player_State.IDLE;
+        return state;
     }
 
     public bool Decelerate(int direction)
