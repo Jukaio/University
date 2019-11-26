@@ -6,11 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     public enum Player_State
     {
-        DEACCELERATE_LEFT = -2,
+        ROTATE_LEFT = -3,
+        DECELERATE_LEFT = -2,
         ACCELERATE_LEFT = -1,
         IDLE = 0,
         ACCELERATE_RIGHT,
-        DEACCELERATE_RIGHT,
+        DECELERATE_RIGHT,
+        ROTATE_RIGHT,
         DODGE_LEFT,
         DODGE_RIGHT
     }
@@ -73,12 +75,12 @@ public class PlayerController : MonoBehaviour
                 Accelerate_Right_State();
                 break;
 
-            case Player_State.DEACCELERATE_LEFT:
-                Deaccel_Left_State();
+            case Player_State.DECELERATE_LEFT:
+                Decelerate_Left_State();
                 break;
 
-            case Player_State.DEACCELERATE_RIGHT:
-                Deaccel_Right_State();
+            case Player_State.DECELERATE_RIGHT:
+                Decelerate_Right_State();
                 break;
 
             case Player_State.DODGE_LEFT:
@@ -128,7 +130,7 @@ public class PlayerController : MonoBehaviour
         movement_Mechanic_.Accelerate(-1);
         if (!Input.GetKey(KeyCode.A))
         {
-            state_ = Player_State.DEACCELERATE_LEFT;
+            state_ = Player_State.DECELERATE_LEFT;
         }
     }
     void Accelerate_Right_State()
@@ -136,12 +138,12 @@ public class PlayerController : MonoBehaviour
         movement_Mechanic_.Accelerate(1);
         if (!Input.GetKey(KeyCode.D))
         {
-            state_ = Player_State.DEACCELERATE_RIGHT;
+            state_ = Player_State.DECELERATE_RIGHT;
         }
     }
 
     //Deacceleration
-    void Deaccel_Left_State()
+    void Decelerate_Left_State()
     {
         if (Input.GetKey(KeyCode.A))
         {
@@ -154,10 +156,10 @@ public class PlayerController : MonoBehaviour
                 state_ = Player_State.IDLE;
             return;
         }
-        else if (movement_Mechanic_.Deaccelerate(1))
+        else if (movement_Mechanic_.Decelerate(1))
             state_ = Player_State.IDLE;
     }
-    void Deaccel_Right_State()
+    void Decelerate_Right_State()
     {
         if (Input.GetKey(KeyCode.D))
         {
@@ -170,7 +172,7 @@ public class PlayerController : MonoBehaviour
                 state_ = Player_State.IDLE;
             return;
         }
-        else if (movement_Mechanic_.Deaccelerate(-1))
+        else if (movement_Mechanic_.Decelerate(-1))
             state_ = Player_State.IDLE;
     }
 

@@ -6,8 +6,8 @@ public class MovementMechanic : MonoBehaviour
 {
     public Vector3 velocity_;
     [SerializeField] private Vector3 acceleration_;
-    [SerializeField] private float counter_Deaccel_Factor_;
-    [SerializeField] private Vector3 deacceleration_;
+    [SerializeField] private float counter_Deceleration_Factor_;
+    [SerializeField] private Vector3 deceleration_;
     [SerializeField] private float max_Speed_x_;
 
     void Awake()
@@ -22,9 +22,9 @@ public class MovementMechanic : MonoBehaviour
 
     void Init_Default()
     {
-        if (counter_Deaccel_Factor_ == 0)
+        if (counter_Deceleration_Factor_ == 0)
         {
-            counter_Deaccel_Factor_ = 1;
+            counter_Deceleration_Factor_ = 1;
         }
 
     }
@@ -41,11 +41,11 @@ public class MovementMechanic : MonoBehaviour
         transform.position += velocity_ * direction;
     }
 
-    public bool Deaccelerate(int direction)
+    public bool Decelerate(int direction)
     {
         if (velocity_.x >= 0)
         {
-            velocity_ -= deacceleration_;
+            velocity_ -= deceleration_;
             transform.position -= velocity_ * direction;
             return false;
         }
@@ -58,7 +58,7 @@ public class MovementMechanic : MonoBehaviour
     {
         if (velocity_.x >= 0)
         {
-            velocity_ -= deacceleration_ * counter_Deaccel_Factor_;
+            velocity_ -= deceleration_ * counter_Deceleration_Factor_;
             transform.position -= velocity_ * direction;
             return false;
         }
