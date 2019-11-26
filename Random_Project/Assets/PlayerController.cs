@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public SingletonObjectStates.Player_State state_;
+    public enum Player_State
+    {
+        DEACCELERATE_LEFT = -2,
+        ACCELERATE_LEFT = -1,
+        IDLE = 0,
+        ACCELERATE_RIGHT,
+        DEACCELERATE_RIGHT,
+        DODGE_LEFT,
+        DODGE_RIGHT
+    }
+    public Player_State state_;
 
-    public XMovementMechanic x_Movement_;
+    public MovementMechanic movement_Mechanic_;
     public ShootingMechanic shooting_Mechanic_;
 
     ////////////////////////////////////////////
@@ -18,14 +28,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Get_Components();
-        Init_Movement_Data();
     }
 
     void Get_Components()
     {
         shooting_Mechanic_ = GetComponent<ShootingMechanic>();
-        x_Movement_ = GetComponent<XMovementMechanic>();
+        movement_Mechanic_ = GetComponent<MovementMechanic>();
     }
+
+
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     ///////// Update and Input Handling /////////
@@ -40,10 +51,6 @@ public class PlayerController : MonoBehaviour
         shooting_Mechanic_.Choose_Weapon();
         shooting_Mechanic_.Shooting_Mechanic();
         Update_Cooldowns();
-        if (velocity_.x > +max_Speed_)
-        {
-            velocity_.x = max_Speed_;
-        }
     }
 
 
@@ -54,31 +61,31 @@ public class PlayerController : MonoBehaviour
     {
         switch (state_)
         {
-            case SingletonObjectStates.Player_State.IDLE:
+            case Player_State.IDLE:
                 Idle_State();
                 break;
 
-            case SingletonObjectStates.Player_State.ACCELERATE_LEFT:
+            case Player_State.ACCELERATE_LEFT:
                 Accelerate_Left_State();
                 break;
 
-            case SingletonObjectStates.Player_State.ACCELERATE_RIGHT:
+            case Player_State.ACCELERATE_RIGHT:
                 Accelerate_Right_State();
                 break;
 
-            case SingletonObjectStates.Player_State.DEACCELERATE_LEFT:
+            case Player_State.DEACCELERATE_LEFT:
                 Deaccel_Left_State();
                 break;
 
-            case SingletonObjectStates.Player_State.DEACCELERATE_RIGHT:
+            case Player_State.DEACCELERATE_RIGHT:
                 Deaccel_Right_State();
                 break;
 
-            case SingletonObjectStates.Player_State.DODGE_LEFT:
+            case Player_State.DODGE_LEFT:
                 Dodge_Left_State();
                 break;
 
-            case SingletonObjectStates.Player_State.DODGE_RIGHT:
+            case Player_State.DODGE_RIGHT:
                 Dodge_Right_State();
                 break;
 
@@ -102,11 +109,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            state_ = SingletonObjectStates.Player_State.ACCELERATE_LEFT;
+            state_ = Player_State.ACCELERATE_LEFT;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            state_ = SingletonObjectStates.Player_State.ACCELERATE_RIGHT;
+            state_ = Player_State.ACCELERATE_RIGHT;
         }
     }
 
@@ -115,98 +122,56 @@ public class PlayerController : MonoBehaviour
     //// Movement States  ////
     //////////////////////////
 
-    void Init_Movement_Data()
-    {
-        if(counter_Deaccel_Factor_ == 0)
-        {
-            counter_Deaccel_Factor_ = 1;
-        }
-    }
-
-    //Modifiable Data
-    public Vector3 acceleration_;
-    public Vector3 deacceleration_;
-    public float counter_Deaccel_Factor_;
-    public float max_Speed_;
-
-    //Data
-    public Vector3 velocity_;
-
     //Acceleration
     void Accelerate_Left_State()
     {
-        velocity_ += acceleration_;
-        transform.position -= velocity_;
+        movement_Mechanic_.Accelerate(-1);
         if (!Input.GetKey(KeyCode.A))
         {
-            state_ = SingletonObjectStates.Player_State.DEACCELERATE_LEFT;
+            state_ = Player_State.DEACCELERATE_LEFT;
         }
     }
     void Accelerate_Right_State()
-    {
-        velocity_ += acceleration_;
-        transform.position += velocity_;
+    { 
+        movement_Mechanic_.Accelerate(1);
         if (!Input.GetKey(KeyCode.D))
         {
-            state_ = SingletonObjectStates.Player_State.DEACCELERATE_RIGHT;
+            state_ = Player_State.DEACCELERATE_RIGHT;
         }
     }
 
     //Deacceleration
     void Deaccel_Left_State()
     {
-        if (velocity_.x > 0 && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A))
         {
-            velocity_ -= deacceleration_;
-            transform.position -= velocity_;
-        }
-        else if(Input.GetKey(KeyCode.A))
-        {
-            state_ = SingletonObjectStates.Player_State.ACCELERATE_LEFT;
-        }
-        else if(Input.GetKey(KeyCode.D))
-        {
-            if(velocity_.x > 0)
-            {
-                velocity_ -= deacceleration_ * counter_Deaccel_Factor_;
-                transform.position -= velocity_;
-            }
-            else
-                state_ = SingletonObjectStates.Player_State.ACCELERATE_RIGHT;
-
-        }
-        else
-        {
-            velocity_ = Vector3.zero;
-            state_ = SingletonObjectStates.Player_State.IDLE;
-        }
-    }
-    void Deaccel_Right_State()
-    {
-        if (velocity_.x > 0 && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-        {
-            velocity_ -= deacceleration_;
-            transform.position += velocity_;
+            state_ = Player_State.ACCELERATE_LEFT;
+            return;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            state_ = SingletonObjectStates.Player_State.ACCELERATE_RIGHT;
+            if (movement_Mechanic_.Counter_Accelerate(1))
+                state_ = Player_State.IDLE;
+            return;
+        }
+        else if (movement_Mechanic_.Deaccelerate(1))
+            state_ = Player_State.IDLE;
+    }
+    void Deaccel_Right_State()
+    {
+        if (Input.GetKey(KeyCode.D))
+        {
+            state_ = Player_State.ACCELERATE_RIGHT;
+            return;
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            if (velocity_.x > 0)
-            {
-                velocity_ -= deacceleration_ * counter_Deaccel_Factor_;
-                transform.position += velocity_;
-            }
-            else
-                state_ = SingletonObjectStates.Player_State.ACCELERATE_LEFT;
+            if (movement_Mechanic_.Counter_Accelerate(-1))
+                state_ = Player_State.IDLE;
+            return;
         }
-        else
-        {
-            velocity_ = Vector3.zero;
-            state_ = SingletonObjectStates.Player_State.IDLE;
-        }
+        else if (movement_Mechanic_.Deaccelerate(-1))
+            state_ = Player_State.IDLE;
     }
 
 
@@ -231,11 +196,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Q))
             {
-                state_ = SingletonObjectStates.Player_State.DODGE_LEFT;
+                state_ = Player_State.DODGE_LEFT;
             }
             else if (Input.GetKey(KeyCode.E))
             {
-                state_ = SingletonObjectStates.Player_State.DODGE_RIGHT;
+                state_ = Player_State.DODGE_RIGHT;
             }
         }
     }
@@ -253,7 +218,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x <= temp_Position_.x - dodge_Distance_)
         {
             dodge_Done_ = true;
-            state_ = SingletonObjectStates.Player_State.IDLE;
+            state_ = Player_State.IDLE;
             dodge_Cooldown_ = dodge_Cooldown_Max_;
 
         }
@@ -272,7 +237,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x >= temp_Position_.x + dodge_Distance_)
         {
             dodge_Done_ = true;
-            state_ = SingletonObjectStates.Player_State.IDLE;
+            state_ = Player_State.IDLE;
             dodge_Cooldown_ = dodge_Cooldown_Max_;
 
         }

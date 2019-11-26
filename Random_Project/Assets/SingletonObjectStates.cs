@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class SingletonObjectStates : ScriptableObject
 {
-    public enum Player_State
-    {
-        IDLE,
-        ACCELERATE_LEFT,
-        ACCELERATE_RIGHT,
-        DEACCELERATE_LEFT,
-        DEACCELERATE_RIGHT,
-        DODGE_LEFT,
-        DODGE_RIGHT
-    }
-
     public enum Weapon_Type
     {
         NORMAL,
