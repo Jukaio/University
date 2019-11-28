@@ -13,4 +13,36 @@ public class ControlLayout : MonoBehaviour
     public KeyCode weapon_Slot_1_;
     public KeyCode weapon_Slot_2_;
     public KeyCode weapon_Slot_3_;
+
+    bool double_Move_Left;
+    bool double_Move_Right;
+
+    float tap_Cooldown_ = 0.5f;
+    int button_Count_ = 0;
+
+    void Update()
+    {
+        if(Input.GetKeyDown(move_Left_))
+        {
+            if (tap_Cooldown_ >= 0 && button_Count_ == 1)
+            {
+                double_Move_Left = true;
+            }
+            else
+            {
+                tap_Cooldown_ = 0.5f;
+                button_Count_ += 1;
+            }
+        }
+
+        if(tap_Cooldown_ > 0)
+        {
+            tap_Cooldown_ -= Time.deltaTime;
+        }
+        else
+        {
+            button_Count_ = 0;
+        }
+
+    }
 }

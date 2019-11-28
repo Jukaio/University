@@ -6,24 +6,18 @@ using UnityEngine.UI;
 using States = PlayerStates.Player_State;
 
 
-public class MovementMechanic : PlayerController
+public class MovementMechanic : MonoBehaviour
 {
     public Vector3 velocity_;
     [SerializeField] private Vector3 acceleration_;
     [SerializeField] private float counter_Deceleration_Factor_;
     [SerializeField] private Vector3 deceleration_;
-    [SerializeField] private float max_Speed_x_;
-    public int last_Axis_Input_;
-
+    [SerializeField] private Vector3 max_Speed_;
+    public int last_Axis_Input_ = 1;
 
     void Awake()
     {
         Init_Default();
-    }
-
-    void Update()
-    {
-
     }
 
     void Init_Default()
@@ -35,106 +29,116 @@ public class MovementMechanic : PlayerController
 
     }
 
-    public States Enter_Accerlation(States from, States to, KeyCode move_Left, KeyCode move_Right) //YAY
+    //Check Direction Change
+    public bool Check_Same_Direction(int old_Direction, int new_Direction)
     {
-        int temp_Press = Command.check_Axis_(move_Left, move_Right);
-        if (temp_Press != 0)
-        {
-            last_Axis_Input_ = temp_Press;
-            velocity_ += acceleration_;
-            transform.position += velocity_ * last_Axis_Input_ * Time.deltaTime;
-            return to;
-        }
-        return from;
+        if (old_Direction != new_Direction)
+            return false;
+        return true;
     }
-    //Rewise functions
-    public States Acceleration(States from, States to, States fail, States counter,
+
+    //Acceleration
+    public States Acceleration(States if_No_Press, States if_Reached_Outcome, States if_Continue_Press,
                                KeyCode move_Left, KeyCode move_Right)
 
-    { 
+    {
         int temp_Press = Command.check_Axis_(move_Left, move_Right);
-        if (temp_Press == -last_Axis_Input_)
+        if (if_No_Press == States.IDLE)
         {
             last_Axis_Input_ = temp_Press;
-            return counter;
         }
-
         if (temp_Press != 0)
         {
+            if (!Check_Same_Direction(last_Axis_Input_, temp_Press))
+                return if_No_Press;
+
             last_Axis_Input_ = temp_Press;
-            velocity_ += acceleration_;
-            if (velocity_.x >= max_Speed_x_)
+            velocity_ += acceleration_ * Time.deltaTime;
+            if (velocity_.x >= max_Speed_.x)
             {
-                velocity_.x = max_Speed_x_;
-                return to;
+                velocity_.x = max_Speed_.x;
+                return if_Reached_Outcome;
             }
             transform.position += velocity_ * last_Axis_Input_ * Time.deltaTime;
-            return from;
+            return if_Continue_Press;
         }
-        return fail;
+        return if_No_Press;
     }
 
-    public States High_Speed(States from, States to, States counter, KeyCode move_Left, KeyCode move_Right)
+    public void Translate(Vector3 velocity, int direction)
+    {
+        velocity_ = velocity;
+        last_Axis_Input_ = direction;
+
+        transform.position += velocity_ * direction * Time.deltaTime;
+    }
+
+
+    //Maximal Speed
+    public States High_Speed(States if_No_Press, States if_Reverse_Press, States if_Continue_Press, KeyCode move_Left, KeyCode move_Right)
     {
         int temp_Press = Command.check_Axis_(move_Left, move_Right);
-        if (temp_Press == -last_Axis_Input_)
-        {
-            last_Axis_Input_ = temp_Press;
-            return counter;
-        }
         if (temp_Press != 0)
         {
-            if (temp_Press == last_Axis_Input_)
+            if (!Check_Same_Direction(last_Axis_Input_, temp_Press))
             {
+                return if_Reverse_Press;
+            }
+            last_Axis_Input_ = temp_Press;
+            transform.position += velocity_ * last_Axis_Input_ * Time.deltaTime;
+            return if_Continue_Press;
+        }
+        return if_No_Press;
+    }
+
+    //Deceleration
+    public States Deceleration(States if_No_Press, States if_Reached_Outcome, States if_Continue_Press, States if_Reverse_Press, KeyCode move_Left, KeyCode move_Right)
+    {
+        int temp_Press = Command.check_Axis_(move_Left, move_Right);
+        if (temp_Press != 0)
+        {
+            if (!Check_Same_Direction(last_Axis_Input_, temp_Press))
+            {
+                return if_Reverse_Press;
+            }
+            return if_Continue_Press;
+        }
+
+        if(velocity_.x > max_Speed_.x)
+        {
+            velocity_ -= deceleration_ * Time.deltaTime;
+            transform.position += velocity_ * last_Axis_Input_ * Time.deltaTime;
+            return if_No_Press;
+        }
+
+        velocity_ -= deceleration_ * Time.deltaTime;
+        if (velocity_.x <= 0)
+        {
+            return if_Reached_Outcome;
+        }
+        transform.position += velocity_ * last_Axis_Input_ * Time.deltaTime;
+        return if_No_Press;
+    }
+
+    //Counterceleration
+    public States Counterceleration(States if_No_Press, States if_Reached_Outcome, States if_Continue_Press, States if_Reverse_Press, KeyCode move_Left, KeyCode move_Right)
+    {
+         int temp_Press = Command.check_Axis_(move_Left, move_Right);
+        if (temp_Press != 0)
+        {
+            if (!Check_Same_Direction(last_Axis_Input_, temp_Press))
+            {
+                if (velocity_.x <= 0)
+                {
+                    return if_Reached_Outcome;
+                }
+                velocity_ -= deceleration_ * counter_Deceleration_Factor_ * Time.deltaTime;
                 transform.position += velocity_ * last_Axis_Input_ * Time.deltaTime;
-                return from;
+                return if_Reverse_Press;
             }
-            last_Axis_Input_ = temp_Press;
+            return if_Continue_Press;
         }
-        return to;
-    }
-
-    public States Deceleration(States from, States to, States fail, States counter, KeyCode move_Left, KeyCode move_Right)
-    {
-        int temp_Press = Command.check_Axis_(move_Left, move_Right);
-        if (-last_Axis_Input_ == temp_Press)
-        {
-            last_Axis_Input_ = temp_Press;
-            return counter;
-        }
-        if (temp_Press != 0)
-        {
-            return fail;
-        }
-        else
-        {
-            velocity_ -= deceleration_;
-            if (velocity_.x <= 0)
-            {
-                velocity_ = Vector3.zero;
-                return to;
-            }
-            transform.position -= velocity_ * -last_Axis_Input_ * Time.deltaTime;
-            return from;
-        }
-    }
-
-    public States Counterceleration(States from, States to, States fail, States rewind, KeyCode move_Left, KeyCode move_Right)
-    {
-        print(velocity_);
-        int temp_Press = Command.check_Axis_(move_Left, move_Right);
-        if (temp_Press == last_Axis_Input_)
-        {
-            velocity_ -= deceleration_ * counter_Deceleration_Factor_;
-            if (velocity_.x >= 0)
-            {
-                transform.position -= velocity_ * last_Axis_Input_ * Time.deltaTime;
-                return from;
-            }
-            velocity_ = Vector3.zero;
-            return to;
-        }
-        return fail;
+        return if_No_Press;
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 using States = PlayerStates.Player_State;
 
@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public KeyCode weapon_Slot_1_;
     [HideInInspector] public KeyCode weapon_Slot_2_;
     [HideInInspector] public KeyCode weapon_Slot_3_;
-
-    public Text text;
 
     List<KeyCode> previous_Inputs_;
 
@@ -81,8 +79,7 @@ public class PlayerController : MonoBehaviour
         shooting_Mechanic_.Choose_Weapon();
         shooting_Mechanic_.Shooting_Mechanic();
 
-        text.text = state_.ToString();
-
+        state_ = dodge_Mechanic_.Enter_Dodge(state_, States.DODGE, state_, dodge_Left_, dodge_Right_);
     }
 
 
@@ -113,6 +110,10 @@ public class PlayerController : MonoBehaviour
                 Countercelerate_State();
                 break;
 
+            case States.DODGE:
+                Dodge_State();
+                break;
+
 
             default:
                 break;
@@ -127,7 +128,8 @@ public class PlayerController : MonoBehaviour
     //Idle
     void Root_State()
     {
-        state_ = movement_Mechanic_.Enter_Accerlation(state_, States.ACCELERATION, move_Left_, move_Right_);
+        state_ = movement_Mechanic_.Acceleration(States.IDLE, States.MAX_SPEED, States.ACCELERATION,
+                                                 move_Left_, move_Right_);
     }
 
 
@@ -138,22 +140,22 @@ public class PlayerController : MonoBehaviour
     //Acceleration
     void Accelerate_State()
     {
-        state_ = movement_Mechanic_.Acceleration(state_, States.MAX_SPEED, States.DECELERATION, 
-                                                 States.COUNTERCELERATION, move_Left_, move_Right_);
+        state_ = movement_Mechanic_.Acceleration(States.DECELERATION, States.MAX_SPEED, States.ACCELERATION, 
+                                                 move_Left_, move_Right_);
     }
     
     //Max Speed
     void Max_Speed_State()
     {
-        state_ = movement_Mechanic_.High_Speed(state_, States.DECELERATION, 
-                                               States.COUNTERCELERATION, move_Left_, move_Right_);
+        state_ = movement_Mechanic_.High_Speed(States.DECELERATION, States.COUNTERCELERATION, 
+                                               States.MAX_SPEED, move_Left_, move_Right_);
 
     }
 
     //Deceleration
     void Decelerate_State()
     {
-        state_ = movement_Mechanic_.Deceleration(state_, States.IDLE, States.ACCELERATION, 
+        state_ = movement_Mechanic_.Deceleration(States.DECELERATION, States.IDLE, States.ACCELERATION, 
                                                  States.COUNTERCELERATION, move_Left_, move_Right_);
 
     }
@@ -161,8 +163,8 @@ public class PlayerController : MonoBehaviour
     //Counterceleration
     void Countercelerate_State()
     {
-        state_ = movement_Mechanic_.Counterceleration(state_, States.IDLE, States.DECELERATION, 
-                                                      States.ACCELERATION, move_Left_, move_Right_);
+        state_ = movement_Mechanic_.Counterceleration(States.DECELERATION, States.IDLE, States.ACCELERATION,
+                                                      States.COUNTERCELERATION, move_Left_, move_Right_);
     }
 
     //////////////////////
@@ -170,13 +172,11 @@ public class PlayerController : MonoBehaviour
     //////////////////////
 
     //General Dodge
-    void Dodge_Left_State()
+    void Dodge_State()
     {
+        state_ = dodge_Mechanic_.Dodge(States.DODGE, States.DECELERATION, States.IDLE, dodge_Left_, dodge_Right_);
     }
-    void Dodge_Right_State()
-    {
 
-    }
 
     // *END OF PLAYER STATE MACHINE
 

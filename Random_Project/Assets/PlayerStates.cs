@@ -11,6 +11,7 @@ public class PlayerStates : ScriptableObject
         ACCELERATION,
         MAX_SPEED,
         DECELERATION,
-        COUNTERCELERATION
+        COUNTERCELERATION,
+        DODGE
     }
 }

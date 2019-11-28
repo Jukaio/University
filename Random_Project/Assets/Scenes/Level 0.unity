@@ -308,7 +308,6 @@ MonoBehaviour:
   weapon_Slot_1_: 0
   weapon_Slot_2_: 0
   weapon_Slot_3_: 0
-  text: {fileID: 197692092}
   control_Layout: {fileID: 0}
   movement_Mechanic_: {fileID: 0}
   shooting_Mechanic_: {fileID: 0}
@@ -444,25 +443,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513781d43fee5d84eabaaf87da04bf95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state_: 0
-  move_Left_: 97
-  move_Right_: 100
-  dodge_Left_: 0
-  dodge_Right_: 0
-  shoot_: 0
-  weapon_Slot_1_: 0
-  weapon_Slot_2_: 0
-  weapon_Slot_3_: 0
-  text: {fileID: 0}
-  control_Layout: {fileID: 0}
-  movement_Mechanic_: {fileID: 0}
-  shooting_Mechanic_: {fileID: 0}
-  dodge_Mechanic_: {fileID: 0}
   velocity_: {x: 0, y: 0, z: 0}
-  acceleration_: {x: 0.002, y: 0, z: 0}
+  acceleration_: {x: 8, y: 0, z: 0}
   counter_Deceleration_Factor_: 1.5
-  deceleration_: {x: 0.001, y: 0, z: 0}
-  max_Speed_x_: 8
+  deceleration_: {x: 6, y: 0, z: 0}
+  max_Speed_: {x: 8, y: 0, z: 0}
   last_Axis_Input_: 0
 --- !u!114 &1083456275
 MonoBehaviour:
@@ -485,25 +470,18 @@ MonoBehaviour:
   weapon_Slot_1_: 0
   weapon_Slot_2_: 0
   weapon_Slot_3_: 0
-  text: {fileID: 0}
   control_Layout: {fileID: 0}
   movement_Mechanic_: {fileID: 0}
   shooting_Mechanic_: {fileID: 0}
   dodge_Mechanic_: {fileID: 0}
-  velocity_: {x: 0, y: 0, z: 0}
-  acceleration_: {x: 0, y: 0, z: 0}
-  counter_Deceleration_Factor_: 0
-  deceleration_: {x: 0, y: 0, z: 0}
-  max_Speed_x_: 0
-  last_Axis_Input_: 0
-  dodge_Done_: 0
-  distance_Travelled: {x: 0, y: 0, z: 0}
-  range_: 5
-  speed_: 0.2
+  in_Dodge_: 0
+  origin_Pos_: {x: 0, y: 0, z: 0}
+  range_: 2
+  speed_: {x: 12, y: 0, z: 0}
+  dodge_Direction_: 0
   dodge_Cooldown_: 0
   dodge_Cooldown_Max_: 2
   movement_: {fileID: 0}
-  tempPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1083456276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,8 +496,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move_Left_: 97
   move_Right_: 100
-  dodge_Left_: 0
-  dodge_Right_: 0
+  dodge_Left_: 113
+  dodge_Right_: 101
   shoot_: 0
   weapon_Slot_1_: 0
   weapon_Slot_2_: 0
