@@ -114,6 +114,13 @@ public class PlayerController : MonoBehaviour
                 Dodge_State();
                 break;
 
+            case States.DODGE_DECELERATION:
+                Dodge_Deceleration_State();
+                break;
+
+            case States.DODGE_COUNTERCELERATION:
+                Dodge_Counterceleration_State();
+                break;
 
             default:
                 break;
@@ -174,7 +181,19 @@ public class PlayerController : MonoBehaviour
     //General Dodge
     void Dodge_State()
     {
-        state_ = dodge_Mechanic_.Dodge(States.DODGE, States.DECELERATION, States.IDLE, dodge_Left_, dodge_Right_);
+        state_ = dodge_Mechanic_.Dodge(States.DODGE, States.DODGE_DECELERATION, States.IDLE, dodge_Left_, dodge_Right_);
+    }
+
+    void Dodge_Deceleration_State()
+    {
+        state_ = movement_Mechanic_.Deceleration(States.DODGE_DECELERATION, States.IDLE,
+                                                 States.ACCELERATION, States.DODGE_COUNTERCELERATION, 10f, move_Left_, move_Right_ );
+    }
+
+    void Dodge_Counterceleration_State()
+    {
+        state_ = movement_Mechanic_.Counterceleration(States.DODGE_DECELERATION, States.IDLE,
+                                                      States.ACCELERATION, States.DODGE_COUNTERCELERATION, 1.5f, move_Left_, move_Right_);
     }
 
 

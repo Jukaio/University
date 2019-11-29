@@ -476,7 +476,7 @@ MonoBehaviour:
   dodge_Mechanic_: {fileID: 0}
   in_Dodge_: 0
   origin_Pos_: {x: 0, y: 0, z: 0}
-  range_: 2
+  range_: 1
   speed_: {x: 12, y: 0, z: 0}
   dodge_Direction_: 0
   dodge_Cooldown_: 0
