@@ -8,6 +8,12 @@ public class ControlLayout : MonoBehaviour
     public KeyCode move_Right_;
     public KeyCode dodge_Left_;
     public KeyCode dodge_Right_;
+
+    public KeyCode move_Left_3D_;
+    public KeyCode move_Right_3D_;
+    public KeyCode move_Down_3D_;
+    public KeyCode move_Up_3D_;
+
     public KeyCode shoot_;
 
     public KeyCode weapon_Slot_1_;
@@ -43,6 +49,5 @@ public class ControlLayout : MonoBehaviour
         {
             button_Count_ = 0;
         }
-
     }
 }

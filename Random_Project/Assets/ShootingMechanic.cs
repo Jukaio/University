@@ -9,6 +9,10 @@ public class ShootingMechanic : MonoBehaviour
     void Start()
     {
         Init_Bullet_Clip();
+        if (GetComponent<MovementMechanic>() == null)
+        {
+            Debug.LogError("MovementMechanic in Object with DodgeMechanic missing: Please add MovementMechanic");
+        }
     }
     
     void Update()
@@ -21,10 +25,10 @@ public class ShootingMechanic : MonoBehaviour
     ///////////////////////////////////////
 
     //Modifiable Data
-    public GameObject bullet_Template_;
-    public float range_Normal_, range_Triple_, range_Split_;
-    public float triple_Offset_, split_angle_;
-    public Vector3 bullet_Speed_;
+    [SerializeField] private GameObject bullet_Template_;
+    [SerializeField] private float range_Normal_, range_Triple_, range_Split_;
+    [SerializeField] private float triple_Offset_, split_angle_;
+    [SerializeField] private Vector3 bullet_Speed_;
 
     //Data
     public List<GameObject> bullets_ = new List<GameObject>();
@@ -46,18 +50,18 @@ public class ShootingMechanic : MonoBehaviour
     ///////////////////////
 
     //Selection
-    public SingletonObjectStates.Weapon_Type weapon_Type_;
-    public void Choose_Weapon()
+    private SingletonObjectStates.Weapon_Type weapon_Type_;
+    public void Choose_Weapon(KeyCode first, KeyCode second, KeyCode third)
     {
-        if (Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKey(first))
         {
             weapon_Type_ = SingletonObjectStates.Weapon_Type.NORMAL;
         }
-        else if (Input.GetKey(KeyCode.Alpha2))
+        else if (Input.GetKey(second))
         {
             weapon_Type_ = SingletonObjectStates.Weapon_Type.TRIPLE;
         }
-        else if (Input.GetKey(KeyCode.Alpha3))
+        else if (Input.GetKey(third))
         {
             weapon_Type_ = SingletonObjectStates.Weapon_Type.TRIPLE_SPLIT;
         }
@@ -69,12 +73,12 @@ public class ShootingMechanic : MonoBehaviour
     public float split_Triple_Shooting_Cooldown_Max_;
 
     //Data
-    public float shooting_Cooldown_;
+    private float shooting_Cooldown_;
 
     //Check Weapon Input and Conditions
-    public void Shooting_Mechanic()
+    public void Shooting_Mechanic(KeyCode shoot)
     {
-        if (Input.GetKey(KeyCode.Space) &&
+        if (Input.GetKey(shoot) &&
             shooting_Cooldown_ == 0)
         {
             switch (weapon_Type_)
