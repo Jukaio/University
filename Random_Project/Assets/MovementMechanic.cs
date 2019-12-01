@@ -45,6 +45,7 @@ public class MovementMechanic : MonoBehaviour
     [SerializeField] Axes first_Axis_;
     [SerializeField] Axes second_Axis_;
 
+
     //Check Direction Change
     public bool Check_Same_Direction(int old_Direction, int new_Direction)
     {
@@ -52,9 +53,10 @@ public class MovementMechanic : MonoBehaviour
             return false;
         return true;
     }
-    public bool Get_Angle(Vector3 old_Direction, Vector3 new_Direction, float angle)
+    public float Get_Angle(Vector3 old_Direction, Vector3 new_Direction)
     {
-        return Vector3.Angle(old_Direction, new_Direction) < angle;
+        print(Vector3.SignedAngle(new_Direction, old_Direction, Vector3.forward));
+        return Vector3.SignedAngle(new_Direction, old_Direction, Vector3.right);
     }
 
     //Acceleration
@@ -98,11 +100,11 @@ public class MovementMechanic : MonoBehaviour
 
         if (temp != Vector3.zero)
         {
-            //if (temp != last_Temp_Press)
-            //{
-            //    return if_Reverse_Press;
-            //}
-            print(Get_Angle(last_Temp_Press, temp, 90)); //Same in decel and max_speed; Use this to decide when to countercelerate 
+            if (Get_Angle(last_Temp_Press, temp) > 90)
+            {
+                return if_Reverse_Press;
+            }
+            //Same in decel and max_speed; Use this to decide when to countercelerate 
 
             last_Temp_Press = temp;
             velocity_ += acceleration_ * Time.deltaTime; ;
@@ -177,11 +179,10 @@ public class MovementMechanic : MonoBehaviour
 
         if (temp != Vector3.zero)
         {
-            //if (temp != last_Temp_Press)
-            //{
-            //    return if_Reverse_Press;
-            //}
-            print(Get_Angle(last_Temp_Press, temp, 90));
+            if (Get_Angle(last_Temp_Press, temp) > 90)
+            {
+                return if_Reverse_Press;
+            }
 
             last_Temp_Press = temp;
             transform.position += velocity_ * temp * Time.deltaTime;
@@ -266,12 +267,10 @@ public class MovementMechanic : MonoBehaviour
 
         if (temp != Vector3.zero)
         {
-            //if (temp != last_Temp_Press)
-            //{
-            //    return if_Reverse_Press;
-            //}
-            print(Get_Angle(last_Temp_Press, temp, 90));
-
+            if (Get_Angle(last_Temp_Press, temp) > 90)
+            {
+                return if_Reverse_Press;
+            }
             return if_Continue_Press;
         }
 
@@ -340,6 +339,8 @@ public class MovementMechanic : MonoBehaviour
             {
                 return if_Continue_Press;
             }
+
+            float angle = Get_Angle(last_Temp_Press, temp);
 
             velocity_ -= (acceleration_ + deceleration_) * Time.deltaTime;
             if (velocity_ <= 0)
