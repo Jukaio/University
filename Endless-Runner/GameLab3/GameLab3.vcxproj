@@ -14,19 +14,19 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B39D4299-D29E-41EF-8BAC-C85A27618C50}</ProjectGuid>
     <RootNamespace>GameLab3</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -95,6 +95,7 @@ IF %ERRORLEVEL% LEQ 1 exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Parallax.cpp" />
     <ClCompile Include="Source\endless_runner.cc" />
     <ClCompile Include="Source\input_context.cc" />
     <ClCompile Include="Source\input_manager.cc" />
@@ -110,6 +111,7 @@ IF %ERRORLEVEL% LEQ 1 exit 0</Command>
     <ClInclude Include="Include\input_state_delta.h" />
     <ClInclude Include="Include\input_types.h" />
     <ClInclude Include="Include\resource_cache.h" />
+    <ClInclude Include="Include\Parallax.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\resource_cache.inl" />

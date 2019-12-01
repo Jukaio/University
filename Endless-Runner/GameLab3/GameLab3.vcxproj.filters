@@ -30,6 +30,9 @@
     <ClCompile Include="Source\endless_runner.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Parallax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\input_manager.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\resource_caches.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Parallax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

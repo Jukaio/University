@@ -53,10 +53,15 @@ bool endless_runner::init()
    texture_cache_.load("assets/sunny-land-files/environment/middle.png");
    texture_cache_.load("assets/sunny-land-files/environment/tileset.png");
    texture_cache_.load("assets/sunny-land-files/environment/props.png");
-
    // note: preload sound buffers
 
    // note: preload fonts
+
+   //--------------------//
+   const sf::Texture* resource = new sf::Texture;
+   texture_cache_.get("assets/sunny-land-files/environment/back.png", &resource);
+   parallax_ = new Parallax(resource, 3, 10);
+   //--------------------//
 
    return true;
 }
@@ -78,9 +83,13 @@ void endless_runner::run()
       //       in input actions and states to all listeners
       if (!input_manager_.process())
          break;
+	  
+	  parallax_->Update();
 
       // note: here we will eventually draw sprites et al.
       window_.clear();
+
+	  parallax_->Draw(window_);
 
       window_.display();
    }
