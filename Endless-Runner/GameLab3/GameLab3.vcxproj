@@ -95,6 +95,9 @@ IF %ERRORLEVEL% LEQ 1 exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Object.cpp" />
+    <ClCompile Include="Source\easing.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Parallax.cpp" />
     <ClCompile Include="Source\endless_runner.cc" />
     <ClCompile Include="Source\input_context.cc" />
@@ -103,6 +106,7 @@ IF %ERRORLEVEL% LEQ 1 exit 0</Command>
     <ClCompile Include="Source\main.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\easing.h" />
     <ClInclude Include="Include\endless_runner.h" />
     <ClInclude Include="Include\resource_caches.h" />
     <ClInclude Include="Include\input_context.h" />
@@ -112,6 +116,8 @@ IF %ERRORLEVEL% LEQ 1 exit 0</Command>
     <ClInclude Include="Include\input_types.h" />
     <ClInclude Include="Include\resource_cache.h" />
     <ClInclude Include="Include\Parallax.h" />
+    <ClInclude Include="Include\Player.h" />
+    <ClInclude Include="Include\Object.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\resource_cache.inl" />

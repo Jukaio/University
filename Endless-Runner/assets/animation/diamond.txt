@@ -1,0 +1,6 @@
+assets/sunny-land-files/spritesheets/gem.png
+0 0 0 15 13 0.2
+1 15 0 15 13 0.2
+2 30 0 15 13 0.2
+3 45 0 15 13 0.2
+4 60 0 15 13 0.2

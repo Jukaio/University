@@ -67,7 +67,8 @@ public:
     /// \see move, getPosition
     ///
     ////////////////////////////////////////////////////////////
-    void setPosition(float x, float y);
+    void 
+		setPosition(float x, float y);
 
     ////////////////////////////////////////////////////////////
     /// \brief set the position of the object

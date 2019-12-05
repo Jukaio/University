@@ -3,23 +3,28 @@
 #define __PARALLAX__
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 struct Parallax
 {
 	Parallax();
-	Parallax(const sf::Texture* texture, float scaling, float speed);
+	Parallax(const sf::Texture* texture, float scaling, float speed,float x_Offset, float y_Offset, sf::IntRect rect, int window_Width);
 	~Parallax();
 
-	void Update();
+	void Update(float dt);
 	void Draw(sf::RenderWindow &window);
 
-	sf::Sprite alpha_Sprite_;
-	sf::Sprite beta_Sprite_;
-	sf::Sprite gamma_Sprite_;
+	std::vector<sf::Sprite> sprites_;
+	sf::IntRect rect_;
+	std::vector<sf::Vector2f> sprites_Positions_;
+	sf::Vector2f sprites_Position_;
+
 
 	float scaling_;
 	float speed_;
-	float reset_Position_x_;
+
+	sf::Vector2f offset_;
+	sf::Vector2f reset_Position_;
 };
 
 #endif // !__PARALLAX__

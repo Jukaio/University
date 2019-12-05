@@ -5,58 +5,47 @@ Parallax::Parallax()
 
 }
 
-Parallax::Parallax(const sf::Texture* texture, float scaling, float speed)
+Parallax::Parallax(const sf::Texture* texture, float scaling, float speed,float x_Offset, float y_Offset, sf::IntRect rect, int window_Width)
 {
-	scaling_ = scaling;
 	speed_ = speed;
 
+	offset_.x = x_Offset;
+	offset_.y = y_Offset;
 
+	float width = rect.width * scaling + offset_.x;
+	for (int i = 0; ; i ++)
+	{
+		sprites_.push_back(sf::Sprite(*texture, rect));
+		sprites_[i].setScale(scaling, scaling);
+		sprites_[i].setPosition(i * width, y_Offset);
+		if (i * (width) > window_Width)
+			break;
+	}
 
-	alpha_Sprite_.setTexture(*texture);
-	alpha_Sprite_.setScale(scaling, scaling);
-
-	beta_Sprite_ = alpha_Sprite_;
-	gamma_Sprite_ = alpha_Sprite_;
-
-	alpha_Sprite_.setPosition(0, 0);
-	beta_Sprite_.setPosition(alpha_Sprite_.getPosition().x + alpha_Sprite_.getTextureRect().width * scaling_, 0);
-	gamma_Sprite_.setPosition(beta_Sprite_.getPosition().x + beta_Sprite_.getTextureRect().width * scaling_, 0);
-
-	reset_Position_x_ = scaling * texture->getSize().x;
+	reset_Position_.x = width;
+	reset_Position_.y = y_Offset;
 }
 
 Parallax::~Parallax()
 {
 }
 
-void Parallax::Update()
+void Parallax::Update(float dt)
 {
-	alpha_Sprite_.setPosition(alpha_Sprite_.getPosition().x - speed_, 0);
-	beta_Sprite_.setPosition(beta_Sprite_.getPosition().x - speed_, 0);
-	gamma_Sprite_.setPosition(gamma_Sprite_.getPosition().x - speed_, 0);
+	float speed = speed_ * dt;
 
-
-	if (alpha_Sprite_.getPosition().x <= -(reset_Position_x_))
+	sprites_Position_.x -= speed;
+	if (sprites_Position_.x < -reset_Position_.x)
 	{
-		alpha_Sprite_.setPosition(reset_Position_x_ * 2, 0);
+		sprites_Position_.x += reset_Position_.x;
 	}
-
-	if (beta_Sprite_.getPosition().x <= -(reset_Position_x_))
-	{
-		beta_Sprite_.setPosition(reset_Position_x_ * 2, 0);
-	}
-
-	if (gamma_Sprite_.getPosition().x <= -(reset_Position_x_))
-	{
-		gamma_Sprite_.setPosition(reset_Position_x_ * 2, 0);
-	}
-
 }
 
 
 void Parallax::Draw(sf::RenderWindow &window)
 {
-	window.draw(alpha_Sprite_);
-	window.draw(beta_Sprite_);
-	window.draw(gamma_Sprite_);
+	sf::RenderStates state;
+	state.transform.translate(sprites_Position_);
+	for (auto &sprite : sprites_)
+		window.draw(sprite, state);
 }

@@ -1,0 +1,7 @@
+assets/sunny-land-files/spritesheets/payer-run.png
+0 0 0 33 32 0.2
+1 33 0 33 32 0.2
+2 66 0 33 32 0.2
+3 99 0 33 32 0.2
+4 132 0 33 32 0.2
+5 165 0 33 32 0.2

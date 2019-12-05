@@ -1,0 +1,53 @@
+Controls:
+Jump = Space
+Pause = P
+
+Win Condition: 
+Score
+
+Lose Condition: 
+Hit Box
+
+Game States:
+- Main Menu
+- Player with Pause
+- Death
+
+Easing:
+- Main Menu Text
+- Pause Text
+- Game Over Text
+- Screen Shake
+
+Collision Detection and Resolve:
+- Hit Gem gain Points
+- Hit Box gain Death and Explosion Animation
+
+Different Keyframe Animations with more or equal to three keyframes:
+- Player Run
+- Gem
+- Explosion of Box
+
+Different Keyframe Animations with less than three keyframes:
+- Player Death
+- Player Jump
+
+Layers of Background with Parallax Scrolling:
+- Deep Background (Sky)
+- Middle Background (Hills?)
+- Front Layer (Trees and Ground)
+
+Camera Shake:
+Well, it shakes. I went a little nuts, but it is buggy when you turn it down in the settings
+
+Setting Configuration:
+- Screen Size (Adaptive to witdh, but not really adaptive to heigh) :(
+- Music Volume
+- Sound Volume
+- Screen Shake
+
+Music and Sound:
+- Collect Gem
+- Death (Explosion)
+- Jump
+- Background Music
