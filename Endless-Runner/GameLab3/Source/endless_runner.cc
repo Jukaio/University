@@ -146,13 +146,15 @@ void endless_runner::create_Game() // "Re-init" - Basically restarts the game
 	background_Music_.play();
 
 	const sf::Font* font;
-	font_cache_.get("assets/Arial.ttf", &font);
+	font_cache_.get("assets/Quite Magical.ttf", &font);
 
 	highscore_.setFont(*font);
-	highscore_.setCharacterSize(24);
-	highscore_.setString("HIGHSCORE:");
+	highscore_.setCharacterSize(48);
+	highscore_.setString("Score:");
 	highscore_.setPosition(15.0f, 15.0f);
-	highscore_.setFillColor(sf::Color::Black);
+	highscore_.setOutlineThickness(5.0f);
+	highscore_.setOutlineColor(sf::Color::Black);
+	highscore_.setFillColor(sf::Color::White);
 	highscore_.setStyle(sf::Text::Bold);
 
 	menu_Text_.setFont(*font);
@@ -220,7 +222,7 @@ bool endless_runner::init()
    sound_buffer_cache_.load("assets/BOING.wav");
 
    // note: preload fonts
-   font_cache_.load("assets/Arial.ttf");
+   font_cache_.load("assets/Quite Magical.ttf");
 
    create_Game();
 
@@ -254,16 +256,17 @@ void endless_runner::run()
 		   double ease = text_Ease_Function(menu_easing_t_);
 
 		   view.setRotation(-(view.getRotation()) * (float)ease);
-		   menu_Text_.setFillColor(sf::Color::Black);
 		   menu_Text_.setStyle(sf::Text::Bold);
+		   menu_Text_.setOutlineThickness(5.0f);
+		   menu_Text_.setOutlineColor(sf::Color::Black);
+		   menu_Text_.setFillColor(sf::Color::White);
 		   menu_Text_.setString("WELCOME! PRESS SPACE TO BEGIN!");
 		   menu_Text_.setCharacterSize((int)(64 * ease));
 		   sf::FloatRect textRect = menu_Text_.getLocalBounds();
 
 		   menu_Text_.setOrigin(textRect.left + textRect.width / 2.0f,
 								textRect.top + textRect.height / 2.0f);
-		   menu_Text_.setPosition(sf::Vector2f(window_width / 2.0f, window_height / 4.0f));
-		   menu_Text_.setOutlineThickness(1.0f);
+		   menu_Text_.setPosition(sf::Vector2f(window_width / 2.0f, window_height / 2.0f));
 		   menu_easing_t_ += deltatime * 2.0f;
 
 		   if (menu_easing_t_ > 1.0f)
@@ -298,8 +301,9 @@ void endless_runner::run()
 		   view.setRotation(-(view.getRotation()) * (float)ease);
 
 		   menu_Text_.setCharacterSize((int)(64 * ease));
-		   menu_Text_.setFillColor(sf::Color::Black);
-		   menu_Text_.setOutlineThickness(1.0f);
+		   menu_Text_.setFillColor(sf::Color::White);
+		   menu_Text_.setOutlineThickness(5.0f);
+		   menu_Text_.setOutlineColor(sf::Color::Black);
 		   menu_Text_.setString("PAUSE!");
 		   sf::FloatRect textRect = menu_Text_.getLocalBounds();
 		   menu_Text_.setOrigin(textRect.left + textRect.width / 2.0f,
@@ -351,7 +355,7 @@ void endless_runner::run()
 
 			   view.setRotation((float)t * (5 * screen_shake_strength * -shake_direction_));
 			   view.zoom(1.0f - ((float) t / 10.0f * screen_shake_strength));
-			   view.setCenter( view.getCenter().x + (float)t * shake_direction_ * 30.0f * screen_shake_strength, view.getCenter().y + (float) t * variable * 20.0f * screen_shake_strength);
+			   view.setCenter( view.getCenter().x + (float)t * shake_direction_ * 30.0f , view.getCenter().y + (float) t * variable * 20.0f );
 
 			   if (easing_t_ > 1.0f || easing_t_ < 0.0f)
 				   variable = -variable;
@@ -380,9 +384,9 @@ void endless_runner::run()
 
 			   view.setRotation(-(view.getRotation()) * (float)ease);
 
-			   menu_Text_.setCharacterSize((int)(54 * ease));
+			   menu_Text_.setCharacterSize((int)(64 * ease));
 			   menu_Text_.setFillColor(sf::Color::Red);
-			   menu_Text_.setOutlineThickness(1.0f);
+			   menu_Text_.setOutlineThickness(5.0f);
 			   menu_Text_.setString("Game Over - Hit Space for the Menu!");
 			   sf::FloatRect textRect = menu_Text_.getLocalBounds();
 			   menu_Text_.setOrigin(textRect.left + textRect.width / 2.0f,
