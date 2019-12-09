@@ -4,7 +4,7 @@ using UnityEngine;
 
 using Key = Input.Key;
 
-class Movement
+class Movement : Player_Controller
 {
     enum Movement_State
     {
@@ -20,15 +20,18 @@ class Movement
         switch (key)
         {
             case Key.NONE:
-
                 break;
 
             case Key.A:
             case Key.D:
+                transform.position += new Vector3(input.input_on_axis(Key.A, Key.D), 0, 0);
+                
+
                 break;
 
             case Key.S:
             case Key.W:
+
                 break;
         }
     }

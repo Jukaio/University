@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Input
 {
-    public enum Key
+    public enum Key 
     {
         NONE = (int)KeyCode.None,
         A = (int)KeyCode.A,

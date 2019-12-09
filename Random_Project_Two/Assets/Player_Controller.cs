@@ -39,11 +39,11 @@ public class Player_Controller : MonoBehaviour
 
             switch (current_State)
             {
-                case Player_State.ROOT:
-                    movement_.Input_Handle(input_, input);
+                case Player_State.ROOT: // Root State
+
                     break;
 
-                case Player_State.MOVEMENT:
+                case Player_State.MOVEMENT: // Movement State
                     movement_.Input_Handle(input_, input);
                     break;
             }
