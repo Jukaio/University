@@ -10,6 +10,8 @@ namespace Movement
 {
     class Movement_Manager
     {
+        public float last_Direction_ = 0;
+
         public Movement_Manager(GameObject game_Object, Key axis_Negative, Key axis_Positive)
         {
             game_Object_ = game_Object;
@@ -21,6 +23,7 @@ namespace Movement
         public GameObject game_Object_;
 
         public float velocity_ = 0;
+        public float max_Velocity_ = 5.0f;
         public float acceleration_ = 1;
         public float deceleration_ = 1;
 
@@ -28,14 +31,16 @@ namespace Movement
         {
             IDLE,
             ACCELERATE,
-            HIGH_SPEED,
+            FULL_SPEED,
             DECELERATE,
+            COUNTERCELERATE,
         }
         Movement_State current_Movement_State_;
 
         public Player_State Input_Handler(Player_State from, Player_State to, Input input, Key key)
         {
-            MonoBehaviour.print(velocity_);
+            MonoBehaviour.print(current_Movement_State_);
+            MonoBehaviour.print("Last Direction: " + last_Direction_);
             if (key != Key.NONE)
                 if (key != axis_Negative_ && key != axis_Positive_)
                     return from;
@@ -48,68 +53,49 @@ namespace Movement
 
             if(!Movement_State_Handler(direction))
                 return_Player_State = to;
-
-            //if (direction != 0)
-            //{
-            //    Acceleration(Vector3.right, direction);
-            //    return_Player_State = from;
-            //}
-
-            //if (velocity_ <= 0)
-            //{
-            //    return_Player_State = to;
-            //}
             return return_Player_State;
 
         }
 
-        bool Movement_State_Handler(float direction)
+        bool Movement_State_Handler(float input_Direction)
         {
             switch (current_Movement_State_)
             {
                 case Movement_State.IDLE:
-                    current_Movement_State_ = Idle.Idle_Movement_State_Handler(current_Movement_State_, 
-                                                                               Movement_State.ACCELERATE, 
-                                                                               direction);
+                    current_Movement_State_ = Idle.Idle_Movement_State_Handler(current_Movement_State_,
+                                                                               Movement_State.ACCELERATE,
+                                                                               input_Direction);
+                    last_Direction_ = input_Direction;
                     return false;
 
                 case Movement_State.ACCELERATE:
                     current_Movement_State_ = Acceleration.Acceleration_Movement_State_Handler(game_Object_, this,
-                                                                                               Movement_State.ACCELERATE, 
-                                                                                               Movement_State.DECELERATE, 
-                                                                                               direction);
+                                                                                               Movement_State.ACCELERATE,
+                                                                                               Movement_State.DECELERATE,
+                                                                                               Movement_State.FULL_SPEED,
+                                                                                               input_Direction, last_Direction_, max_Velocity_);
                     return true;
 
-                case Movement_State.HIGH_SPEED:
-
+                case Movement_State.FULL_SPEED:
+                    current_Movement_State_ = Full_Speed.Full_Speed_Movement_State_Handler(game_Object_, this,
+                                                                                           Movement_State.FULL_SPEED,
+                                                                                           Movement_State.DECELERATE,
+                                                                                           input_Direction);
                     return true;
 
                 case Movement_State.DECELERATE:
                     current_Movement_State_ = Deceleration.Deceleration_Movement_State_Handler(game_Object_, this,
                                                                                                Movement_State.DECELERATE,
                                                                                                Movement_State.ACCELERATE,
-                                                                                               direction);
+                                                                                               Movement_State.IDLE,
+                                                                                               input_Direction, last_Direction_);
                     return true;
+
+                case Movement_State.COUNTERCELERATE:
+                    
+                   break;
             }
             return false;
         }
-
-        void Object_Movement(Vector3 axis, float direction)
-        {
-            game_Object_.transform.position += axis * velocity_ * direction * Time.deltaTime;
-        }
-
-        //void Acceleration(Vector3 axis, float direction)
-        //{
-        //    velocity_ += acceleration_;
-        //    Object_Movement(axis, direction);
-        //}
-
-        //void Deceleration(Vector3 axis, float direction)
-        //{
-        //    velocity_ -= deceleration_;
-        //    Object_Movement(axis, direction);
-        //}
-
     }
 }

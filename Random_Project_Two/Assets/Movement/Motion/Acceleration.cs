@@ -18,15 +18,25 @@ namespace Movement.Motion
 
         //    return target * (float)temp;
         //}
-        static public Movement_State Acceleration_Movement_State_Handler(GameObject game_Object, Movement_Manager movement_Manager, Movement_State from, Movement_State to, float direction)
+        static public Movement_State Acceleration_Movement_State_Handler(GameObject game_Object, 
+                                                                         Movement_Manager movement_Manager, 
+                                                                         Movement_State from, 
+                                                                         Movement_State back_to, 
+                                                                         Movement_State to, 
+                                                                         float direction, float last_Direction, float max_Velocity)
         {
-            if (direction != 0)
+            if (direction == last_Direction)
             {
                 movement_Manager.velocity_ += movement_Manager.acceleration_ * Time.deltaTime;
+                if (movement_Manager.velocity_ >= max_Velocity)
+                {
+                    movement_Manager.velocity_ = max_Velocity;
+                    return to;
+                }
                 game_Object.transform.position += Vector3.right * direction * movement_Manager.velocity_ * Time.deltaTime;
                 return from;
             }
-            return to;
+            return back_to;
         }
     }
 }
