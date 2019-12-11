@@ -37,16 +37,17 @@ public class Player_Controller : MonoBehaviour
     {
         input_.Update_Keys();
 
-        State_Update();
-        State_Act();
+        Prepare_Inputs();
+        Handle_Inputs();
+        Act_Inputs();
+        Clear_Inputs();
     }
     
-    void State_Update()
+    void Prepare_Inputs()
     {
         while (input_.input_Queue_.Count > 0)
         {
             Key key = input_.input_Queue_.Dequeue();
-
             Here:
             switch (current_State_)
             {
@@ -63,13 +64,20 @@ public class Player_Controller : MonoBehaviour
                     break;
             }
         }
-        current_State_ = movement_.Input_Handler(Player_State.MOVEMENT, Player_State.ROOT);
-        movement_.Translate();
-        movement_.Clear_Movement_Manager();
     }
 
-    void State_Act()
+    void Handle_Inputs()
     {
-         //Make this shit smart
+        current_State_ = movement_.Input_Handler(Player_State.MOVEMENT, Player_State.ROOT);
+    }
+
+    void Act_Inputs()
+    {
+        movement_.Act_Movement();
+    }
+
+    void Clear_Inputs()
+    {
+        movement_.Clear_Movement_Manager();
     }
 }

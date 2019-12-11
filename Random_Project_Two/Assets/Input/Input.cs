@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Input
 {
+    public enum Mouse
+    {
+        LEFT_CLICK,
+        RIGHT_CLICK,
+        X,
+        Y,
+    }
+
     public enum Key 
     {
         NONE = (int)KeyCode.None,
@@ -16,6 +24,7 @@ public class Input
     public Queue<Key> input_Queue_ = new Queue<Key>();
     public List<Key> previous_Input = new List<Key>();
     public List<float> previous_Inputs_Timer_ = new List<float>();
+    public Vector3 mouse_;
     float timer_ = 0.8f;
 
     public Dictionary<Key, bool> Input_Dictionary_ = new Dictionary<Key, bool>();
@@ -51,7 +60,7 @@ public class Input
         if (UnityEngine.Input.GetKey(KeyCode.D)) if (!input_Queue_.Contains(Key.D)) { input_Queue_.Enqueue(Key.D); previous_Input.Add(Key.D); previous_Inputs_Timer_.Add(timer_); }
         if (UnityEngine.Input.GetKey(KeyCode.S)) if (!input_Queue_.Contains(Key.S)) { input_Queue_.Enqueue(Key.S); previous_Input.Add(Key.S); previous_Inputs_Timer_.Add(timer_); }
         if (UnityEngine.Input.GetKey(KeyCode.W)) if (!input_Queue_.Contains(Key.W)) { input_Queue_.Enqueue(Key.W); previous_Input.Add(Key.W); previous_Inputs_Timer_.Add(timer_); }
-
+        mouse_ = UnityEngine.Input.mousePosition;
         //if (!UnityEngine.Input.GetKey(KeyCode.A)) { input_Queue_.Remove(Key.A); }
         //if (!UnityEngine.Input.GetKey(KeyCode.D)) { input_Queue_.Remove(Key.D); }
         //if (!UnityEngine.Input.GetKey(KeyCode.S)) { input_Queue_.Remove(Key.S); }
