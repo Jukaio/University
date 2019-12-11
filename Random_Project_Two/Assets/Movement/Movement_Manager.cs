@@ -9,7 +9,10 @@ namespace Movement
 {
     class Movement_Manager
     {
-
+        //Get the Inputs
+        //Decide what to do with Inputs
+        //Act accordingly
+        //Clear Inputs
         class Axis_Movement
         {
             public enum Axis_Movement_State
@@ -23,10 +26,11 @@ namespace Movement
             public Axis_Movement_State current_Axis_State_;
 
             Input input_;
-            float velocity_, max_Velocity_;
+            public float velocity_, max_Velocity_ = 10.0f;
             public float acceleration_;
             public float deceleration_;
-            float input_Direction_, last_Direction_;
+            public float input_Direction_ = 0; 
+            public float last_Direction_;
             public Vector3 axis_;
 
             Key negative_, positive_;
@@ -41,76 +45,90 @@ namespace Movement
                 positive_ = positive;
             }
 
-            public int Set_Input_Direction_For_Frame()
+            public void Handle_Input_For_Frame(Key key)
             {
-                input_Direction_ = input_.input_on_axis(negative_, positive_);
-                if (input_Direction_ != 0)
-                    return 1;
-                return 0;
+                if (key == negative_)
+                    input_Direction_ -= 1.0f;
+                if (key == positive_)
+                    input_Direction_ += 1.0f;
+                else
+                    input_Direction_ += 0.0f;
             }
 
-            public void Idle()
+            public Player_State Idle()
             {
                 if (input_Direction_ != 0)
                 {
                     last_Direction_ = input_Direction_;
                     current_Axis_State_ = Axis_Movement_State.ACCELERATE;
-                    return;
+                    return Player_State.MOVEMENT;
                 }
-                return;
+                return Player_State.ROOT;
             }
 
-            public void Acceleration()
+            public int Acceleration()
             {
                 if (input_Direction_ == last_Direction_)
                 {
                     velocity_ += acceleration_ * last_Direction_ * Time.deltaTime;
                     if (Mathf.Abs(velocity_) > max_Velocity_)
                     {
-                        velocity_ = max_Velocity_;
+                        velocity_ = max_Velocity_ * last_Direction_;
                         current_Axis_State_ = Axis_Movement_State.FULL_SPEED;
-                        return;
+                        return 1;
                     }
-                    current_Axis_State_ = Axis_Movement_State.DECELERATE;
+                    return 1;
                 }
-                return;
+                current_Axis_State_ = Axis_Movement_State.DECELERATE;
+                return 1;
             }
 
-            public void Full_Speed()
+            public int Full_Speed()
             {
                 if (input_Direction_ != last_Direction_)
                 {
                     current_Axis_State_ = Axis_Movement_State.DECELERATE;
                 }
+                return 1;
             }
 
-            public void Deceleration()
+            public int Deceleration()
             {
                 if (input_Direction_ != last_Direction_)
                 {
-                    if (Mathf.Abs(velocity_) > 0)
+                    velocity_ -= deceleration_ * last_Direction_ * Time.deltaTime;
+                    if (input_Direction_ != 0)
+                        velocity_ += acceleration_ * -last_Direction_ * Time.deltaTime;
+
+
+                    if (velocity_ * last_Direction_ <= 0)
                     {
-                        velocity_ -= deceleration_ * last_Direction_ * Time.deltaTime;
+                        velocity_ = 0;
+                        last_Direction_ = 0;
+                        current_Axis_State_ = Axis_Movement_State.IDLE;
+                        return 1;
                     }
-                    velocity_ = 0;
-                    current_Axis_State_ = Axis_Movement_State.IDLE;
-                    return;
+                    return 1;
                 }
                 current_Axis_State_ = Axis_Movement_State.ACCELERATE;
+                return 1;
             }
 
-            public void Counterceleration()
+            public int Counterceleration()
             {
+                return 0;
+            }
 
+            public void Clear_Axis()
+            {
+                input_Direction_ = 0;
             }
         }
 
 
         public GameObject game_Object_;
-
         public float velocity_ = 0;
         public float max_Velocity_ = 5.0f;
-
         List<Axis_Movement> movement_Axes_ = new List<Axis_Movement>();
 
 
@@ -134,14 +152,20 @@ namespace Movement
             return true;
         }
 
-
-        public Player_State Input_Handler(Player_State from, Player_State to)
+        public void Input_Handler(Key key) // Sets "Dual" Input
         {
-            int count_Movements = 0;
             foreach (Axis_Movement axis in movement_Axes_)
             {
-                count_Movements += axis.Set_Input_Direction_For_Frame();
+                axis.Handle_Input_For_Frame(key);
+            }
+        }
+        int count_Movements = 0;
+        public Player_State Input_Handler(Player_State from, Player_State to)
+        {
 
+            MonoBehaviour.print(movement_Axes_[1].input_Direction_ + " " + movement_Axes_[1].last_Direction_ + " " + movement_Axes_[1].current_Axis_State_);
+            foreach (Axis_Movement axis in movement_Axes_)
+            {
                 switch (axis.current_Axis_State_)
                 {
                     case Axis_Movement.Axis_Movement_State.IDLE:
@@ -149,26 +173,39 @@ namespace Movement
                         break;
 
                     case Axis_Movement.Axis_Movement_State.ACCELERATE:
-                        axis.Acceleration();
+                        count_Movements += axis.Acceleration();
                         break;
 
                     case Axis_Movement.Axis_Movement_State.FULL_SPEED:
-                        axis.Full_Speed();
+                        count_Movements += axis.Full_Speed();
                         break;
 
                     case Axis_Movement.Axis_Movement_State.DECELERATE:
-                        axis.Deceleration();
+                        count_Movements += axis.Deceleration();
                         break;
 
                     case Axis_Movement.Axis_Movement_State.COUNTERCELERATE:
-                        axis.Counterceleration();
+                        count_Movements += axis.Counterceleration();
                         break;
                 }
             }
+            return from;
+        }
 
-            if (count_Movements > 0)
-                return from;
-            return to;
+        public void Translate()
+        {
+            foreach (Axis_Movement axis in movement_Axes_)
+            {
+                game_Object_.transform.position += axis.velocity_ * axis.axis_ * Time.deltaTime;
+            }
+        }
+
+        public void Clear_Movement_Manager()
+        {
+            foreach (Axis_Movement axis in movement_Axes_)
+            {
+                axis.Clear_Axis();
+            }
         }
     }
 }

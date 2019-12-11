@@ -23,7 +23,14 @@ public class Player_Controller : MonoBehaviour
 
         input_.Init_Keys();
 
-        movement_.Activate_Axis(input_, 2.0f, 2.0f, new Vector3(1.0f, 0.0f, 0.0f), Key.A, Key.D);
+        movement_.Activate_Axis(input_, 10.0f, 15.0f, new Vector3(1.0f, 0.0f, 0.0f), Key.A, Key.D);
+        movement_.Activate_Axis(input_, 10.0f, 15.0f, new Vector3(0.0f, 1.0f, 0.0f), Key.S, Key.W);
+
+    }
+
+    int add(int a, int b)
+    {
+        return a + b;
     }
 
     private void Update()
@@ -33,24 +40,32 @@ public class Player_Controller : MonoBehaviour
         State_Update();
         State_Act();
     }
-
+    
     void State_Update()
     {
         while (input_.input_Queue_.Count > 0)
         {
             Key key = input_.input_Queue_.Dequeue();
 
+            Here:
             switch (current_State_)
             {
                 case Player_State.ROOT: // Root State
                     current_State_ = Root.Input_Handle(gameObject, Player_State.ROOT, Player_State.MOVEMENT, input_, key);
+                    if(current_State_ != Player_State.ROOT)
+                        goto Here;
                     break;
 
                 case Player_State.MOVEMENT: // Movement State
-                    current_State_ = movement_.Input_Handler(Player_State.MOVEMENT, Player_State.ROOT);
+                    movement_.Input_Handler(key);
+                    if (current_State_ != Player_State.MOVEMENT)
+                        goto Here;
                     break;
             }
         }
+        current_State_ = movement_.Input_Handler(Player_State.MOVEMENT, Player_State.ROOT);
+        movement_.Translate();
+        movement_.Clear_Movement_Manager();
     }
 
     void State_Act()

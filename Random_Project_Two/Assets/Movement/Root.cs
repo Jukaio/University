@@ -16,8 +16,6 @@ class Root
 
             case Key.A:
             case Key.D:
-                return to;
-
             case Key.S:
             case Key.W:
                 return to;
