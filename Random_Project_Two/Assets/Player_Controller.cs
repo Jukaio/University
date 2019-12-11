@@ -7,7 +7,7 @@ using Key = Input.Key;
 
 public class Player_Controller : MonoBehaviour
 {
-    List<Movement_Manager> movement_ = new List<Movement_Manager>();
+    Movement_Manager movement_;
     Input input_ = new Input();
 
     public enum Player_State
@@ -19,19 +19,22 @@ public class Player_Controller : MonoBehaviour
 
     private void Awake()
     {
-        movement_.Add(new Movement_Manager(gameObject, Key.A, Key.D));
+        movement_ = new Movement_Manager(gameObject);
+
         input_.Init_Keys();
+
+        movement_.Activate_Axis(input_, 2.0f, 2.0f, new Vector3(1.0f, 0.0f, 0.0f), Key.A, Key.D);
     }
 
     private void Update()
     {
         input_.Update_Keys();
 
-        Check_State();
-        
+        State_Update();
+        State_Act();
     }
 
-    void Check_State()
+    void State_Update()
     {
         while (input_.input_Queue_.Count > 0)
         {
@@ -44,9 +47,14 @@ public class Player_Controller : MonoBehaviour
                     break;
 
                 case Player_State.MOVEMENT: // Movement State
-                    current_State_ = movement_[0].Input_Handler(Player_State.MOVEMENT, Player_State.ROOT, input_, key);
+                    current_State_ = movement_.Input_Handler(Player_State.MOVEMENT, Player_State.ROOT);
                     break;
             }
         }
+    }
+
+    void State_Act()
+    {
+         //Make this shit smart
     }
 }
