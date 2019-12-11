@@ -7,7 +7,9 @@ using Player_State = Player_Controller.Player_State;
 
 class Root
 {
-    static public Player_State Input_Handle(GameObject game_Object, Player_State from, Player_State to, Input input, Key key)
+
+
+    public Player_State Input_Handle(GameObject game_Object, Player_State from, Player_State to, Input input, Key key)
     {
         switch (key)
         {
