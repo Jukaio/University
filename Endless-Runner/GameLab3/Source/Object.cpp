@@ -14,7 +14,7 @@ Object::~Object()
 void Object::load(const char* filepath, resource_cache<sf::Texture>& texture_cache)
 {
 	FILE* stream;
-	char* file_Source = new char[256];
+	char file_Source[256];
 
 	if (fopen_s(&stream, filepath, "r") != 0)
 		return;
