@@ -9,10 +9,17 @@ public class Bullet_Controller : MonoBehaviour
     public Vector3 distance_Travelled_ = Vector3.zero;
     public Vector3 shoot_Angles_;
 
+    AudioSource audio_Source_;
+
     void Update()
     {
         Update_Bullet();
         Reset_Bullet();
+    }
+
+    private void Awake()
+    {
+        audio_Source_ = GetComponent<AudioSource>();
     }
 
     public void Activate_Bullet(Vector3 origin, Vector3 speed, Vector3 angles, float range)
@@ -22,6 +29,7 @@ public class Bullet_Controller : MonoBehaviour
         bullet_Speed_ = speed;
         shoot_Angles_ = angles;
         gameObject.SetActive(true);
+        audio_Source_.Play();
     }
 
     void Update_Bullet()

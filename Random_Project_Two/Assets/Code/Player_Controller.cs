@@ -10,10 +10,19 @@ using Key = Custom_Input.Key;
 
 public class Player_Controller : MonoBehaviour
 {
+    public AudioSource audio_Source_Clip_;
+    public AudioClip clip_Audio_;
+
     Root root_;
     Movement_Manager movement_;
     Custom_Input input_;
     Shooting_Mechanic shoot_;
+
+    //Shooting Info
+    public GameObject bullet_Template_One_;
+    public GameObject bullet_Template_Two_;
+    public GameObject bullet_Template_Three_;
+
 
     public enum Player_State
     {
@@ -37,14 +46,24 @@ public class Player_Controller : MonoBehaviour
         movement_.Activate_Axis(input_, 10.0f, 15.0f, new Vector3(1.0f, 0.0f, 0.0f), Key.A, Key.D);
         movement_.Activate_Axis(input_, 10.0f, 15.0f, new Vector3(0.0f, 1.0f, 0.0f), Key.S, Key.W);
 
+        shoot_.Activate_Shooting(Key.Space);
+        shoot_.Activate_Weapon_One(Key.One, 50.0f, 7.0f, 0.2f);
+        shoot_.Activate_Weapon_Two(Key.Two, 50.0f, 5.0f, 1.0f, 0.35f);
+        shoot_.Activate_Weapon_Three(Key.Three, 50.0f, 10.0f, 35.0f, 0.3f);
 
+        shoot_.Init_Bullet_Clip(12, Shooting_Mechanic.Weapon_Type.NORMAL, bullet_Template_One_);
+        shoot_.Init_Bullet_Clip(12, Shooting_Mechanic.Weapon_Type.TRIPLE, bullet_Template_Two_);
+        shoot_.Init_Bullet_Clip(12, Shooting_Mechanic.Weapon_Type.TRIPLE_SPLIT, bullet_Template_Three_);
     }
 
     private void Awake()
     {
+        audio_Source_Clip_ = gameObject.AddComponent<AudioSource>();
+        audio_Source_Clip_.clip = clip_Audio_;
+
+
         Construct_Components();
         Initialize_Components();
-
     }
 
 
@@ -52,20 +71,19 @@ public class Player_Controller : MonoBehaviour
     {
         input_.Update_Keys();
 
-        Handle_States();
+        Handle_Inputs();
         Apply_Inputs();
         Act_Inputs();
         Clear_Inputs();
 
-        Update_Cooldowns();
     }
     
-    void Handle_States()
+    void Handle_Inputs()
     {
         while (input_.input_Queue_.Count > 0)
         {
             Key key = input_.input_Queue_.Dequeue();
-            Here:
+        Here:
             switch (current_State_)
             {
                 case Player_State.ROOT: // Root State
@@ -75,14 +93,16 @@ public class Player_Controller : MonoBehaviour
                     break;
 
                 case Player_State.MOVEMENT: // Movement State
-                    if(movement_.Gather_Input(key) > 0)
-                        continue;
+                    if (movement_.Gather_Input(key) > 0)
+                        break;
                     break;
 
             }
+            shoot_.Gather_Input(key);
             shoot_.Choose_Weapon_State(key);
         }
     }
+
     void Apply_Inputs()
     {
         current_State_ = movement_.Input_Handler(Player_State.MOVEMENT, Player_State.ROOT);
@@ -90,14 +110,11 @@ public class Player_Controller : MonoBehaviour
     void Act_Inputs()
     {
         movement_.Act();
+        shoot_.Act();
     }
     void Clear_Inputs()
     {
         movement_.Clear();
-    }
-
-    void Update_Cooldowns()
-    {
-        shoot_.Update_Cooldowns();
+        shoot_.Clear();
     }
 }
