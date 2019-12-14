@@ -98,8 +98,8 @@ public class Player_Controller : MonoBehaviour
                     break;
 
             }
-            shoot_.Gather_Input(key);
             shoot_.Choose_Weapon_State(key);
+            shoot_.Gather_Input(key);
         }
     }
 

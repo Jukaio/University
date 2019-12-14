@@ -58,7 +58,6 @@ public class Shooting_Mechanic
 
             case Weapon_Type.TRIPLE_SPLIT:
                 return bullets_Three_;
-                
         }
         return new List<GameObject>();
     }
@@ -234,16 +233,19 @@ public class Shooting_Mechanic
     //  |===| <- This is the Player
     void Shooting_Normal()
     {
-
         Vector3 offset = new Vector3(0, 0, 0);
         Vector3 angles = new Vector3(0, 0);
         if (Inactive_Bullet_Count() >= 1)
         {
             Shoot_Bullet(offset, angles, range_Normal_, bullet_Speed_One_);
         }
-        else
-            if (!audio_Source_.isPlaying)
-            audio_Source_.Play();
+        else //This way we can have endless shooting!
+        {
+            GameObject temp = Object.Instantiate<GameObject>(get_Clip(weapon_Type_)[0]);
+            temp.SetActive(false);
+            get_Clip(weapon_Type_).Add(temp);
+            Shooting_Normal();
+        }
         shooting_Cooldown_ = normal_Shooting_Cooldown_Max_;
     }
 
@@ -262,7 +264,7 @@ public class Shooting_Mechanic
                 Shoot_Bullet(offset, angles, range_Triple_, bullet_Speed_Two_);
             }
         }
-        else
+        else //This way we can have reload stuff
         if (!audio_Source_.isPlaying)
             audio_Source_.Play();
         shooting_Cooldown_ = triple_Shooting_Cooldown_Max_;
@@ -290,7 +292,7 @@ public class Shooting_Mechanic
     }
 
     //Dynamic Bullet Activation (Independent from Bullet Behaviour)
-    bool Shoot_Bullet(Vector3 origin_modifier, Vector3 angles, float range, Vector3 bullet_Speed)
+    void Shoot_Bullet(Vector3 origin_modifier, Vector3 angles, float range, Vector3 bullet_Speed)
     {
         for (int i = 0; ; i++)
         {
@@ -305,15 +307,15 @@ public class Shooting_Mechanic
                                              game_Object_.transform.position.z + origin_modifier.z);
 
                 get_Clip(weapon_Type_)[bullet_Index_].GetComponent<Bullet_Controller>().Activate_Bullet(origin, bullet_Speed, angles, range);
-                return true;
+                return;
             }
+
 
             if (i >= get_Clip(weapon_Type_).Count - 1)
             {
                 break;
             }
         }
-        return false;
     }
 
     int Inactive_Bullet_Count()
