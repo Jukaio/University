@@ -72,6 +72,7 @@
     <Compile Include="Assets\48 Particle Effect Pack\ShurikenEffectEditor\csShurikenEffectEditor.cs" />
     <Compile Include="Assets\Code\Axes\Axis.cs" />
     <Compile Include="Assets\Code\Bullet_Controller.cs" />
+    <Compile Include="Assets\Code\Enemy_Controller.cs" />
     <Compile Include="Assets\Code\Input\Custom_Input.cs" />
     <Compile Include="Assets\Code\Movement\Easing.cs" />
     <Compile Include="Assets\Code\Movement\Movement_Manager.cs" />

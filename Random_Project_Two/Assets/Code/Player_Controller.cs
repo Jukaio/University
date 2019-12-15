@@ -10,9 +10,6 @@ using Key = Custom_Input.Key;
 
 public class Player_Controller : MonoBehaviour
 {
-    public AudioSource audio_Source_Clip_;
-    public AudioClip clip_Audio_;
-
     Root root_;
     Movement_Manager movement_;
     Custom_Input input_;
@@ -51,17 +48,13 @@ public class Player_Controller : MonoBehaviour
         shoot_.Activate_Weapon_Two(Key.Two, 50.0f, 5.0f, 1.0f, 0.35f);
         shoot_.Activate_Weapon_Three(Key.Three, 50.0f, 10.0f, 35.0f, 0.3f);
 
-        shoot_.Init_Bullet_Clip(12, Shooting_Mechanic.Weapon_Type.NORMAL, bullet_Template_One_);
-        shoot_.Init_Bullet_Clip(12, Shooting_Mechanic.Weapon_Type.TRIPLE, bullet_Template_Two_);
-        shoot_.Init_Bullet_Clip(12, Shooting_Mechanic.Weapon_Type.TRIPLE_SPLIT, bullet_Template_Three_);
+        shoot_.Init_Bullet_Clip(64, Shooting_Mechanic.Weapon_Type.NORMAL, bullet_Template_One_);
+        shoot_.Init_Bullet_Clip(128, Shooting_Mechanic.Weapon_Type.TRIPLE, bullet_Template_Two_);
+        shoot_.Init_Bullet_Clip(128, Shooting_Mechanic.Weapon_Type.TRIPLE_SPLIT, bullet_Template_Three_);
     }
 
     private void Awake()
     {
-        audio_Source_Clip_ = gameObject.AddComponent<AudioSource>();
-        audio_Source_Clip_.clip = clip_Audio_;
-
-
         Construct_Components();
         Initialize_Components();
     }

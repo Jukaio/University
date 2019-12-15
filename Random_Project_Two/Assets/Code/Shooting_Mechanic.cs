@@ -26,10 +26,8 @@ public class Shooting_Mechanic
     bool shoot_Pressed_;
 
     GameObject game_Object_;
-    AudioSource audio_Source_;
 
     //Modifiable Data
-    private GameObject bullet_Template_;
     private float range_Normal_, range_Triple_, range_Split_;
     private float triple_Offset_, split_angle_;
     private Vector3 bullet_Speed_One_, bullet_Speed_Two_, bullet_Speed_Three_ = Vector3.zero;
@@ -67,7 +65,6 @@ public class Shooting_Mechanic
     public Shooting_Mechanic(GameObject game_Object)
     {
         game_Object_ = game_Object;
-        audio_Source_ = game_Object_.GetComponent<Player_Controller>().audio_Source_Clip_;
     }
 
     public void Activate_Shooting(Key shoot)
@@ -264,9 +261,13 @@ public class Shooting_Mechanic
                 Shoot_Bullet(offset, angles, range_Triple_, bullet_Speed_Two_);
             }
         }
-        else //This way we can have reload stuff
-        if (!audio_Source_.isPlaying)
-            audio_Source_.Play();
+        else //This way we can have endless shooting!
+        {
+            GameObject temp = Object.Instantiate<GameObject>(get_Clip(weapon_Type_)[0]);
+            temp.SetActive(false);
+            get_Clip(weapon_Type_).Add(temp);
+            Shooting_Normal();
+        }
         shooting_Cooldown_ = triple_Shooting_Cooldown_Max_;
     }
 
@@ -285,9 +286,13 @@ public class Shooting_Mechanic
                 Shoot_Bullet(offset, angles, range_Split_, bullet_Speed_Three_);
             }
         }
-        else
-        if (!audio_Source_.isPlaying)
-            audio_Source_.Play();
+        else //This way we can have endless shooting!
+        {
+            GameObject temp = Object.Instantiate<GameObject>(get_Clip(weapon_Type_)[0]);
+            temp.SetActive(false);
+            get_Clip(weapon_Type_).Add(temp);
+            Shooting_Normal();
+        }
         shooting_Cooldown_ = split_Triple_Shooting_Cooldown_Max_;
     }
 

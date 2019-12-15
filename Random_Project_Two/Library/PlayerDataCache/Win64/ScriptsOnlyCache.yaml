@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Bullet_Controller
+    - Enemy_Controller
     - Player_Controller
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -26,9 +27,15 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
@@ -40,9 +47,13 @@ ScriptsOnlyBuild:
       Script: {instanceID: 10174}
     - Class: 114
       Script: {instanceID: 10584}
+    - Class: 114
+      Script: {instanceID: 19192}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
+      Script: {instanceID: 0}
+    - Class: 136
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -669,6 +680,12 @@ ScriptsOnlyBuild:
     className: DepthOfFieldDeprecated
   - hash:
       serializedVersion: 2
+      Hash: 0c67c33fe341116ae41ec25d977cdb4c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Demo
+  - hash:
+      serializedVersion: 2
       Hash: c8533c9804499b27f7c31b277d275f91
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityStandardAssets.ImageEffects
@@ -799,6 +816,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 5fa63082ea693e2bacf585357f6d1151
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Enemy_Controller
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
