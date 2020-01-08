@@ -4,6 +4,11 @@ using UnityEngine;
 
 using Key = Custom_Input.Key;
 
+//Try making a Shoot_Manager (Shoot_Manager.cs)
+//Each "Shoot mechanic" is a weapon (weapon.cs)
+//Each weapon get get activated, values get passed in, etc.
+
+
 public class Shooting_Mechanic
 {
     enum Shooting_State

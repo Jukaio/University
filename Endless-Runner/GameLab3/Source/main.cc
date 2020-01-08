@@ -1,6 +1,7 @@
 // main.cc
 
 #include "endless_runner.h"
+#include <Windows.h>
 
 
 int main(int argc, char **argv)
@@ -9,7 +10,7 @@ int main(int argc, char **argv)
    if (!game.init())
       return -1;
    game.run();
-   
+
 
    return 0;
 }

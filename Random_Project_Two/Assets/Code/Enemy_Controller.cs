@@ -43,7 +43,6 @@ public class Enemy_Controller : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.SetActive(false);
         state = Enemy_State.HIT;
         source_.Play();
         gameObject.GetComponent<Collider>().enabled = false;

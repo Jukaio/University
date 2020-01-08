@@ -18,6 +18,7 @@ template <typename T>
 bool resource_cache<T>::load(const std::string &filename)
 {
    auto iter = resources_.find(filename);
+   
    if (iter == resources_.end())
    {
       resource_type *resource = new resource_type;
@@ -28,7 +29,6 @@ bool resource_cache<T>::load(const std::string &filename)
 
          return false;
       }
-
       resources_.insert(std::pair<std::string, resource_type *>(filename, resource));
    }
 

@@ -54,4 +54,13 @@ public class Bullet_Controller : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name.Contains("Capsule"))
+        {
+            distance_Travelled_ = Vector3.zero;
+            gameObject.SetActive(false);
+        }
+    }
 }
