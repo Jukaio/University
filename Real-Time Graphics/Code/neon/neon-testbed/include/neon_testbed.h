@@ -7,6 +7,7 @@
 #include <neon_opengl.h>
 #include "neon_graphics.h"
 #include "neon_framebuffer.h"
+#include "Celestial.h"
 
 namespace neon 
 {
@@ -42,6 +43,10 @@ namespace neon
 	  skybox skybox_;
 	  terrain terrain_;
 	  framebuffer framebuffer_;
+
+	  Celestial planet_;
+	  Celestial moon_;
+	  Celestial mars_;
    };
 
    

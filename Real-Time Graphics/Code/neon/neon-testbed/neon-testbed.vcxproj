@@ -91,11 +91,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Celestial.cpp" />
     <ClCompile Include="source\neon_framebuffer.cc" />
     <ClCompile Include="source\neon_graphics.cc" />
     <ClCompile Include="source\neon_testbed.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Celestial.h" />
     <ClInclude Include="include\neon_framebuffer.h" />
     <ClInclude Include="include\neon_graphics.h" />
     <ClInclude Include="include\neon_testbed.h" />

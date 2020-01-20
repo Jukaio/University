@@ -120,7 +120,7 @@ namespace neon {
             {  1.0f , -1.0f, -1.0f,    0xff4b3319,     0.0f, 0.0f  },
         }; // Big triangle and smaller triangle
 
-        if (!vbo_.create(sizeof(vertices), vertices)) {
+        /*if (!vbo_.create(sizeof(vertices), vertices)) {
             return false;
         }
 
@@ -141,15 +141,15 @@ namespace neon {
 
         if (!sampler_.create(GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)) {
             return false;
-        }
+        }*/
 
         // note: uniforms
-        program_.bind();
+       /* program_.bind();
         glm::mat4 world = glm::translate(glm::mat4(1.0f),
                                          glm::vec3(0.0f, 0.0f, -2.0f));
 
         program_.set_uniform_mat4("world", world);
-        program_.set_uniform_vec4("mod_color", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+        program_.set_uniform_vec4("mod_color", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));*/
 
 
         GLenum error = glGetError();
@@ -176,12 +176,17 @@ namespace neon {
         world_ = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -20.0f));
         world_ = glm::scale(world_, glm::vec3(0.01f));
 
-        framebuffer_format formats[] = { FRAMEBUFFER_FORMAT_RGBA8 };
-        if (!framebuffer_.create(240, 135, _countof(formats), formats, FRAMEBUFFER_FORMAT_D32))
-            return false;
+        //framebuffer_format formats[] = { FRAMEBUFFER_FORMAT_RGBA8 };
+        //if (!framebuffer_.create(240, 135, _countof(formats), formats, FRAMEBUFFER_FORMAT_D32))
+        //    return false;
 
         camera_.set_perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f); //Just changing it so that our perspective is controlled by the camera instead.
         terrain_.camera_ = &camera_;
+
+		planet_.create(camera_, glm::vec3(0.0f, 0.0f, -5.0f));
+		moon_.create(camera_, glm::vec3(4.0f, 1.5f, -5.5f));
+		mars_.create(camera_, glm::vec3(-3.85f, -1.0f, 3.0f));
+
         return true;
     }
 
@@ -194,15 +199,15 @@ namespace neon {
         }
 
         controller_.update(dt); // run controller update, duh
-        framebuffer_.bind();
+        //framebuffer_.bind();
 
-        glm::mat4 world = glm::translate(glm::mat4(1.0f),
+       /* glm::mat4 world = glm::translate(glm::mat4(1.0f),
                                          glm::vec3(0.0f, 0.0f, -5.0f));
         world = glm::rotate(world,
                             rotation_,
                             glm::vec3(0.5f, 1.0f, 0.5f));
 
-        rotation_ += dt.as_seconds();
+        rotation_ += dt.as_seconds();*/
 
         string mouseX = std::to_string(mouse_.x_); // just me getting debug data
         string mouseY = std::to_string(mouse_.y_);
@@ -216,30 +221,35 @@ namespace neon {
 
         skybox_.render(camera_); // Render skybox
 
-        program_.bind();
-        program_.set_uniform_mat4("projection", camera_.projection_); // new matrices
-        program_.set_uniform_mat4("view", camera_.view_);
-        program_.set_uniform_mat4("world", world);
-        vbo_.bind();
-        format_.bind();
-        texture_.bind();
-        sampler_.bind();
-        glEnable(GL_DEPTH_TEST);
 
-        glEnable(GL_CULL_FACE); // remove this to render the inside of the cube, or comment it out
-        glCullFace(GL_BACK);
-        glFrontFace(GL_CW);
+		planet_.update(dt.as_milliseconds());
+		moon_.update(dt.as_milliseconds());
+		mars_.update(dt.as_milliseconds());
+        //program_.bind();
+        //program_.set_uniform_mat4("projection", camera_.projection_); // new matrices
+        //program_.set_uniform_mat4("view", camera_.view_);
+        //program_.set_uniform_mat4("world", world);
+        //vbo_.bind();
+        //format_.bind();
+        //texture_.bind();
+        //sampler_.bind();
 
-        glEnable(GL_BLEND);
-        glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
-        glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
-        glDrawArrays(GL_TRIANGLES, 0, 99);
+        //glEnable(GL_DEPTH_TEST);
+
+        //glEnable(GL_CULL_FACE); // remove this to render the inside of the cube, or comment it out
+        //glCullFace(GL_BACK);
+        //glFrontFace(GL_CW);
+
+        //glEnable(GL_BLEND);
+        //glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+        //glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
+        //glDrawArrays(GL_TRIANGLES, 0, 99);
 
         font_.flush();
-        framebuffer::unbind(1280, 720);
-        framebuffer_.blit(0, 0, 1280, 720);
+        //framebuffer::unbind(1280, 720);
+        //framebuffer_.blit(0, 0, 1280, 720);
 
-        //terrain_.render();
+        terrain_.render();
         return true;
     }
 } // !neon
