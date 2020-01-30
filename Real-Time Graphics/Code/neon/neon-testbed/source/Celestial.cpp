@@ -3,18 +3,24 @@
 namespace neon
 {
 	Celestial::Celestial()
-		: rotation_Self_(0.0f)
-		, rotation_Universe_(0.0f)
-		, pos_Mat_(1.0f)
-		, position_(glm::vec3(0.0f))
+		: camera_(nullptr)
+		, parent_(nullptr)
+		, pos_(0.0f)
+		, scale_(1.0f)
+		, rotation_Parent_(0.0f)
+		, rotation_Self_(0.0f)
+		, speed_(0.0f)
 	{
 		
 	}
 
-	bool Celestial::create(fps_camera& camera, glm::vec3 position)
+	bool Celestial::create(fps_camera& camera, Celestial* parent, const char* texture_Path, glm::vec3 position, glm::vec3 scale, float modifier)
 	{
 		camera_ = &camera;
+		parent_ = parent;
 		pos_ = position;
+		scale_ = scale;
+		mod_ = modifier;
 		vertex vertices[] =
 		{
 			// Triangle 1, side 1
@@ -67,18 +73,13 @@ namespace neon
 		}
 
 		program_.bind();
-		glm::mat4 world = glm::translate(glm::mat4(1.0f),
-										 glm::vec3(pos_));
-
-		program_.set_uniform_mat4("world", world);
 		program_.set_uniform_vec4("mod_color", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-
 
 		format_.add_attribute(0, 3, GL_FLOAT, false);
 		format_.add_attribute(1, 4, GL_UNSIGNED_BYTE, true);
 		format_.add_attribute(2, 2, GL_FLOAT, false);
 
-		if (!texture_.create("assets/RopeBunny.png"))
+		if (!texture_.create(texture_Path))
 		{
 			return false;
 		}
@@ -87,26 +88,41 @@ namespace neon
 			return false;
 		}
 
-
 		return true;
 	}
 
 	void Celestial::update(float dt)
 	{
+		glm::vec3 origin;
+		if (parent_ != nullptr)
+			origin = parent_->position_;
+		else
+			origin = glm::vec3(0.0f);
+
 		glm::mat4 world = glm::mat4(1.0f);
-		world = glm::rotate(world,
-							rotation_Universe_,
-							glm::vec3(0.0f, 1.0f, 0.0f));
+		world[3][0] = origin.x; world[3][1] = origin.y; world[3][2] = origin.z;
 
-		world = glm::translate(world,
-							   glm::vec3(0.0f) + glm::vec3(pos_));
-
+		//world = glm::translate(world, origin);
 		world = glm::rotate(world,
+							rotation_Parent_,
+							glm::vec3(0.0f, 0.0f, 1.0f));
+		world = glm::translate(world,pos_);
+		/*world = glm::rotate(world,
 							rotation_Self_,
-							glm::vec3(0.5f, 0.5f, 0.0f));
+							glm::vec3(0.0f, 1.0f, 0.0f));*/
+		
+		world = glm::scale(world, scale_);
 
-		rotation_Self_ += dt / 500.0f;
-		rotation_Universe_ += dt / 500.0f;
+		rotation_Parent_ += dt / 800.0f * mod_;
+		rotation_Self_ += dt / 300.0f;
+
+		//world = glm::translate(world,
+		//					   origin + glm::vec3(pos_));
+		//world = glm::rotate(world,
+		//					rotation_Self_,
+		//					glm::vec3(0.5f, 0.5f, 0.0f));
+
+		position_ = glm::vec3(world[3][0], world[3][1], world[3][2]);
 
 		program_.bind();
 		program_.set_uniform_mat4("projection", camera_->projection_); // new matrices
@@ -135,8 +151,4 @@ namespace neon
 
 	}
 
-	void Celestial::set_Position(float x, float y, float z)
-	{
-		position_ = glm::vec3(x, y, z);
-	}
 };

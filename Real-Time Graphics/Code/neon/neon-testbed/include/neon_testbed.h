@@ -44,9 +44,19 @@ namespace neon
 	  terrain terrain_;
 	  framebuffer framebuffer_;
 
-	  Celestial planet_;
-	  Celestial moon_;
+	  Celestial sun_;
+	  Celestial mercury_;
+
+	  Celestial venus_;
+	  Celestial earth_;
 	  Celestial mars_;
+	  Celestial jupiter_;
+	  Celestial saturn_;
+	  Celestial uranus_;
+	  Celestial neptune_;
+	  Celestial pluto_;
+
+	  Celestial moon_;
    };
 
    

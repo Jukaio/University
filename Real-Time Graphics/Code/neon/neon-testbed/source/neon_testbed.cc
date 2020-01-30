@@ -183,9 +183,28 @@ namespace neon {
         camera_.set_perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f); //Just changing it so that our perspective is controlled by the camera instead.
         terrain_.camera_ = &camera_;
 
-		planet_.create(camera_, glm::vec3(0.0f, 0.0f, -5.0f));
-		moon_.create(camera_, glm::vec3(4.0f, 1.5f, -5.5f));
-		mars_.create(camera_, glm::vec3(-3.85f, -1.0f, 3.0f));
+		sun_.create(camera_,
+					nullptr,
+					"assets/RopeBunny.png",
+					glm::vec3(0.0f, 0.0f, 0.0f), //Position
+					glm::vec3(2.0f, 2.0f, 2.0f), 1.0f);//Scale
+		mercury_.create(camera_,
+						&sun_,
+						"assets/mercury.jpg",
+						glm::vec3(0.0f, 8.0f, 0.0f),
+						glm::vec3(1.0f, 1.0f, 1.0f), 1.1f);
+		mars_.create(camera_,
+					 &sun_,
+					 "assets/bear.jpg",
+					 glm::vec3(0.0f, 4.0f, -5.0f),
+					 glm::vec3(1.0f, 1.0f, 1.0f), 0.8f);
+
+		moon_.create(camera_,
+					 &mercury_,
+					 "assets/moon.jpg",
+					 glm::vec3(0.0f, 2.0f, 0.0f),
+					 glm::vec3(0.5f, 0.5f, 0.5f), -1.0f);
+
 
         return true;
     }
@@ -221,10 +240,11 @@ namespace neon {
 
         skybox_.render(camera_); // Render skybox
 
-
-		planet_.update(dt.as_milliseconds());
-		moon_.update(dt.as_milliseconds());
+		sun_.update(dt.as_milliseconds());
+		mercury_.update(dt.as_milliseconds());
 		mars_.update(dt.as_milliseconds());
+		moon_.update(dt.as_milliseconds());
+
         //program_.bind();
         //program_.set_uniform_mat4("projection", camera_.projection_); // new matrices
         //program_.set_uniform_mat4("view", camera_.view_);
@@ -249,7 +269,7 @@ namespace neon {
         //framebuffer::unbind(1280, 720);
         //framebuffer_.blit(0, 0, 1280, 720);
 
-        terrain_.render();
+        //terrain_.render();
         return true;
     }
 } // !neon
