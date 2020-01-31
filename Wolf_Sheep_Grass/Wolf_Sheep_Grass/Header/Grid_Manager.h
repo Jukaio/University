@@ -23,6 +23,9 @@ struct Grid_Manager
 	void Plant_Global(int x, int y);
 	void Expand(int x, int y, int grid_index);
 
+	Tile Get_Tile(); // "Global Coordinates" to "Grid Coordinates" aka.
+					 // find the coordinate which touches the tile and return it
+
 	void Render();
 };
 

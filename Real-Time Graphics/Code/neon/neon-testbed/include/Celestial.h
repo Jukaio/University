@@ -47,10 +47,10 @@ namespace neon
 
 		float rotation_Parent_;
 		float rotation_Self_;
-		float velocity_;
 		float mod_ = 0;
 
-		float velocity_ = 5.0f; //Distance per frame to travel
+		float velocity_; //Distance per frame to travel
+		float travel_Angle_;
 	};
 };
 

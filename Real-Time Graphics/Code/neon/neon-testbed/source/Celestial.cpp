@@ -11,7 +11,8 @@ namespace neon
 		, scale_(1.0f)
 		, rotation_Parent_(0.0f)
 		, rotation_Self_(0.0f)
-		, velocity_(0.0f)
+		, velocity_(1.0f)
+		, travel_Angle_(0)
 	{
 		
 	}
@@ -23,16 +24,8 @@ namespace neon
 		pos_ = position;
 		scale_ = scale;
 		mod_ = modifier;
-
-
-		float x = 0;
-		float y = 0;
-
-		for (double d = 0; d < 20; d += 0.01)
-		{
-			x = pos_.x;
-			y = pos_.y;
-		}
+		if(pos_.y != 0)
+			travel_Angle_ = velocity_ / pos_.y;
 
 
 		vertex vertices[] =
@@ -128,8 +121,8 @@ namespace neon
 		
 		world = glm::scale(world, scale_);
 
-		rotation_Parent_ += dt / 800.0f * mod_;
-		rotation_Self_ += dt / 300.0f;
+		rotation_Parent_ += dt * (travel_Angle_ * 10);
+		rotation_Self_ += dt;
 
 		//world = glm::translate(world,
 		//					   origin + glm::vec3(pos_));

@@ -182,7 +182,7 @@ namespace neon {
 
 		camera_.set_perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 1000.0f); //Just changing it so that our perspective is controlled by the camera instead.
 		camera_.update();
-		camera_.forward(100.0f);
+		camera_.forward(200.0f);
 		camera_.sidestep(-50.0f);
 		terrain_.camera_ = &camera_;
 
@@ -283,7 +283,7 @@ namespace neon {
 
 
 		for (int i = 0; i < 10; i++)
-			celestials_[i].render(dt.as_milliseconds());
+			celestials_[i].render(dt.as_seconds());
 
         //program_.bind();
         //program_.set_uniform_mat4("projection", camera_.projection_); // new matrices
