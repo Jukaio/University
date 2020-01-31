@@ -26,7 +26,9 @@ namespace neon
 		Celestial();
 
 		bool create(fps_camera& camera, Celestial* parent, const char* texture_Name, glm::vec3 position, glm::vec3 scale, float modifier);
-		void update(float dt);
+		void render(float dt);
+		void render();
+
 		void destroy();
 
 		fps_camera* camera_;
@@ -45,8 +47,10 @@ namespace neon
 
 		float rotation_Parent_;
 		float rotation_Self_;
-		float speed_;
+		float velocity_;
 		float mod_ = 0;
+
+		float velocity_ = 5.0f; //Distance per frame to travel
 	};
 };
 

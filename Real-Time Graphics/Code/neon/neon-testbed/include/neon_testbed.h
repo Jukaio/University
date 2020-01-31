@@ -54,9 +54,10 @@ namespace neon
 	  Celestial saturn_;
 	  Celestial uranus_;
 	  Celestial neptune_;
-	  Celestial pluto_;
 
 	  Celestial moon_;
+
+	  Celestial celestials_[10];
    };
 
    

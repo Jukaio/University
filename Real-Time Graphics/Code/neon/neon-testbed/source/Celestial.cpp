@@ -1,5 +1,7 @@
 #include "Celestial.h"
 
+# define PI 3.14159265358979323846
+
 namespace neon
 {
 	Celestial::Celestial()
@@ -9,7 +11,7 @@ namespace neon
 		, scale_(1.0f)
 		, rotation_Parent_(0.0f)
 		, rotation_Self_(0.0f)
-		, speed_(0.0f)
+		, velocity_(0.0f)
 	{
 		
 	}
@@ -21,6 +23,18 @@ namespace neon
 		pos_ = position;
 		scale_ = scale;
 		mod_ = modifier;
+
+
+		float x = 0;
+		float y = 0;
+
+		for (double d = 0; d < 20; d += 0.01)
+		{
+			x = pos_.x;
+			y = pos_.y;
+		}
+
+
 		vertex vertices[] =
 		{
 			// Triangle 1, side 1
@@ -91,7 +105,7 @@ namespace neon
 		return true;
 	}
 
-	void Celestial::update(float dt)
+	void Celestial::render(float dt)
 	{
 		glm::vec3 origin;
 		if (parent_ != nullptr)
@@ -102,14 +116,15 @@ namespace neon
 		glm::mat4 world = glm::mat4(1.0f);
 		world[3][0] = origin.x; world[3][1] = origin.y; world[3][2] = origin.z;
 
+
 		//world = glm::translate(world, origin);
 		world = glm::rotate(world,
 							rotation_Parent_,
 							glm::vec3(0.0f, 0.0f, 1.0f));
 		world = glm::translate(world,pos_);
-		/*world = glm::rotate(world,
+		world = glm::rotate(world,
 							rotation_Self_,
-							glm::vec3(0.0f, 1.0f, 0.0f));*/
+							glm::vec3(0.5f, 0.5f, 0.0f));
 		
 		world = glm::scale(world, scale_);
 
@@ -144,6 +159,10 @@ namespace neon
 		glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
 		glDrawArrays(GL_TRIANGLES, 0, 99);
+	}
+
+	void Celestial::render()
+	{
 	}
 
 	void Celestial::destroy()

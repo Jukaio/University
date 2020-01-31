@@ -56,158 +56,199 @@ namespace neon {
     {
     }
 
-    bool testbed::enter() {
-        GLuint vao = 0; // vertex array object
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
+	bool testbed::enter() {
+		GLuint vao = 0; // vertex array object
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
 
-        //glEnable(GL_TEXTURE_2D);
+		//glEnable(GL_TEXTURE_2D);
 
-        vertex vertices[] =
-        {
-            // Triangle 1, side 1
-            {  1.0f ,  1.0f,  1.0f,    0xff0000ff,     1.0f, 0.0f  },
-            {  1.0f , -1.0f,  1.0f,    0xff00ff00,     1.0f, 1.0f  },
-            { -1.0f , -1.0f,  1.0f,    0xffff0000,     0.0f, 1.0f  },
-            // Triangle 2, side 1      
-            {  1.0f ,  1.0f,  1.0f,    0xff4b3319,     1.0f, 0.0f  },
-            { -1.0f , -1.0f,  1.0f,    0xff4b3319,     0.0f, 1.0f  },
-            { -1.0f ,  1.0f,  1.0f,    0xff4b3319,     0.0f, 0.0f  },
+		vertex vertices[] =
+		{
+			// Triangle 1, side 1
+			{  1.0f ,  1.0f,  1.0f,    0xff0000ff,     1.0f, 0.0f  },
+			{  1.0f , -1.0f,  1.0f,    0xff00ff00,     1.0f, 1.0f  },
+			{ -1.0f , -1.0f,  1.0f,    0xffff0000,     0.0f, 1.0f  },
+			// Triangle 2, side 1      
+			{  1.0f ,  1.0f,  1.0f,    0xff4b3319,     1.0f, 0.0f  },
+			{ -1.0f , -1.0f,  1.0f,    0xff4b3319,     0.0f, 1.0f  },
+			{ -1.0f ,  1.0f,  1.0f,    0xff4b3319,     0.0f, 0.0f  },
 
-            // Triangle 1, side 2
-            {  1.0f ,  1.0f,  1.0f,    0xff0000ff,     1.0f, 0.0f  },
-            {  1.0f , -1.0f, -1.0f,    0xffff0000,     0.0f, 1.0f  },
-            {  1.0f , -1.0f,  1.0f,    0xff00ff00,     0.0f, 0.0f  },
-            // Triangle 2, side 2      
-            {  1.0f ,  1.0f,  1.0f,    0xff4b3319,     1.0f, 0.0f  },
-            {  1.0f ,  1.0f, -1.0f,    0xff4b3319,     1.0f, 1.0f  },
-            {  1.0f , -1.0f, -1.0f,    0xff4b3319,     0.0f, 1.0f  },
+			// Triangle 1, side 2
+			{  1.0f ,  1.0f,  1.0f,    0xff0000ff,     1.0f, 0.0f  },
+			{  1.0f , -1.0f, -1.0f,    0xffff0000,     0.0f, 1.0f  },
+			{  1.0f , -1.0f,  1.0f,    0xff00ff00,     0.0f, 0.0f  },
+			// Triangle 2, side 2      
+			{  1.0f ,  1.0f,  1.0f,    0xff4b3319,     1.0f, 0.0f  },
+			{  1.0f ,  1.0f, -1.0f,    0xff4b3319,     1.0f, 1.0f  },
+			{  1.0f , -1.0f, -1.0f,    0xff4b3319,     0.0f, 1.0f  },
 
-            // Triangle 1, side 3
-            {  1.0f ,  1.0f, -1.0f,    0xff0000ff,     1.0f, 1.0f  },
-            { -1.0f , -1.0f, -1.0f,    0xffff0000,     0.0f, 0.0f  },
-            {  1.0f , -1.0f, -1.0f,    0xff00ff00,     1.0f, 0.0f  },
-            // Triangle 2, side 3      
-            {  1.0f ,  1.0f, -1.0f,    0xff4b3319,     1.0f, 1.0f  },
-            { -1.0f ,  1.0f, -1.0f,    0xff4b3319,     0.0f, 1.0f  },
-            { -1.0f , -1.0f, -1.0f,    0xff4b3319,     0.0f, 0.0f  },
+			// Triangle 1, side 3
+			{  1.0f ,  1.0f, -1.0f,    0xff0000ff,     1.0f, 1.0f  },
+			{ -1.0f , -1.0f, -1.0f,    0xffff0000,     0.0f, 0.0f  },
+			{  1.0f , -1.0f, -1.0f,    0xff00ff00,     1.0f, 0.0f  },
+			// Triangle 2, side 3      
+			{  1.0f ,  1.0f, -1.0f,    0xff4b3319,     1.0f, 1.0f  },
+			{ -1.0f ,  1.0f, -1.0f,    0xff4b3319,     0.0f, 1.0f  },
+			{ -1.0f , -1.0f, -1.0f,    0xff4b3319,     0.0f, 0.0f  },
 
-            // Triangle 1, side 4
-            { -1.0f ,  1.0f, -1.0f,    0xff0000ff,     1.0f, 0.0f  },
-            { -1.0f , -1.0f,  1.0f,    0xffff0000,     0.0f, 1.0f  },
-            { -1.0f , -1.0f, -1.0f,    0xff00ff00,     0.0f, 0.0f  },
-            // Triangle 2, side 4      
-            { -1.0f ,  1.0f, -1.0f,    0xff4b3319,     1.0f, 0.0f  },
-            { -1.0f ,  1.0f,  1.0f,    0xff4b3319,     1.0f, 1.0f  },
-            { -1.0f , -1.0f,  1.0f,    0xff4b3319,     0.0f, 1.0f  },
+			// Triangle 1, side 4
+			{ -1.0f ,  1.0f, -1.0f,    0xff0000ff,     1.0f, 0.0f  },
+			{ -1.0f , -1.0f,  1.0f,    0xffff0000,     0.0f, 1.0f  },
+			{ -1.0f , -1.0f, -1.0f,    0xff00ff00,     0.0f, 0.0f  },
+			// Triangle 2, side 4      
+			{ -1.0f ,  1.0f, -1.0f,    0xff4b3319,     1.0f, 0.0f  },
+			{ -1.0f ,  1.0f,  1.0f,    0xff4b3319,     1.0f, 1.0f  },
+			{ -1.0f , -1.0f,  1.0f,    0xff4b3319,     0.0f, 1.0f  },
 
-            // Triangle 1, side 5
-            { -1.0f ,  1.0f,  1.0f,    0xff0000ff,     0.0f, 1.0f  },
-            {  1.0f ,  1.0f, -1.0f,    0xffff0000,     1.0f, 0.0f  },
-            {  1.0f ,  1.0f,  1.0f,    0xff00ff00,     1.0f, 1.0f  },
-            // Triangle 2, side 5      
-            { -1.0f ,  1.0f, -1.0f,    0xff4b3319,     0.0f, 0.0f  },
-            {  1.0f ,  1.0f, -1.0f,    0xff4b3319,     1.0f, 0.0f  },
-            { -1.0f ,  1.0f,  1.0f,    0xff4b3319,     0.0f, 1.0f  },
+			// Triangle 1, side 5
+			{ -1.0f ,  1.0f,  1.0f,    0xff0000ff,     0.0f, 1.0f  },
+			{  1.0f ,  1.0f, -1.0f,    0xffff0000,     1.0f, 0.0f  },
+			{  1.0f ,  1.0f,  1.0f,    0xff00ff00,     1.0f, 1.0f  },
+			// Triangle 2, side 5      
+			{ -1.0f ,  1.0f, -1.0f,    0xff4b3319,     0.0f, 0.0f  },
+			{  1.0f ,  1.0f, -1.0f,    0xff4b3319,     1.0f, 0.0f  },
+			{ -1.0f ,  1.0f,  1.0f,    0xff4b3319,     0.0f, 1.0f  },
 
-            // Triangle 1, side 6
-            { -1.0f , -1.0f,  1.0f,    0xff0000ff,     1.0f, 1.0f  },
-            {  1.0f , -1.0f,  1.0f,    0xff00ff00,     0.0f, 1.0f  },
-            {  1.0f , -1.0f, -1.0f,    0xffff0000,     0.0f, 0.0f  },
-            // Triangle 2, side 6      
-            { -1.0f , -1.0f, -1.0f,    0xff4b3319,     1.0f, 0.0f  },
-            { -1.0f , -1.0f,  1.0f,    0xff4b3319,     1.0f, 1.0f  },
-            {  1.0f , -1.0f, -1.0f,    0xff4b3319,     0.0f, 0.0f  },
-        }; // Big triangle and smaller triangle
+			// Triangle 1, side 6
+			{ -1.0f , -1.0f,  1.0f,    0xff0000ff,     1.0f, 1.0f  },
+			{  1.0f , -1.0f,  1.0f,    0xff00ff00,     0.0f, 1.0f  },
+			{  1.0f , -1.0f, -1.0f,    0xffff0000,     0.0f, 0.0f  },
+			// Triangle 2, side 6      
+			{ -1.0f , -1.0f, -1.0f,    0xff4b3319,     1.0f, 0.0f  },
+			{ -1.0f , -1.0f,  1.0f,    0xff4b3319,     1.0f, 1.0f  },
+			{  1.0f , -1.0f, -1.0f,    0xff4b3319,     0.0f, 0.0f  },
+		}; // Big triangle and smaller triangle
 
-        /*if (!vbo_.create(sizeof(vertices), vertices)) {
-            return false;
-        }
+		/*if (!vbo_.create(sizeof(vertices), vertices)) {
+			return false;
+		}
 
-        if (!program_.create("assets/vertex_shader.txt",
-            "assets/fragment_shader.txt"))
-        {
-            return false;
-        }
+		if (!program_.create("assets/vertex_shader.txt",
+			"assets/fragment_shader.txt"))
+		{
+			return false;
+		}
 
-        format_.add_attribute(0, 3, GL_FLOAT, false);
-        format_.add_attribute(1, 4, GL_UNSIGNED_BYTE, true);
-        format_.add_attribute(2, 2, GL_FLOAT, false);
+		format_.add_attribute(0, 3, GL_FLOAT, false);
+		format_.add_attribute(1, 4, GL_UNSIGNED_BYTE, true);
+		format_.add_attribute(2, 2, GL_FLOAT, false);
 
-        if (!texture_.create("assets/RopeBunny.png"))
-        {
-            return false;
-        }
+		if (!texture_.create("assets/RopeBunny.png"))
+		{
+			return false;
+		}
 
-        if (!sampler_.create(GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)) {
-            return false;
-        }*/
+		if (!sampler_.create(GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)) {
+			return false;
+		}*/
 
-        // note: uniforms
-       /* program_.bind();
-        glm::mat4 world = glm::translate(glm::mat4(1.0f),
-                                         glm::vec3(0.0f, 0.0f, -2.0f));
+		// note: uniforms
+	   /* program_.bind();
+		glm::mat4 world = glm::translate(glm::mat4(1.0f),
+										 glm::vec3(0.0f, 0.0f, -2.0f));
 
-        program_.set_uniform_mat4("world", world);
-        program_.set_uniform_vec4("mod_color", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));*/
-
-
-        GLenum error = glGetError();
-        if (error != GL_NO_ERROR)
-        {
-           
-        }
-
-        if (!font_.create())
-        {
-            return false;
-        }
-
-        if (!skybox_.create()) {
-            return false;
-        }
-
-        if (!terrain_.create("assets/heightmap/heightmap.png",
-            "assets/heightmap/texture.png"))
-        {
-            return false;
-        }
-
-        world_ = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -20.0f));
-        world_ = glm::scale(world_, glm::vec3(0.01f));
-
-        //framebuffer_format formats[] = { FRAMEBUFFER_FORMAT_RGBA8 };
-        //if (!framebuffer_.create(240, 135, _countof(formats), formats, FRAMEBUFFER_FORMAT_D32))
-        //    return false;
-
-        camera_.set_perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f); //Just changing it so that our perspective is controlled by the camera instead.
-        terrain_.camera_ = &camera_;
-
-		sun_.create(camera_,
-					nullptr,
-					"assets/RopeBunny.png",
-					glm::vec3(0.0f, 0.0f, 0.0f), //Position
-					glm::vec3(2.0f, 2.0f, 2.0f), 1.0f);//Scale
-		mercury_.create(camera_,
-						&sun_,
-						"assets/mercury.jpg",
-						glm::vec3(0.0f, 8.0f, 0.0f),
-						glm::vec3(1.0f, 1.0f, 1.0f), 1.1f);
-		mars_.create(camera_,
-					 &sun_,
-					 "assets/bear.jpg",
-					 glm::vec3(0.0f, 4.0f, -5.0f),
-					 glm::vec3(1.0f, 1.0f, 1.0f), 0.8f);
-
-		moon_.create(camera_,
-					 &mercury_,
-					 "assets/moon.jpg",
-					 glm::vec3(0.0f, 2.0f, 0.0f),
-					 glm::vec3(0.5f, 0.5f, 0.5f), -1.0f);
+		program_.set_uniform_mat4("world", world);
+		program_.set_uniform_vec4("mod_color", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));*/
 
 
-        return true;
-    }
+		GLenum error = glGetError();
+		if (error != GL_NO_ERROR)
+		{
+
+		}
+
+		if (!font_.create())
+		{
+			return false;
+		}
+
+		if (!skybox_.create()) {
+			return false;
+		}
+
+		if (!terrain_.create("assets/heightmap/heightmap.png",
+			"assets/heightmap/texture.png"))
+		{
+			return false;
+		}
+
+		world_ = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -20.0f));
+		world_ = glm::scale(world_, glm::vec3(0.01f));
+
+		//framebuffer_format formats[] = { FRAMEBUFFER_FORMAT_RGBA8 };
+		//if (!framebuffer_.create(240, 135, _countof(formats), formats, FRAMEBUFFER_FORMAT_D32))
+		//    return false;
+
+		camera_.set_perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 1000.0f); //Just changing it so that our perspective is controlled by the camera instead.
+		camera_.update();
+		camera_.forward(100.0f);
+		camera_.sidestep(-50.0f);
+		terrain_.camera_ = &camera_;
+
+		celestials_[0].create(camera_,
+							  nullptr,
+							  "assets/Planet_Textures/sun.jpg",
+							  glm::vec3(0.0f, 0.0f, 0.0f), //Position
+							  glm::vec3(2.0f, 2.0f, 2.0f), 1.0f);//Scale
+
+		celestials_[1].create(camera_,
+							  &celestials_[0],
+							  "assets/Planet_Textures/mercury.jpg",
+							  glm::vec3(0.0f, 4.0f, 0.0f),
+							  glm::vec3(0.383f, 0.383f, 0.383f), 1.0f);
+
+		celestials_[2].create(camera_,
+							  &celestials_[0],
+							  "assets/Planet_Textures/venus.jpg",
+							  glm::vec3(0.0f, 7.0f, 0.0f),
+							  glm::vec3(0.949f, 0.949f, 0.949f), 1.0f);
+
+		celestials_[3].create(camera_,
+							  &celestials_[0],
+							  "assets/Planet_Textures/earth.jpg",
+							  glm::vec3(0.0f, 13.0f, 0.0f),
+							  glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
+
+		celestials_[4].create(camera_,
+							  &celestials_[0],
+							  "assets/Planet_Textures/mars.jpg",
+							  glm::vec3(0.0f, 18.0f, 0.0f),
+							  glm::vec3(0.532f, 0.532f, 0.532f), 1.0f);
+
+		celestials_[5].create(camera_,
+							  &celestials_[0],
+							  "assets/Planet_Textures/jupiter.jpg",
+							  glm::vec3(0.0f, 40.0f, 0.0f),
+							  glm::vec3(11.21f, 11.21f, 11.21f), 1.0f);
+
+		celestials_[6].create(camera_,
+							  &celestials_[0],
+							  "assets/Planet_Textures/saturn.jpg",
+							  glm::vec3(0.0f, 68.0f, 0.0f),
+							  glm::vec3(9.45f, 9.45f, 9.45f), 1.0f);
+
+		celestials_[7].create(camera_,
+							  &celestials_[0],
+							  "assets/Planet_Textures/uranus.jpg",
+							  glm::vec3(0.0f, 90.0f, 0.0f),
+							  glm::vec3(4.01f, 4.01f, 4.01f), 1.0f);
+
+		celestials_[8].create(camera_,
+							  &celestials_[0],
+							  "assets/Planet_Textures/neptune.jpg",
+							  glm::vec3(0.0f, 104.0f, 0.0f),
+							  glm::vec3(3.88f, 3.88f, 3.88f), 1.0f);
+
+		celestials_[9].create(camera_,
+							  &celestials_[3],
+							  "assets/Planet_Textures/moon.jpg",
+							  glm::vec3(0.0f, 2.0f, 0.0f),
+							  glm::vec3(0.2724f, 0.2724f, 0.2724f), -1.0f);
+
+
+		return true;
+	}
 
     void testbed::exit() {
     }
@@ -240,10 +281,9 @@ namespace neon {
 
         skybox_.render(camera_); // Render skybox
 
-		sun_.update(dt.as_milliseconds());
-		mercury_.update(dt.as_milliseconds());
-		mars_.update(dt.as_milliseconds());
-		moon_.update(dt.as_milliseconds());
+
+		for (int i = 0; i < 10; i++)
+			celestials_[i].render(dt.as_milliseconds());
 
         //program_.bind();
         //program_.set_uniform_mat4("projection", camera_.projection_); // new matrices
