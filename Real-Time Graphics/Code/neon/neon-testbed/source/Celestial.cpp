@@ -24,6 +24,7 @@ namespace neon
 		pos_ = position;
 		scale_ = scale;
 		mod_ = modifier;
+
 		if(pos_.y != 0)
 			travel_Angle_ = velocity_ / pos_.y;
 

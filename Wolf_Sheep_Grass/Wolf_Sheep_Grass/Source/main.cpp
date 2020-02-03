@@ -41,7 +41,7 @@ struct AI_Object
 	}
 	void update(float dt)
 	{
-		x_ += dt * 100.0f;
+
 	}
 
 	void render()
@@ -64,6 +64,11 @@ int main(int ac, char** av)
 	SDL_Window* window = SDL_CreateWindow("Eco", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, 0, 0);
 
+	SDL_Event event;
+
+	int x, y;
+
+
 	AI_Object ai_Idiot;
 	ai_Idiot.create(renderer, 30, 80);
 
@@ -79,6 +84,12 @@ int main(int ac, char** av)
 	bool running = true;
 	while (running)
 	{
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+				running = false;
+		}
+
 		//Get DeltaTime
 		float dt;
 		{
@@ -86,6 +97,10 @@ int main(int ac, char** av)
 			dt = std::chrono::duration<float>(new_tp - tp).count();
 			tp = new_tp;
 		}
+		Uint32 coordinates = SDL_GetMouseState(&x, &y);
+		Tile tile = grid.Get_Tile(x / GRID_TILE_SIZE, y / GRID_TILE_SIZE);
+		std::cout << "x: " << x << " | y: " << y << " || " << "Tile x: " << tile.x_ << " | y: " << tile.y_ << " || " << "Tile Index x: " << tile.x_ / GRID_TILE_SIZE << " | y: " << tile.y_ / GRID_TILE_SIZE << "\n";
+		
 
 		/*SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderClear(renderer);*/

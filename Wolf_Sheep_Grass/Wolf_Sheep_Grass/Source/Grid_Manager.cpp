@@ -30,16 +30,6 @@ void Grid_Manager::Add_Grid(int x, int y, int w, int h)
 	size_++;
 }
 
-void Grid_Manager::Fill_Screen()
-{
-
-}
-
-void Grid_Manager::Plant_Local(int x, int y, int grid_Index)
-{
-
-}
-
 void Grid_Manager::Plant_Global(int x, int y)
 {
 	for (int i = 0; i < size_; i++)
@@ -61,9 +51,27 @@ void Grid_Manager::Plant_Global(int x, int y)
 	}
 }
 
-void Grid_Manager::Expand(int x, int y, int grid_index)
+Tile Grid_Manager::Get_Tile(int x, int y)
 {
+	for (int i = 0; i < size_; i++)
+	{
+		int temp_x = grids_[i].x_;
+		int temp_y = grids_[i].y_;
+		int temp_Width = grids_[i].width_;
+		int temp_Height = grids_[i].height_;
+		int temp_Tile_Size = grids_[i].tile_Size_;
 
+		if (x >= temp_x &&
+			x < temp_x + temp_Width / temp_Tile_Size &&
+			y >= temp_y &&
+			y < temp_y + temp_Height / temp_Tile_Size)
+		{
+			int tile_Index = (y * (temp_Width / temp_Tile_Size)) + x;
+			return grids_[i].tiles_[tile_Index];
+		}
+	}
+
+	return Tile();
 }
 
 void Grid_Manager::Render()
