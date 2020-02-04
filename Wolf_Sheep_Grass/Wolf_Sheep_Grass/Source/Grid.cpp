@@ -2,20 +2,33 @@
 
 #include "Grid.h"
 
+
+Tile Grid::Get_Tile(int x, int y)
+{
+	//x = 10
+	//y = 10
+	float x_Temp = (float) x / TILE_SIZE;
+	float y_Temp = (float) y / TILE_SIZE;
+
+	int x_Index = (int) x_Temp;
+	int y_Index = (int) y_Temp;
+
+	return tiles_[(y_Index * (SCREEN_WIDTH / TILE_SIZE) + x_Index)];
+}
+
 Grid::Grid()
 	: x_(0)
 	, y_(0)
 	, width_(0)
 	, height_(0)
-	, tiles_(nullptr)
-	, size_(0)
+	, renderer_(nullptr)
 {
 
 }
 
 //Scale the "Real size" (Aka 900 x 900) down to the tile measurement. Pos(1, 1) = Pixel(10, 10) when
 // Tile_Size = 10;
-void Grid::Create(int x, int y, int w, int h, unsigned int tile_Size, SDL_Renderer* renderer)
+void Grid::Create(const int x, const int y, const int w, const int h, const unsigned int tile_Size, SDL_Renderer* renderer)
 {
 	x_ = x;
 	y_ = y;
@@ -24,9 +37,6 @@ void Grid::Create(int x, int y, int w, int h, unsigned int tile_Size, SDL_Render
 	tile_Size_ = tile_Size;
 
 	renderer_ = renderer;
-
-	int size_ = (w / tile_Size) * (h / tile_Size);
-	tiles_ = new Tile[size_];
 
 	int red = 50;
 	for (int vertical = 0; vertical < height_ / tile_Size_; vertical++) // y
