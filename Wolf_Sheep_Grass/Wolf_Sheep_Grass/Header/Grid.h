@@ -5,26 +5,22 @@
 
 #include "Tile.h"
 
-const int TILE_SIZE = 90;
-const int SCREEN_WIDTH = 900;
-const int SCREEN_HEIGHT = 900;
-const int ARRAY_SIZE = (SCREEN_WIDTH / TILE_SIZE) * (SCREEN_HEIGHT / TILE_SIZE);
-
 struct Grid
 {
 	int x_, y_;
-	int width_, height_;
-	int tile_Size_; //width and height of tile
+	static const int tile_Size_ = 90;
+	static const int width_ = 900, height_ = 900;
+	static const int tile_Array_Size_ = (width_ / tile_Size_) * (height_ / tile_Size_);
 
-	Tile tiles_[ARRAY_SIZE];
-	Tile Get_Tile(int x, int y);
+	Tile tiles_[tile_Array_Size_];
+	Tile* Get_Tile(int x, int y);
 
 	
 	SDL_Renderer* renderer_;
 
 	Grid();
 
-	void Create(int x, int y, int w, int h, unsigned int tile_Size, SDL_Renderer* renderer);
+	void Create(int x, int y, SDL_Renderer* renderer);
 	void Render();
 };
 

@@ -8,27 +8,28 @@
 
 struct AI_Entity
 {
-	enum State
-	{
-		IDLE,
-		WANDER
-	};
-
-	State current_State_;
 	float x_, y_;
+	float s_tick_Rate_, d_tick_Rate_;
+	float s_Timer_, d_Timer_;
 
 	Grid* grid_;
+	SDL_Colour colour_;
 	SDL_Renderer* renderer_;
 
 	AI_Entity();
-	void Create(Grid* grid_, SDL_Renderer* renderer, int x, int y);
+	virtual void Create(Grid* grid, SDL_Renderer* renderer, int x, int y, float tick_Rate_Sense, float tick_Rate_Decide);
 
-	void Sense();
-	void Decide();
-	void Act();
+	virtual void Update();
+	virtual void Render();
+	virtual void Destroy();
 
-	void Update(float dt);
-	void Render();
+	void Set_Colour(int r, int g, int b, int a);
+	static void Update_Timer(float& cooldown, float& tick_Rate);
+
+private:
+	virtual void Sense() = 0;
+	virtual void Decide() = 0;
+	virtual void Act() = 0;
 
 };
 

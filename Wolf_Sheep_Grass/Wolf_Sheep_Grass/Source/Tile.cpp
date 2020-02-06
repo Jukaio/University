@@ -8,6 +8,7 @@ Tile::Tile()
 	, width_(0)
 	, height_(0)
 	, colour_({ 0, 0, 0, 0 })
+	, grass_Level_(0)
 {
 
 }

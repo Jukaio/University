@@ -9,6 +9,8 @@ struct Tile
 {
 	int x_, y_;
 	int width_, height_;
+
+	unsigned short grass_Level_;
 	
 	SDL_Colour colour_;
 

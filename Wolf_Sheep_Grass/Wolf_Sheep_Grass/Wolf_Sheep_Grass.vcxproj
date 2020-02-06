@@ -144,15 +144,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Header\Game.h" />
+    <ClInclude Include="Header\Grass.h" />
     <ClInclude Include="Header\AI_Entity.h" />
     <ClInclude Include="Header\Grid.h" />
     <ClInclude Include="Header\Tile.h" />
+    <ClInclude Include="Header\Time.h" />
+    <ClInclude Include="Header\World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\Grass.cpp" />
     <ClCompile Include="Source\AI_Entity.cpp" />
     <ClCompile Include="Source\Grid.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Tile.cpp" />
+    <ClCompile Include="Source\Time.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
