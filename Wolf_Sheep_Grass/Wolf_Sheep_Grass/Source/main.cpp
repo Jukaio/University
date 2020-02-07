@@ -21,6 +21,7 @@ int main(int ac, char** av)
 
 	Time::Instance();
 
+
 	int x, y;
 	bool running = true;
 	while (running)
