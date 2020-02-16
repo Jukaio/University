@@ -86,7 +86,7 @@ Vector2 Vector2::operator/(const float rhs) const
 }
 
 //Friend Mehtods
-Vector2 operator+=(Vector2 lhs, const Vector2& rhs)
+Vector2& operator+=(Vector2& lhs, const Vector2& rhs)
 {
 	lhs.x_ += rhs.x_;
 	lhs.y_ += rhs.y_;
@@ -94,7 +94,7 @@ Vector2 operator+=(Vector2 lhs, const Vector2& rhs)
 	return lhs;
 }
 
-Vector2 operator-=(Vector2 lhs, const Vector2& rhs)
+Vector2& operator-=(Vector2& lhs, const Vector2& rhs)
 {
 	lhs.x_ -= rhs.x_;
 	lhs.y_ -= rhs.y_;
@@ -102,7 +102,7 @@ Vector2 operator-=(Vector2 lhs, const Vector2& rhs)
 	return lhs;
 }
 
-Vector2 operator*=(Vector2 lhs, const Vector2& rhs)
+Vector2& operator*=(Vector2& lhs, const Vector2& rhs)
 {
 	lhs.x_ *= rhs.x_;
 	lhs.y_ *= rhs.y_;
@@ -110,7 +110,7 @@ Vector2 operator*=(Vector2 lhs, const Vector2& rhs)
 	return lhs;
 }
 
-Vector2 operator*=(Vector2 lhs, const float rhs)
+Vector2& operator*=(Vector2& lhs, const float rhs)
 {
 	lhs.x_ *= rhs;
 	lhs.y_ *= rhs;
@@ -118,7 +118,7 @@ Vector2 operator*=(Vector2 lhs, const float rhs)
 	return lhs;
 }
 
-Vector2 operator/=(Vector2 lhs, const Vector2& rhs)
+Vector2& operator/=(Vector2& lhs, const Vector2& rhs)
 {
 	lhs.x_ /= rhs.x_;
 	lhs.y_ /= rhs.y_;
@@ -126,7 +126,7 @@ Vector2 operator/=(Vector2 lhs, const Vector2& rhs)
 	return lhs;
 }
 
-Vector2 operator/=(Vector2 lhs, const float rhs)
+Vector2& operator/=(Vector2& lhs, const float rhs)
 {
 	lhs.x_ /= rhs;
 	lhs.y_ /= rhs;
@@ -145,12 +145,13 @@ float Vector2::Length() const
 	return sqrtf(Length_Sqrt());
 }
 
-void Vector2::Normalise() const
+void Vector2::Normalise()
 {
 	float l = Length();
-	if (l > 0)
+	if (l > 0.0f)
 	{
-		(*this) *= 1 / l;
+		x_ /= l;
+		y_ /= l;
 	}
 }
 

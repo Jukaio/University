@@ -6,6 +6,7 @@
 #include "Wyvern_Engine.h"
 #include <SDL_Font/SDL_ttf.h>
 #include <string>
+#include "Vector2.h"
 
 
 void Write_Text(SDL_Renderer* renderer, int i)
@@ -28,7 +29,9 @@ int main(int argc, char* argv[])
 	SDL_Window* window = SDL_CreateWindow("Wyvern", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 400, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, 0, 0);
 
-
+	Vector2 vector(2, 2);
+	Vector2 vector2(3, 3.0f);
+	vector += vector2;
 
 	Input_Handler input_Handler;
 	input_Handler.Initialise();
