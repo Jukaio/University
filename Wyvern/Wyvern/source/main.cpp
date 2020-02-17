@@ -6,8 +6,11 @@
 #include "Wyvern_Engine.h"
 #include <SDL_Font/SDL_ttf.h>
 #include <string>
-#include "Vector2.h"
+#include "Game_Object.h"
+#include "Time.h"
+#include "Wyvern_Array.h"
 
+//https://stackoverflow.com/questions/16596422/template-class-with-template-container
 
 void Write_Text(SDL_Renderer* renderer, int i)
 {
@@ -35,26 +38,23 @@ int main(int argc, char* argv[])
 
 	Input_Handler input_Handler;
 	input_Handler.Initialise();
-	
-
+	Time::Instance();
 	TTF_Init();
 	
+	Game_Object gm;
+	gm.Create(0, 300, 20, 20);
 
+	Wyvern_Array<Game_Object> arr;
+	arr.Push_Back();
 
-	bool escape = false;
 
 	bool running = true;
 	while (running)
 	{
+		Time::Update();
+
 		if (!input_Handler.Handle_Input_Events())
 			running = false;
-		
-
-
- 		if (escape)
-			running = false;
-
-		//std::cout << Wyvern_Engine<Input_Handler>::Instance()->Get_Key_State(SDL_SCANCODE_SPACE) << "\n";
 
 		SDL_RenderClear(renderer);
 
@@ -64,11 +64,8 @@ int main(int argc, char* argv[])
 				Write_Text(renderer, i);
 		}
 
-		// Proto-Render
-		//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-		//SDL_Rect rect = { (int) x, (int) y, 20, 20 };
-		//SDL_RenderFillRect(renderer, &rect);
-
+		gm.Update();
+		gm.Render(renderer);
 
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderPresent(renderer);

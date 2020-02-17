@@ -167,17 +167,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\Entity.cpp" />
+    <ClCompile Include="source\Game_Object.cpp" />
+    <ClCompile Include="source\IEntity.cpp" />
     <ClCompile Include="source\Input\Input_Handler.cpp" />
     <ClCompile Include="source\Input\Keyboard.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Time.cpp" />
     <ClCompile Include="source\Vector2.cpp" />
+    <ClCompile Include="source\World.cpp" />
+    <ClCompile Include="source\Wyvern_Array.cpp" />
     <ClCompile Include="source\Wyvern_Engine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Entity.h" />
+    <ClInclude Include="header\Game_Object.h" />
+    <ClInclude Include="header\IEntity.h" />
     <ClInclude Include="header\Input\Input_Handler.h" />
     <ClInclude Include="header\Input\Keyboard.h" />
+    <ClInclude Include="header\Time.h" />
     <ClInclude Include="header\Vector2.h" />
+    <ClInclude Include="header\World.h" />
+    <ClInclude Include="header\Wyvern_Array.h" />
     <ClInclude Include="header\Wyvern_Engine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

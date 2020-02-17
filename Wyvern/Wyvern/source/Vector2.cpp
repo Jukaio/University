@@ -75,6 +75,16 @@ Vector2 Vector2::operator*(const float rhs) const
 	return Vector2(x_ * rhs, y_ * rhs);
 }
 
+Vector2 Vector2::operator/(const int rhs) const
+{
+	return Vector2(x_ / (float) rhs, y_ / (float) rhs);;
+}
+
+Vector2 Vector2::operator*(const int rhs) const
+{
+	return Vector2(x_ * rhs, y_ * rhs);;
+}
+
 Vector2 Vector2::operator/(const Vector2& rhs) const
 {
 	return Vector2(x_ / rhs.x_, y_ / rhs.y_);
@@ -172,7 +182,7 @@ float Vector2::Cross(const Vector2& rhs) const
 	return x_ * rhs.y_ - y_ * rhs.x_;
 }
 
-float Vector2::Distance(const Vector2& rhs) const
+float Vector2::Distance_To(const Vector2& rhs) const
 {
 	return sqrtf(powf((rhs.x_ - x_), 2) + powf((rhs.y_ - y_), 2));
 }

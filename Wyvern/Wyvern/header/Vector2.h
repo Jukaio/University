@@ -19,10 +19,6 @@ struct Vector2
 	Vector2 operator-() const;
 	Vector2 operator+(const Vector2& rhs) const;
 	Vector2 operator-(const Vector2& rhs) const;
-	Vector2 operator+(const float rhs) const;
-	Vector2 operator-(const float rhs) const;
-	Vector2 operator+(const int rhs) const;
-	Vector2 operator-(const int rhs) const;
 	Vector2 operator*(const Vector2& rhs) const;
 	Vector2 operator/(const Vector2& rhs) const;
 	Vector2 operator/(const float rhs) const;
@@ -43,7 +39,7 @@ struct Vector2
 	Vector2 Unit() const;
 	float Dot(const Vector2& rhs) const;
 	float Cross(const Vector2& rhs) const;
-	float Distance(const Vector2& rhs) const;
+	float Distance_To(const Vector2& rhs) const;
 	
 };
 
