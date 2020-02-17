@@ -41,12 +41,10 @@ int main(int argc, char* argv[])
 	Time::Instance();
 	TTF_Init();
 	
-	Game_Object gm;
-	gm.Create(0, 300, 20, 20);
 
 	Wyvern_Array<Game_Object> arr;
-	arr.Push_Back();
-
+	for(int i = 0; i < 10; i++)
+		arr.Push_Back(Game_Object(i * 50 + 10, 200, 25, 25));
 
 	bool running = true;
 	while (running)
@@ -64,12 +62,13 @@ int main(int argc, char* argv[])
 				Write_Text(renderer, i);
 		}
 
-		gm.Update();
-		gm.Render(renderer);
 
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderPresent(renderer);
 	}
+
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 
 	TTF_Quit();
 	SDL_Quit();

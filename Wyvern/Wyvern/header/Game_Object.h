@@ -7,9 +7,17 @@
 
 struct Game_Object : Entity
 {
+	Game_Object();
+	Game_Object(Vector2 position, Vector2 size);
+	Game_Object(Vector2 position, float w, float h);
+	Game_Object(float x, float y, Vector2 size);
+	Game_Object(float x, float y, float w, float h);
+	Game_Object(int x, int y, int w, int h);
+
 	virtual void Update();
 	virtual void Render(SDL_Renderer* renderer);
-	
+
+
 };
 
 
