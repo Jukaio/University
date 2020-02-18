@@ -4,16 +4,18 @@
 #define __WORLD__
 
 #include "Game_Object.h"
+#include "Wyvern_Array.h"
 
 struct World
 {
 	World();
 
-	Game_Object* game_Objects_;
-	int size_;
+	Wyvern_Array<Game_Object> game_Objects_;
 
-	void Add(Game_Object obj);
+	void Add(const Game_Object& obj);
 
+	void Update();
+	void Render(SDL_Renderer* renderer);
 
 };
 

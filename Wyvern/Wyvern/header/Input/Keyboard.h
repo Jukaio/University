@@ -24,6 +24,7 @@ struct Keyboard
 	static bool Key_Pressed(SDL_Scancode key);
 	static bool Key_Released(SDL_Scancode key);
 
+	static void Clean();
 private:
 	Keyboard();
 	static Keyboard* instance_;

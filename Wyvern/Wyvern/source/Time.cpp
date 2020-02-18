@@ -29,14 +29,19 @@ void Time::Update()
 	instance_->dt_ = dt;
 }
 
+void Time::Clean()
+{
+	if (instance_ != nullptr)
+		delete instance_;
+}
+
+Time::~Time()
+{
+}
+
 Ticks Time::Get_Delta_Time()
 {
 	return instance_->dt_;
 }
 
-
-void Time::Destroy()
-{
-
-}
 

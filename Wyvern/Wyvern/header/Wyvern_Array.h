@@ -3,8 +3,6 @@
 #ifndef __WYVERN_ARRAY__
 #define __WYVERN_ARRAY__
 
-//Just use STD::VECTOR!!
-
 template <typename T>
 struct Wyvern_Array
 {
@@ -30,6 +28,11 @@ struct Wyvern_Array
 	{
 		Expand();
 		arr_[size_ - 1] = obj;
+	}
+
+	T* operator[](const int index)
+	{
+		return &arr_[index];
 	}
 
 private:

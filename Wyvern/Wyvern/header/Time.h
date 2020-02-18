@@ -47,14 +47,15 @@ struct Time
 {
 	static void Instance();
 	static void Update();
-	void Destroy();
+	static void Clean();
+
 
 	static Ticks Get_Delta_Time();
 
 private:
 	static Time* instance_;
 	Time();
-
+	~Time();
 	Ticks tp_;
 	Ticks dt_;
 };

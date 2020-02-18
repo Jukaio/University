@@ -8,7 +8,7 @@
 #include <string>
 #include "Game_Object.h"
 #include "Time.h"
-#include "Wyvern_Array.h"
+#include "World.h"
 
 //https://stackoverflow.com/questions/16596422/template-class-with-template-container
 
@@ -32,36 +32,28 @@ int main(int argc, char* argv[])
 	SDL_Window* window = SDL_CreateWindow("Wyvern", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 400, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, 0, 0);
 
-	Vector2 vector(2, 2);
-	Vector2 vector2(3, 3.0f);
-	vector += vector2;
-
 	Input_Handler input_Handler;
 	input_Handler.Initialise();
 	Time::Instance();
 	TTF_Init();
 	
+	World world;
+	
 
-	Wyvern_Array<Game_Object> arr;
 	for(int i = 0; i < 10; i++)
-		arr.Push_Back(Game_Object(i * 50 + 10, 200, 25, 25));
+		world.Add(Game_Object(i * 50 + 10, 200, 25, 25));
 
 	bool running = true;
 	while (running)
 	{
 		Time::Update();
-
 		if (!input_Handler.Handle_Input_Events())
 			running = false;
 
 		SDL_RenderClear(renderer);
 
-		for (int i = 0; i < SDL_NUM_SCANCODES; i++)
-		{
-			if (Keyboard::Key_State((SDL_Scancode)i))
-				Write_Text(renderer, i);
-		}
-
+		world.Update();
+		world.Render(renderer);
 
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderPresent(renderer);
@@ -69,6 +61,7 @@ int main(int argc, char* argv[])
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	Time::Clean();
 
 	TTF_Quit();
 	SDL_Quit();

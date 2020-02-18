@@ -13,8 +13,6 @@ struct Entity : IEntity
 
 	virtual void Update() = 0;
 	virtual void Render(SDL_Renderer* renderer) = 0;
-
-
 };
 
 

@@ -8,6 +8,10 @@
 struct Input_Handler
 {
 	Input_Handler();
+	~Input_Handler()
+	{
+		Keyboard::Clean();
+	}
 
 	void Initialise();
 	bool Handle_Input_Events();

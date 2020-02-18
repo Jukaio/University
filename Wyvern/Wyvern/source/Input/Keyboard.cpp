@@ -45,3 +45,9 @@ bool Keyboard::Key_Released(SDL_Scancode key)
 	return (instance_->last_Frame_[key] == true && instance_->current_Frame_[key] == false);
 }
 
+void Keyboard::Clean()
+{
+	if (instance_ != nullptr)
+		delete instance_;
+}
+

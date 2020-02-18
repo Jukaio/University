@@ -175,7 +175,6 @@
     <ClCompile Include="source\Time.cpp" />
     <ClCompile Include="source\Vector2.cpp" />
     <ClCompile Include="source\World.cpp" />
-    <ClCompile Include="source\Wyvern_Array.cpp" />
     <ClCompile Include="source\Wyvern_Engine.cpp" />
   </ItemGroup>
   <ItemGroup>

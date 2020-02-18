@@ -3,6 +3,7 @@
 #include "Game_Object.h"
 #include <SDL2/SDL.h>
 #include "Keyboard.h"
+#include "Time.h"
 
 Game_Object::Game_Object()
 {
@@ -43,7 +44,7 @@ Game_Object::Game_Object(int x, int y, int w, int h)
 
 void Game_Object::Update()
 {
-
+	position_.y_ += 1;
 }
 
 void Game_Object::Render(SDL_Renderer* renderer)

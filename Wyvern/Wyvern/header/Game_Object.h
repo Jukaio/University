@@ -16,8 +16,6 @@ struct Game_Object : Entity
 
 	virtual void Update();
 	virtual void Render(SDL_Renderer* renderer);
-
-
 };
 
 
