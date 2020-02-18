@@ -10,6 +10,7 @@ struct IEntity
 {
 	IEntity();
 
+	Vector2 origin_;
 	Vector2 position_;
 	Vector2 size_;
 	int Texture_ID_;

@@ -10,7 +10,7 @@ Game_Object::Game_Object()
 
 }
 
-Game_Object::Game_Object(Vector2 position, Vector2 size)
+Game_Object::Game_Object(Vector2 position, Vector2 size) 
 {
 	position_ = position;
 	size_ = size;
@@ -44,12 +44,27 @@ Game_Object::Game_Object(int x, int y, int w, int h)
 
 void Game_Object::Update()
 {
-	position_.y_ += 1;
+
 }
 
 void Game_Object::Render(SDL_Renderer* renderer)
 {
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-	SDL_Rect rect = { (int)position_.x_, (int)position_.y_, (int) size_.x_, (int) size_.y_ };
+	SDL_Rect rect = { (int)position_.x_ - (origin_.x_ * size_.x_), (int)position_.y_ - (origin_.y_ * size_.y_), (int) size_.x_, (int) size_.y_ };
 	SDL_RenderFillRect(renderer, &rect);
+}
+
+void Game_Object::Set_Origin(Vector2 origin)
+{
+	origin_ = origin;
+}
+
+void Game_Object::Set_Origin(int x, int y)
+{
+	origin_ = Vector2(x, y);
+}
+
+void Game_Object::Set_Origin(float x, float y)
+{
+	origin_ = Vector2(x, y);
 }

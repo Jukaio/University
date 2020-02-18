@@ -6,9 +6,12 @@
 #include "Wyvern_Engine.h"
 #include <SDL_Font/SDL_ttf.h>
 #include <string>
-#include "Game_Object.h"
+#include "Player.h"
 #include "Time.h"
 #include "World.h"
+#include "Collision_Detection/Collision.h"
+
+// COLLISION DETECTION DONE! NOW IMPLEMENT IT! STUPID FAT UGLY CUNT :( 
 
 //https://stackoverflow.com/questions/16596422/template-class-with-template-container
 
@@ -32,16 +35,27 @@ int main(int argc, char* argv[])
 	SDL_Window* window = SDL_CreateWindow("Wyvern", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 400, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, 0, 0);
 
+
 	Input_Handler input_Handler;
 	input_Handler.Initialise();
 	Time::Instance();
 	TTF_Init();
-	
-	World world;
-	
 
-	for(int i = 0; i < 10; i++)
+	World world;
+
+	Rectangle rect(150, 180, 150, 200);
+
+	Player player(100, 100, 100, 100);
+
+	Game_Object temp(0, 200, 25, 25);
+	temp.Set_Origin(0.5f, 0.5f);
+
+	for (int i = 0; i < 10; i++)
+	{
+		temp.position_.x_ = i * 50;
 		world.Add(Game_Object(i * 50 + 10, 200, 25, 25));
+	}
+
 
 	bool running = true;
 	while (running)
@@ -53,7 +67,26 @@ int main(int argc, char* argv[])
 		SDL_RenderClear(renderer);
 
 		world.Update();
+		player.Update();
+
 		world.Render(renderer);
+		player.Render(renderer);
+
+
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+
+		Rectangle rect_2(player.position_, player.size_);
+
+
+		int green = 0;
+		if (Collision(rect, rect_2))
+			green = 255;
+
+
+		SDL_SetRenderDrawColor(renderer, 255, green, 0, 255);
+		SDL_Rect SDLrect = { (int)rect.position_.x_, (int)rect.position_.y_, (int)rect.size_.x_, (int)rect.size_.y_ };
+		SDL_RenderFillRect(renderer, &SDLrect);
 
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderPresent(renderer);
@@ -61,6 +94,7 @@ int main(int argc, char* argv[])
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+
 	Time::Clean();
 
 	TTF_Quit();

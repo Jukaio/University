@@ -3,7 +3,7 @@
 #ifndef __KEYBOARD__
 #define __KEYBOARD__
 
-#include <SDL2/SDL.h>
+#include <SDL2/SDL_scancode.h>
 
 /*
 You receive the info about a certain key and its behaviour through static methods.

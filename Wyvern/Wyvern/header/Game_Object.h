@@ -16,6 +16,10 @@ struct Game_Object : Entity
 
 	virtual void Update();
 	virtual void Render(SDL_Renderer* renderer);
+
+	void Set_Origin(Vector2 origin);
+	void Set_Origin(int x, int y);
+	void Set_Origin(float x, float y);
 };
 
 

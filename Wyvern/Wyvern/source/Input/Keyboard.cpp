@@ -3,9 +3,7 @@
 #include "Input/Keyboard.h"
 #include <iostream>
 
-Keyboard::Keyboard()
-{
-}
+Keyboard::Keyboard() { }
 
 Keyboard* Keyboard::instance_ = nullptr;
 
