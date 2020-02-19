@@ -4,7 +4,7 @@ Time* Time::instance_ = 0;
 
 
 
-void Time::Instance()
+void Time::Initialise()
 {
 	if (instance_ == 0)
 	{

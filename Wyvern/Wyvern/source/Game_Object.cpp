@@ -4,41 +4,25 @@
 #include <SDL2/SDL.h>
 #include "Keyboard.h"
 #include "Time.h"
+#include "Renderer.h"
+#include "Collision_Detection/Collider.h"
 
 Game_Object::Game_Object()
+	:collider_(Rectangle(Vector2(0, 0), Vector2(0, 0)))
+	, parent_(nullptr)
 {
 
 }
 
-Game_Object::Game_Object(Vector2 position, Vector2 size) 
+Game_Object::Game_Object(Vector2 position, Vector2 size, Vector2 origin, Game_Object* parent) 
+	: parent_(parent)
 {
 	position_ = position;
 	size_ = size;
+	origin_ = origin;
+	collider_ = Rectangle((*this));
 }
 
-Game_Object::Game_Object(Vector2 position, float w, float h)
-{
-	position_ = position;
-	size_ = Vector2(w, h);
-}
-
-Game_Object::Game_Object(float x, float y, Vector2 size)
-{
-	position_ = Vector2(x, y);
-	size_ = size;
-}
-
-Game_Object::Game_Object(float x, float y, float w, float h)
-{
-	position_ = Vector2(x, y);
-	size_ = Vector2(w, h);
-}
-
-Game_Object::Game_Object(int x, int y, int w, int h)
-{
-	position_ = Vector2(x, y);
-	size_ = Vector2(w, h);
-}
 
 
 
@@ -47,11 +31,11 @@ void Game_Object::Update()
 
 }
 
-void Game_Object::Render(SDL_Renderer* renderer)
+void Game_Object::Render()
 {
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_SetRenderDrawColor(Renderer::Get_Renderer(), 255, 0, 0, 255);
 	SDL_Rect rect = { (int)position_.x_ - (origin_.x_ * size_.x_), (int)position_.y_ - (origin_.y_ * size_.y_), (int) size_.x_, (int) size_.y_ };
-	SDL_RenderFillRect(renderer, &rect);
+	SDL_RenderFillRect(Renderer::Get_Renderer(), &rect);
 }
 
 void Game_Object::Set_Origin(Vector2 origin)

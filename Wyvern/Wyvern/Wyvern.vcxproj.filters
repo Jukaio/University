@@ -51,6 +51,12 @@
     <ClCompile Include="source\Input\Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\Wyvern_Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Wyvern_Engine.h">
@@ -80,9 +86,6 @@
     <ClInclude Include="header\World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\Wyvern_Array.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -101,5 +104,14 @@
     <ClInclude Include="header\Collision_Detection\Collider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\Wyvern_Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

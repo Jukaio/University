@@ -45,7 +45,7 @@ struct Ticks
 
 struct Time
 {
-	static void Instance();
+	static void Initialise();
 	static void Update();
 	static void Clean();
 

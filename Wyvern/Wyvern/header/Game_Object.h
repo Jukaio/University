@@ -4,18 +4,20 @@
 #define __GAME_OBJECT__
 
 #include "Entity.h"
+#include "Collision_Detection/Collider.h"
+
+struct Collider;
 
 struct Game_Object : Entity
 {
+	Game_Object* parent_;
+	Rectangle collider_;
+
 	Game_Object();
-	Game_Object(Vector2 position, Vector2 size);
-	Game_Object(Vector2 position, float w, float h);
-	Game_Object(float x, float y, Vector2 size);
-	Game_Object(float x, float y, float w, float h);
-	Game_Object(int x, int y, int w, int h);
+	Game_Object(Vector2 position, Vector2 size, Vector2 origin = Vector2(0,0), Game_Object* parent = nullptr);
 
 	virtual void Update();
-	virtual void Render(SDL_Renderer* renderer);
+	virtual void Render();
 
 	void Set_Origin(Vector2 origin);
 	void Set_Origin(int x, int y);

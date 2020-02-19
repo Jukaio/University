@@ -7,10 +7,11 @@ struct Input_Handler
 {
 	Input_Handler();
 	~Input_Handler();
-
 	
 	void Initialise();
 	bool Handle_Input_Events();
+
+private:
 	void Get_Mouse_Position();
 
 };

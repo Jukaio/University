@@ -40,8 +40,9 @@ struct Vector2
 	float Dot(const Vector2& rhs) const;
 	float Cross(const Vector2& rhs) const;
 	float Distance_To(const Vector2& rhs) const;
+
+
 	
 };
-
 
 #endif // !__VECTOR2__

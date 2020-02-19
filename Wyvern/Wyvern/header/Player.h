@@ -4,18 +4,21 @@
 #define __PLAYER__
 
 #include "Game_Object.h"
+#include "World.h"
+
 
 struct Player : Game_Object
 {
-	Player();
-	Player(Vector2 position, Vector2 size);
-	Player(Vector2 position, float w, float h);
-	Player(float x, float y, Vector2 size);
-	Player(float x, float y, float w, float h);
-	Player(int x, int y, int w, int h);
+	World* world_;
 
-	void Update() final;
-	
+	int green_;
+
+	Player();
+	Player(Vector2 position, Vector2 size, Vector2 origin = Vector2(0, 0), World* parent = nullptr);
+
+
+	void Update();
+	void Render();
 };
 
 
