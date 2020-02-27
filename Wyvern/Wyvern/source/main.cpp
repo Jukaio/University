@@ -23,6 +23,11 @@
 //	SDL_DestroyTexture(texture);
 //}
 
+// Global variables = GLOBAL_VARIABLE
+// Function variable = function_Variable
+// Parameter variable = parameter_variable
+// Class variable = class_Variable_
+
 int main(int argc, char* argv[])
 {
 	Wyvern_Engine engine;

@@ -9,16 +9,16 @@
 
 struct Player : Game_Object
 {
-	World* world_;
+	//World* world_;
 
-	int green_;
+	//int green_;
 
-	Player();
-	Player(Vector2 position, Vector2 size, Vector2 origin = Vector2(0, 0), World* parent = nullptr);
+	//Player();
+	//Player(Vector2 position, Vector2 size, Vector2 origin = Vector2(0, 0), World* parent = nullptr);
 
 
-	void Update();
-	void Render();
+	//void Update();
+	//void Render();
 };
 
 

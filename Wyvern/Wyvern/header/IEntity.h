@@ -3,18 +3,17 @@
 #ifndef __IENTITY__
 #define __IENTITY__
 
-#include "Vector2.h"
+#include <Components/Component.h>
+#include <typeindex>
+#include <typeinfo>
+#include <unordered_map>
 
 // Entity parameters
 struct IEntity
 {
+public:
 	IEntity();
-
-	Vector2 origin_;
-	Vector2 position_;
-	Vector2 size_;
-	int Texture_ID_;
-
+	~IEntity() { }
 };
 
 

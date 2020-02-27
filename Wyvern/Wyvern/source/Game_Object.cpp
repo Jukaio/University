@@ -1,54 +1,55 @@
 // Game_Object.cpp
 
 #include "Game_Object.h"
-#include <SDL2/SDL.h>
-#include "Keyboard.h"
 #include "Time.h"
-#include "Renderer.h"
-#include "Collision_Detection/Collider.h"
+#include "Components/Transform.h"
+#include "Components/Render_Component.h"
+#include "Components/Input_Component.h"
+#include "Vector2.h"
+
+Game_Object::~Game_Object()
+{
+	// delete object pointers
+	for (auto&& component : component_Map_)
+	{
+		if (component.second != nullptr)
+			delete component.second;
+	}
+
+	// clear keys
+	component_Map_.clear();
+}
+
+template <class T>
+void Game_Object::Add_Component()
+{
+	component_Map_[typeid(T)] = new T(*this);
+}
+
+template <class T>
+T* Game_Object::Get_Component()
+{
+	return (T*)component_Map_[typeid(T)];
+}
+
 
 Game_Object::Game_Object()
-	:collider_(Rectangle(Vector2(0, 0), Vector2(0, 0)))
-	, parent_(nullptr)
 {
+	Add_Component<Transform>();
+	Add_Component<Render_Component>();
+	Add_Component<Input_Component>();
 
+	Get_Component<Transform>()->Set_Position(Vector2(100, 100));
+	Get_Component<Transform>()->Set_Size(Vector2(100, 100));
 }
-
-Game_Object::Game_Object(Vector2 position, Vector2 size, Vector2 origin, Game_Object* parent) 
-	: parent_(parent)
-{
-	position_ = position;
-	size_ = size;
-	origin_ = origin;
-	collider_ = Rectangle((*this));
-}
-
-
-
 
 void Game_Object::Update()
 {
-
+	Get_Component<Input_Component>()->Update();
 }
 
 void Game_Object::Render()
 {
-	SDL_SetRenderDrawColor(Renderer::Get_Renderer(), 255, 0, 0, 255);
-	SDL_Rect rect = { (int)position_.x_ - (origin_.x_ * size_.x_), (int)position_.y_ - (origin_.y_ * size_.y_), (int) size_.x_, (int) size_.y_ };
-	SDL_RenderFillRect(Renderer::Get_Renderer(), &rect);
+	Get_Component<Render_Component>()->Render_Square();
 }
 
-void Game_Object::Set_Origin(Vector2 origin)
-{
-	origin_ = origin;
-}
-
-void Game_Object::Set_Origin(int x, int y)
-{
-	origin_ = Vector2(x, y);
-}
-
-void Game_Object::Set_Origin(float x, float y)
-{
-	origin_ = Vector2(x, y);
-}

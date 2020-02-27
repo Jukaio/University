@@ -22,7 +22,6 @@ void World::Update()
 	{
 		game_Objects_[i]->Update();
 	}
-	player_->Update();
 }
 
 void World::Render()
@@ -31,7 +30,6 @@ void World::Render()
 	{
 		game_Objects_[i]->Render();
 	}
-	player_->Render();
 }
 
 void World::Set_Player(Game_Object* player)

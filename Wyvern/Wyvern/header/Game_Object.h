@@ -4,24 +4,26 @@
 #define __GAME_OBJECT__
 
 #include "Entity.h"
-#include "Collision_Detection/Collider.h"
 
 struct Collider;
 
 struct Game_Object : Entity
 {
-	Game_Object* parent_;
-	Rectangle collider_;
+private:
+	std::unordered_map<std::type_index, Component*> component_Map_;
 
+public:
 	Game_Object();
-	Game_Object(Vector2 position, Vector2 size, Vector2 origin = Vector2(0,0), Game_Object* parent = nullptr);
+	~Game_Object();
+
+	template <class T>
+	void Add_Component();
+
+	template <class T>
+	T* Get_Component();
 
 	virtual void Update();
 	virtual void Render();
-
-	void Set_Origin(Vector2 origin);
-	void Set_Origin(int x, int y);
-	void Set_Origin(float x, float y);
 };
 
 

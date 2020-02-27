@@ -49,12 +49,6 @@ struct Rectangle : Collider
 	Vector2 origin_;
 	Vector2 size_;
 
-	Rectangle(Entity& parent) 
-	{
-		position_ = parent.position_;
-		size_ = parent.size_;
-		origin_ = parent.origin_;
-	}
 	Rectangle() : Collider(Vector2(0, 0)), size_(0, 0), origin_(0, 0) { }
 	Rectangle(Vector2 position, Vector2 size, Vector2 origin = Vector2(0, 0)) : Collider(position), size_(size), origin_(origin) { }
 	Rectangle(int x, int y, int w, int h, int origin_x = 0, int origin_y = 0) : Collider(Vector2(x, y)), size_(w, h), origin_(origin_x, origin_y) { }
