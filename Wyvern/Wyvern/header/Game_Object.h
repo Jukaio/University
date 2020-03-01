@@ -4,6 +4,11 @@
 #define __GAME_OBJECT__
 
 #include "Entity.h"
+#include <Components/Component.h>
+#include <typeindex>
+#include <typeinfo>
+#include <unordered_map>
+
 
 struct Collider;
 

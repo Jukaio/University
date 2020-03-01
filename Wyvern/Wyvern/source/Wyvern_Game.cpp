@@ -19,7 +19,8 @@ void Wyvern_Game::Initialise()
 void Wyvern_Game::Update()
 {
 	world_.Update();
-	game_Object_.Update();
+
+
 }
 
 void Wyvern_Game::Render()
@@ -27,7 +28,8 @@ void Wyvern_Game::Render()
 	SDL_RenderClear(Renderer::Get_Renderer());
 
 	world_.Render();
-	game_Object_.Render();
+
+
 	SDL_SetRenderDrawColor(Renderer::Get_Renderer(), 255, 255, 255, 255);
 	SDL_RenderPresent(Renderer::Get_Renderer());
 }

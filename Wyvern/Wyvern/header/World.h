@@ -14,12 +14,9 @@ struct World
 
 	void Update();
 	void Render();
-	void Set_Player(Game_Object* player);
-	Game_Object* Get_Player();
 	std::vector<Game_Object*>& Get_Game_Objects();
 
 private:
-	Game_Object* player_;
 	std::vector<Game_Object*> game_Objects_;
 
 };

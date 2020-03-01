@@ -114,7 +114,7 @@ namespace neon {
 	// !index_buffer 
 
 
-	namespace {
+	namespace opengl{
 		GLuint create_shader(GLenum type, const char* source) {
 			GLuint id = glCreateShader(type);
 			glShaderSource(id, 1, &source, nullptr);
@@ -186,9 +186,9 @@ namespace neon {
 		fragment_shader_file_content.push_back(0);
 		const char* fragment_shader_source = (const char*)fragment_shader_file_content.data();
 
-		GLuint vid = create_shader(GL_VERTEX_SHADER, vertex_shader_source);
-		GLuint fid = create_shader(GL_FRAGMENT_SHADER, fragment_shader_source);
-		id_ = create_program(vid, fid);
+		GLuint vid = opengl::create_shader(GL_VERTEX_SHADER, vertex_shader_source);
+		GLuint fid = opengl::create_shader(GL_FRAGMENT_SHADER, fragment_shader_source);
+		id_ = opengl::create_program(vid, fid);
 
 		GLenum error = glGetError();
 		return error == GL_NO_ERROR;

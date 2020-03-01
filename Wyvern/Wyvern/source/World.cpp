@@ -5,8 +5,8 @@
 #include "Player.h"
 
 World::World()
-	:player_(nullptr)
 {
+	Add(new Game_Object());
 }
 
 
@@ -32,15 +32,6 @@ void World::Render()
 	}
 }
 
-void World::Set_Player(Game_Object* player)
-{
-	player_ = player;
-}
-
-Game_Object* World::Get_Player()
-{
-	return player_;
-}
 
 std::vector<Game_Object*>& World::Get_Game_Objects()
 {
