@@ -14,8 +14,7 @@ Wyvern_Game::Wyvern_Game()
 
 void Wyvern_Game::Initialise()
 {
-	Texture_Manager::Add("test", "assets/sword.jpg");
-	Texture_Manager::Get("test");
+	Texture_Manager::Add("Test_Animation", "assets/Test_Animation.png");
 }
 
 void Wyvern_Game::Update()
