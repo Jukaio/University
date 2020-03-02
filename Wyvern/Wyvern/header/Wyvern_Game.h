@@ -16,7 +16,6 @@ struct Wyvern_Game
 
 private:
 	World world_;
-	Game_Object game_Object_;
 };
 
 

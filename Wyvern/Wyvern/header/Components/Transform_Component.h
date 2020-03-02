@@ -4,16 +4,14 @@
 #define __TRANSFORM__
 
 #include "Component.h"
+#include "Vector2.h"
 
-struct Vector2;
-
-struct Transform : Component
+struct Transform_Component : Component
 {
 	float x_, y_;
 	float w_, h_;
 
-	Transform(Game_Object& game_object);
-	Transform() = delete;
+	Transform_Component(Game_Object& game_object);
 	Vector2 Get_Position();
 	Vector2 Get_Size();
 

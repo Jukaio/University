@@ -4,9 +4,10 @@
 #include <iostream>
 #include "Player.h"
 
+
 World::World()
 {
-	Add(new Game_Object());
+	Add(new Player());
 }
 
 

@@ -1,0 +1,64 @@
+// Texture_Manager.cpp
+
+#include "Texture_Manager.h"
+#include <SDL_image/SDL_image.h>
+#include "Renderer.h"
+#include <iostream>
+#include <SDL2/SDL.h>
+
+Texture_Manager* Texture_Manager::instance_ = nullptr;
+bool Texture_Manager::initialised_ = false;
+
+void Texture_Manager::Initialise()
+{
+	if (initialised_)
+	{
+		std::cout << "Already initialised!\n";
+		return;
+	}
+	instance_ = new Texture_Manager();
+}
+
+bool Texture_Manager::Add(std::string id, std::string path)
+{
+	SDL_Surface* surface = IMG_Load(path.c_str());
+	if (surface == nullptr)
+	{
+		std::cout << "Img not found! \n";
+		return false;
+	}
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(Renderer::Get_Renderer(), surface);
+	SDL_FreeSurface(surface);
+
+	if (texture == nullptr)
+	{
+		std::cout << "Img not found! \n";
+		return false;
+	}
+	instance_->texture_Cache_.Add(id, texture);
+	std::cout << "Img in " << path << " loaded \n";
+	return true;
+}
+
+SDL_Texture* Texture_Manager::Get(std::string id)
+{
+	SDL_Texture* texture = instance_->texture_Cache_.Get(id);
+	if (texture != nullptr)
+		std::cout << "Img found! \n";
+	return texture;
+}
+
+void Texture_Manager::Destroy()
+{
+	for (auto&& file : instance_->texture_Cache_.cache_)
+	{
+		if(file.second != nullptr)
+			SDL_DestroyTexture(file.second);
+	}
+}
+
+Texture_Manager::Texture_Manager()
+{
+	
+}
+

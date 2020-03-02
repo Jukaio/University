@@ -9,8 +9,13 @@ struct Component
 {
 	Game_Object& game_Object_;
 
-	Component(Game_Object& game_Object_);
-	~Component();
+	Component(Game_Object& game_Object_)
+		: game_Object_(game_Object_)
+	{
+
+	}
+
+	~Component() = default;
 };
 
 

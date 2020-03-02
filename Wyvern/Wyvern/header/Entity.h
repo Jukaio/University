@@ -3,11 +3,7 @@
 #ifndef __ENTITY__
 #define __ENTITY__
 
-#include "IEntity.h"
-
-struct SDL_Renderer;
-
-struct Entity : IEntity
+struct Entity 
 {
 	Entity() {};
 

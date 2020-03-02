@@ -4,16 +4,18 @@
 #include "Renderer.h"
 #include "Game_Object.h"
 #include <iostream>
-#include "Components/Transform.h"
+#include "Texture_Manager.h"
+#include <SDL2/SDL.h>
 
 Wyvern_Game::Wyvern_Game()
 {
-
+	
 }
 
 void Wyvern_Game::Initialise()
 {
-
+	Texture_Manager::Add("test", "assets/sword.jpg");
+	Texture_Manager::Get("test");
 }
 
 void Wyvern_Game::Update()

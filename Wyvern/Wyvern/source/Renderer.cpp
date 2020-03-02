@@ -2,6 +2,7 @@
 
 #include "Renderer.h"
 #include <mutex>
+#include <SDL2/SDL.h>
 
 SDL_Renderer* Renderer::renderer_ = nullptr;
 SDL_Window* Renderer::window_ = nullptr;
@@ -26,4 +27,10 @@ SDL_Renderer* Renderer::Get_Renderer()
 SDL_Window* Renderer::Get_Window()
 {
 	return window_;
+}
+
+void Renderer::Destroy()
+{
+	SDL_DestroyRenderer(renderer_);
+	SDL_DestroyWindow(window_);
 }

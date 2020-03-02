@@ -1,7 +1,7 @@
 // Input_Component.cpp
 
 #include "Components\Input_Component.h"
-#include "Components/Transform.h"
+#include "Components/Transform_Component.h"
 #include "Input/Keyboard.h"
 #include <SDL2/SDL_keycode.h>
 #include "Game_Object.h"
@@ -16,7 +16,7 @@ Input_Component::Input_Component(Game_Object& game_object)
 
 void Input_Component::Update()
 {
-	Transform* transform = game_Object_.Get_Component<Transform>();
+	Transform_Component* transform = game_Object_.Get_Component<Transform_Component>();
 	
 	Vector2 velocity = Vector2(0, 0);
 	float speed = 300.0f;

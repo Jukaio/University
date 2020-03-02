@@ -4,7 +4,7 @@
 #include "Time.h"
 #include <SDL_Font/SDL_ttf.h>
 #include "Renderer.h"
-
+#include "Texture_Manager.h"
 
 Wyvern_Engine::Wyvern_Engine()
 {
@@ -16,6 +16,8 @@ void Wyvern_Engine::Initialise()
 	Renderer::Initialise();
 	Time::Initialise();
 	input_Handler_.Initialise();
+	Texture_Manager::Initialise();
+
 	TTF_Init();
 
 	game_.Initialise();
@@ -39,6 +41,7 @@ void Wyvern_Engine::Run()
 void Wyvern_Engine::Exit()
 {
 	game_.Exit();
+	Texture_Manager::Destroy();
 	TTF_Quit();
 	Time::Clean();
 	Renderer::Destroy();
