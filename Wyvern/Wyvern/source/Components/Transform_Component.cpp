@@ -14,6 +14,10 @@ Transform_Component::Transform_Component(Game_Object& game_object)
 
 }
 
+Transform_Component::~Transform_Component()
+{
+}
+
 Vector2 Transform_Component::Get_Position()
 {
 	return Vector2(x_, y_);

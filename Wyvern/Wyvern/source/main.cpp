@@ -1,5 +1,9 @@
 //main.cpp
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <SDL2/SDL_main.h>
 #include "Wyvern_Engine.h"
 #include "Wyvern_Game.h"
@@ -28,13 +32,20 @@
 // Parameter variable = parameter_variable
 // Class variable = class_Variable_
 
+Wyvern_Engine* engine = nullptr;
+
 int main(int argc, char* argv[])
 {
-	Wyvern_Engine engine;
+	engine = new Wyvern_Engine();
 
-	engine.Initialise();
-	engine.Run();
-	engine.Exit();
+	engine->Initialise();
+	engine->Run();
+	engine->Exit();
+
+	delete engine;
+	engine = nullptr;
+
+	_CrtDumpMemoryLeaks();
 
 	return 0;
 }

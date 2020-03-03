@@ -21,7 +21,7 @@ Player::Player()
 
 Player::~Player()
 {
-
+	Clear_Components();
 }
 
 void Player::Update()

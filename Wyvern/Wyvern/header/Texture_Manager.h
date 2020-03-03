@@ -10,7 +10,9 @@ struct Texture_Data //Make a neat Texture struct which contains Texture and Rect
 {
 	~Texture_Data()
 	{
-		SDL_DestroyTexture(texture_);
+		if(texture_ != nullptr)
+			SDL_DestroyTexture(texture_);
+		texture_ = nullptr;
 	}
 
 	SDL_Texture* texture_;
@@ -30,7 +32,7 @@ private:
 
 	Resource_Cache<Texture_Data> texture_Cache_;
 	Texture_Manager();
-	~Texture_Manager() = default;
+	~Texture_Manager();
 	static Texture_Manager* instance_;
 
 	static bool initialised_;

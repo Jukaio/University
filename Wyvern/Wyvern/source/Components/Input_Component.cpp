@@ -14,6 +14,10 @@ Input_Component::Input_Component(Game_Object& game_object)
 
 }
 
+Input_Component::~Input_Component()
+{
+}
+
 void Input_Component::Update()
 {
 	Transform_Component* transform = game_Object_.Get_Component<Transform_Component>();

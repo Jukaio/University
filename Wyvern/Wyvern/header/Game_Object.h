@@ -14,17 +14,9 @@ struct Game_Object : Entity
 {
 	Game_Object() { }
 
-	~Game_Object()
+	virtual ~Game_Object()
 	{
-		// delete object pointers
-		for (auto&& component : components_)
-		{
-			if (component.second != nullptr)
-				delete component.second;
-		}
 
-		// clear keys
-		components_.clear();
 	}
 
 	template <class T>
@@ -37,6 +29,18 @@ struct Game_Object : Entity
 	T* Get_Component()
 	{
 		return (T*)components_[typeid(T)];
+	}
+
+	void Clear_Components()
+	{
+		for (auto&& component : components_)
+		{
+			if (component.second != nullptr)
+				delete component.second;
+		}
+
+		// clear keys
+		components_.clear();
 	}
 
 	virtual void Update() = 0;

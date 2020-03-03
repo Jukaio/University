@@ -10,6 +10,17 @@ World::World()
 	Add(new Player());
 }
 
+World::~World()
+{
+	for (auto&& game_object : game_Objects_)
+	{
+		if (game_object != nullptr)
+			delete game_object;
+		game_object = nullptr;
+	}
+	game_Objects_.clear();
+}
+
 
 void World::Add(Game_Object* obj)
 {
@@ -32,11 +43,4 @@ void World::Render()
 		game_Objects_[i]->Render();
 	}
 }
-
-
-std::vector<Game_Object*>& World::Get_Game_Objects()
-{
-	return game_Objects_;
-}
-
 

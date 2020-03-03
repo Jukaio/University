@@ -17,6 +17,12 @@ Render_Component::Render_Component(Game_Object& game_object)
 
 }
 
+Render_Component::~Render_Component()
+{
+
+}
+
+
 void Render_Component::Set_Src_Rect(const SDL_Rect& rect)
 {
 	src_Rect_ = rect;

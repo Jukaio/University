@@ -13,7 +13,12 @@ struct Resource_Cache
 	Resource_Cache() = default;
 	~Resource_Cache()
 	{
-		std::cout << "Cache deleted! \n";
+		for (auto&& file : cache_)
+		{
+			if (file.second != nullptr)
+				delete file.second;
+		}
+
 		cache_.clear();
 	}
 
@@ -24,11 +29,6 @@ struct Resource_Cache
 	T* Get(std::string id)
 	{
 		return cache_[id];
-	}
-
-	std::unordered_map<std::string, T*>* Get_Cache()
-	{
-		return cache_;
 	}
 
 	std::unordered_map<std::string, T*> cache_;

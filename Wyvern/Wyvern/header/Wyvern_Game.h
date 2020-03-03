@@ -15,7 +15,7 @@ struct Wyvern_Game
 	void Exit();
 
 private:
-	World world_;
+	World* world_;
 };
 
 

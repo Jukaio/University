@@ -1,5 +1,6 @@
 //Wyvern_Engine.cpp
 
+#include "Input/Input_Handler.h"
 #include "Wyvern_Engine.h"
 #include "Time.h"
 #include <SDL_Font/SDL_ttf.h>
@@ -15,9 +16,9 @@ void Wyvern_Engine::Initialise()
 {
 	Renderer::Initialise();
 	Time::Initialise();
-	input_Handler_.Initialise();
+	Input_Handler::Initialise();
 	Texture_Manager::Initialise();
-
+	
 	TTF_Init();
 
 	game_.Initialise();
@@ -30,7 +31,7 @@ void Wyvern_Engine::Run()
 	while (running)
 	{
 		Time::Update();
-		if (!input_Handler_.Handle_Input_Events())
+		if (!Input_Handler::Handle_Input_Events())
 			running = false;
 
 		game_.Update();
@@ -41,8 +42,11 @@ void Wyvern_Engine::Run()
 void Wyvern_Engine::Exit()
 {
 	game_.Exit();
-	Texture_Manager::Destroy();
+
 	TTF_Quit();
+
+	Texture_Manager::Destroy();
+	Input_Handler::Clean();
 	Time::Clean();
 	Renderer::Destroy();
 	SDL_Quit();

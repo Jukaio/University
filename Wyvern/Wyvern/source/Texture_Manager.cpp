@@ -16,6 +16,7 @@ void Texture_Manager::Initialise()
 		std::cout << "Already initialised!\n";
 		return;
 	}
+	initialised_ = true;
 	instance_ = new Texture_Manager();
 }
 
@@ -56,15 +57,17 @@ Texture_Data* Texture_Manager::Get(std::string id)
 
 void Texture_Manager::Destroy()
 {
-	for (auto&& file : instance_->texture_Cache_.cache_)
-	{
-		if(file.second != nullptr)
-			delete file.second;
-	}
+	delete instance_;
+	instance_ = nullptr;
 }
 
 Texture_Manager::Texture_Manager()
 {
 	
+}
+
+Texture_Manager::~Texture_Manager()
+{
+
 }
 

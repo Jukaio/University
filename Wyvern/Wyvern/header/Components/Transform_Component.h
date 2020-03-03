@@ -13,6 +13,8 @@ struct Transform_Component : Component
 	float ori_x_, ori_y_;
 
 	Transform_Component(Game_Object& game_object);
+	~Transform_Component();
+
 	Vector2 Get_Position();
 	Vector2 Get_Size();
 	Vector2 Get_Origin();

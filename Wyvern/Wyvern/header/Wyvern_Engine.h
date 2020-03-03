@@ -3,7 +3,6 @@
 #ifndef __WYVERN_ENGINE__
 #define __WYVERN_ENGINE__
 
-#include "Input/Input_Handler.h"
 #include <SDL2/SDL.h>
 #include "Wyvern_Game.h"
 
@@ -11,8 +10,6 @@
 
 struct Wyvern_Engine
 {
-	Input_Handler input_Handler_;
-
 	Wyvern_Engine();
 
 	void Initialise();

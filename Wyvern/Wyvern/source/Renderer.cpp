@@ -33,4 +33,7 @@ void Renderer::Destroy()
 {
 	SDL_DestroyRenderer(renderer_);
 	SDL_DestroyWindow(window_);
+
+	renderer_ = nullptr;
+	window_ = nullptr;
 }

@@ -10,6 +10,7 @@
 struct Render_Component : Component
 {
 	Render_Component(Game_Object& game_object);
+	~Render_Component();
 
 	SDL_Rect src_Rect_;
 	SDL_Rect dst_Rect_;

@@ -5,15 +5,17 @@
 
 struct Input_Handler
 {
-	Input_Handler();
-	~Input_Handler();
+	static Input_Handler* instance_;
 	
-	void Initialise();
-	bool Handle_Input_Events();
+	static void Initialise();
+	static bool Handle_Input_Events();
+	static void Clean();
 
 private:
 	void Get_Mouse_Position();
 
+	Input_Handler();
+	~Input_Handler();
 };
 
 #endif // !__INPUTHANDLER__

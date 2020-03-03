@@ -30,5 +30,6 @@ void Mouse::Clean()
 {
 	if (instance_ != nullptr)
 		delete instance_;
+	instance_ = nullptr;
 }
 
