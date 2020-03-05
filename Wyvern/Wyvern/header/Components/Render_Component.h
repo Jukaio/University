@@ -7,6 +7,8 @@
 #include <string>
 #include <SDL2/SDL.h>
 
+struct Camera;
+
 struct Render_Component : Component
 {
 	Render_Component(Game_Object& game_object);
@@ -15,7 +17,9 @@ struct Render_Component : Component
 	SDL_Rect src_Rect_;
 	SDL_Rect dst_Rect_;
 	std::string id_;
+	Camera* camera_;
 
+	void Set_Camera(Camera* camera);
 	void Set_Src_Rect(const SDL_Rect& rect);
 	void Set_Dst_Rect(const SDL_Rect& rect);
 	void Set_Texture_ID(std::string id);

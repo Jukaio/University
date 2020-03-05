@@ -6,9 +6,13 @@
 #include "Game_Object.h"
 #include <vector>
 
+struct Wyvern_Game;
+
 struct World
 {
-	World();
+	Wyvern_Game* game_;
+
+	World(Wyvern_Game* game);
 	~World();
 
 	void Add(Game_Object* obj);

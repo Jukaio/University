@@ -166,16 +166,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Camera.cpp" />
     <ClCompile Include="source\Components\Input_Component.cpp" />
     <ClCompile Include="source\Components\Component.cpp" />
     <ClCompile Include="source\Components\Render_Component.cpp" />
+    <ClCompile Include="source\Engine\SDL_Pipeline.cpp" />
+    <ClCompile Include="source\Entity.cpp" />
     <ClCompile Include="source\Game_Object.cpp" />
     <ClCompile Include="source\Input\Input_Handler.cpp" />
     <ClCompile Include="source\Input\Keyboard.cpp" />
     <ClCompile Include="source\Input\Mouse.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Player.cpp" />
-    <ClCompile Include="source\Renderer.cpp" />
     <ClCompile Include="source\Texture_Manager.cpp" />
     <ClCompile Include="source\Time.cpp" />
     <ClCompile Include="source\Vector2.cpp" />
@@ -186,16 +188,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Cache.h" />
+    <ClInclude Include="header\Camera.h" />
     <ClInclude Include="header\Collision_Detection\Collider.h" />
     <ClInclude Include="header\Collision_Detection\Collision.h" />
     <ClInclude Include="header\Components\Component.h" />
+    <ClInclude Include="header\Engine\SDL_Pipeline.h" />
     <ClInclude Include="header\Entity.h" />
     <ClInclude Include="header\Game_Object.h" />
     <ClInclude Include="header\Input\Input_Handler.h" />
     <ClInclude Include="header\Input\Keyboard.h" />
     <ClInclude Include="header\Input\Mouse.h" />
     <ClInclude Include="header\Player.h" />
-    <ClInclude Include="header\Renderer.h" />
+    <ClInclude Include="header\Service.h" />
     <ClInclude Include="header\Texture_Manager.h" />
     <ClInclude Include="header\Time.h" />
     <ClInclude Include="header\Vector2.h" />

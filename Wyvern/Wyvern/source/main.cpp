@@ -37,11 +37,11 @@ Wyvern_Engine* engine = nullptr;
 int main(int argc, char* argv[])
 {
 	engine = new Wyvern_Engine();
-
+	
 	engine->Initialise();
 	engine->Run();
 	engine->Exit();
-
+	
 	delete engine;
 	engine = nullptr;
 

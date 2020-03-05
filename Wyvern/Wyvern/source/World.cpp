@@ -3,11 +3,12 @@
 #include "World.h"
 #include <iostream>
 #include "Player.h"
+#include "Wyvern_Game.h"
 
-
-World::World()
+World::World(Wyvern_Game* game)
+	: game_(game)
 {
-	Add(new Player());
+	Add(new Player(game));
 }
 
 World::~World()

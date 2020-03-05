@@ -4,6 +4,7 @@
 #define __WYVERN_GAME__
 
 #include "World.h"
+#include "Camera.h"
 
 struct Wyvern_Game
 {
@@ -14,8 +15,11 @@ struct Wyvern_Game
 	void Render();
 	void Exit();
 
+
+	Camera* Get_Camera();
 private:
 	World* world_;
+	Camera* camera_;
 };
 
 

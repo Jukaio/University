@@ -45,17 +45,13 @@ struct Ticks
 
 struct Time
 {
-	static void Initialise();
-	static void Update();
-	static void Clean();
-
-
-	static Ticks Get_Delta_Time();
+	Time();
+	void Update();
+	Ticks Get_Delta_Time();
+	~Time();
 
 private:
-	static Time* instance_;
-	Time();
-	~Time();
+	
 	Ticks tp_;
 	Ticks dt_;
 };

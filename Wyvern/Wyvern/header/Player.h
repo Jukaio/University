@@ -5,9 +5,13 @@
 
 #include "Game_Object.h"
 
+struct Wyvern_Game;
+
 struct Player : Game_Object
 {
-	Player();
+	Wyvern_Game* game_;
+
+	Player(Wyvern_Game* game);
 	~Player();
 
 	void Update();

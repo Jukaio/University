@@ -7,6 +7,7 @@
 #include "Game_Object.h"
 #include "Vector2.h"
 #include "Time.h"
+#include "Service.h"
 
 Input_Component::Input_Component(Game_Object& game_object)
 	: Component(game_object)
@@ -43,5 +44,5 @@ void Input_Component::Update()
 		velocity += Vector2(0, 1);
 	}
 	velocity.Normalise();
-	transform->Set_Position(transform->Get_Position() + (velocity * speed * Time::Get_Delta_Time().As_Seconds()));
+	transform->Set_Position(transform->Get_Position() + (velocity * speed * Service<Time>::Get()->Get_Delta_Time().As_Seconds()));
 }

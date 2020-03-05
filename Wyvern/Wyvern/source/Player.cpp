@@ -4,13 +4,23 @@
 #include "Components/Transform_Component.h"
 #include "Components/Render_Component.h"
 #include "Components/Input_Component.h"
+#include "Wyvern_Game.h"
 
-Player::Player()
+Player::Player(Wyvern_Game* game)
+	: game_(game)
 {
+	// Basic Transform
 	Add_Component<Transform_Component>();
+
+	// Render
 	Add_Component<Render_Component>();
+	Get_Component<Render_Component>()->Set_Camera(game_->Get_Camera());
+
+	// Input
 	Add_Component<Input_Component>();
 
+
+	///////// SET SET ////////
 	Get_Component<Transform_Component>()->Set_Size(Vector2(64, 64));
 	Get_Component<Transform_Component>()->Set_Origin(Vector2(32, 32));
 

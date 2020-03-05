@@ -2,7 +2,8 @@
 
 #include "Texture_Manager.h"
 #include <SDL_image/SDL_image.h>
-#include "Renderer.h"
+#include "Service.h"
+#include "Engine/SDL_Pipeline.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 
@@ -31,7 +32,7 @@ bool Texture_Manager::Add(std::string id, std::string path)
 	
 	Texture_Data* text = new Texture_Data();
 
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(Renderer::Get_Renderer(), surface);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(Service<SDL_Pipeline>::Get()->Get_Renderer(), surface);
 	text->texture_ = texture;
 	text->src_Rect_ = SDL_Rect({ 0, 0, surface->w, surface->h });
 
