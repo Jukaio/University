@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL_image/SDL_image.h>
 #include <SDL_Font/SDL_ttf.h>
+#include "Settings.h"
 
 SDL_Pipeline::SDL_Pipeline()
 {
@@ -16,7 +17,7 @@ SDL_Pipeline::SDL_Pipeline()
 	if (TTF_Init() != 0)
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Font Initialisation: Failure %s", TTF_GetError());
 
-	window_ = SDL_CreateWindow("Wyvern", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
+	window_ = SDL_CreateWindow("Wyvern", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Settings::WIDTH, Settings::HEIGHT, 0);
 	if(window_ == nullptr)
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Window Initialisation: Failure %s", SDL_GetError());
 	

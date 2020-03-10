@@ -5,7 +5,8 @@
 
 struct Entity 
 {
-	Entity() {};
+	Wyvern_Game* game_;
+	Entity() : game_(nullptr) {};
 
 	virtual void Update() = 0;
 	virtual void Render() = 0;

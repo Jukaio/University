@@ -69,7 +69,17 @@
     <ClCompile Include="source\Engine\SDL_Pipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="source\Engine\Texture_Manager.cpp">
+=======
+    <ClCompile Include="source\Grass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sheep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Wolf.cpp">
+>>>>>>> master
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -138,6 +148,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\Engine\Texture_Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Grass..h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Agent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Grid\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Grid\Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Wolf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Sheep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

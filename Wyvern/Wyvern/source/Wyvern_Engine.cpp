@@ -37,6 +37,10 @@ void Wyvern_Engine::Run()
 
 		game_.Update();
 		game_.Render();
+		
+		// FIX FPS!
+		if (1000 / 60 > Service<Time>::Get()->Get_Delta_Time().As_Miliseconds())
+			SDL_Delay((1000 / 60) - Service<Time>::Get()->Get_Delta_Time().As_Miliseconds());
 	}
 }
 
