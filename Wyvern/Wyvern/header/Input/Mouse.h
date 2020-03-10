@@ -7,18 +7,15 @@
 
 struct Mouse
 {
-	//Call this in an Initialisation 
-	static void Initialise();
+	Mouse();
+	~Mouse();
 
 	//Call those in an Input Handler method for every frame
-	static void Set_Mouse_Position(int& x, int& y);
-	static Vector2 Get_Mouse_Position();
+	void Set_Mouse_Position(int& x, int& y);
 
-	static void Clean();
+	Vector2 Get_Mouse_Position();
+
 private:
-	Mouse();
-	static Mouse* instance_;
-
 	Vector2 position_;
 
 };

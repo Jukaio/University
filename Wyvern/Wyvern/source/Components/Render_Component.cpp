@@ -4,7 +4,7 @@
 #include "Components/Transform_Component.h"
 #include "Game_Object.h"
 #include "Vector2.h"
-#include "Texture_Manager.h"
+#include "Engine/Texture_Manager.h"
 #include "Camera.h"
 #include "Service.h"
 #include "Engine/SDL_Pipeline.h"
@@ -74,7 +74,7 @@ void Render_Component::Render_Square()
 void Render_Component::Render_Frame()
 {
 	Transform_Component* transform = game_Object_.Get_Component<Transform_Component>();
-	Texture_Data* texture = Texture_Manager::Get(id_);
+	Texture_Data* texture = Service<Texture_Manager>::Get()->Get(id_);
 	
 	
 

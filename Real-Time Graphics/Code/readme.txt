@@ -8,13 +8,11 @@ Press W to move forward
 Press S to move backward
 
 Included features:
-- Sun is in the center
-- The planets from mercury to neptune orbit around the sun
-- the distance of the sun is not proportional
-- planets have the right size in comparison to the earth (Earth = 1 unit)
-- the sun is smaller
-- the earth has an orbiting moon
-- everything rotates around their own axis
-- planets are tilted
-- planets are uniquely textured
-- planets have the same angular velocity
+- Directional light and colour can be changed in the bottom of the testbed::enter() method
+- Four or more objects in the scene
+- All objects are differently textured
+- All objects transform over time
+- Camera is user controlled
+- Phong reflection model is implemented
+- Shaders and textures are read from disk
+- The top left shows a frames-per-second counter

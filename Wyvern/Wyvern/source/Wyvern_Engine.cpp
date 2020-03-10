@@ -4,7 +4,7 @@
 #include "Wyvern_Engine.h"
 #include "Time.h"
 #include <SDL_Font/SDL_ttf.h>
-#include "Texture_Manager.h"
+#include "Engine/Texture_Manager.h"
 #include "Service.h"
 #include "Engine/SDL_Pipeline.h"
 
@@ -18,11 +18,11 @@ void Wyvern_Engine::Initialise()
 {
 	Service<SDL_Pipeline>::Set(new SDL_Pipeline());
 	Service<Time>::Set(new Time());
-	Input_Handler::Initialise();
-	Texture_Manager::Initialise();
+	Service<Input_Handler>::Set(new Input_Handler());
+	Service<Texture_Manager>::Set(new Texture_Manager());
 	
 
-	game_.Initialise();
+	game_.Enter();
 
 }
 
@@ -32,7 +32,7 @@ void Wyvern_Engine::Run()
 	while (running)
 	{
 		Service<Time>::Get()->Update();
-		if (!Input_Handler::Handle_Input_Events())
+		if (!Service<Input_Handler>::Get()->Handle_Input_Events())
 			running = false;
 
 		game_.Update();
@@ -44,9 +44,8 @@ void Wyvern_Engine::Exit()
 {
 	game_.Exit();
 
-
-	Texture_Manager::Destroy();
-	Input_Handler::Clean();
+	Service<Texture_Manager>::Clean();
+	Service<Input_Handler>::Clean();
 	Service<Time>::Clean();
 	Service<SDL_Pipeline>::Clean();
 	

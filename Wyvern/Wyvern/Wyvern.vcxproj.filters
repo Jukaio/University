@@ -60,9 +60,6 @@
     <ClCompile Include="source\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Texture_Manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -70,6 +67,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\Engine\SDL_Pipeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Engine\Texture_Manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,12 +125,6 @@
     <ClInclude Include="header\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\Cache.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Texture_Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -138,6 +132,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\Engine\SDL_Pipeline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Engine\Cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Engine\Texture_Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,6 +4,7 @@ uniform sampler2D diffuse;
 uniform vec4 mod_color;
 uniform vec3 light_pos;
 uniform vec3 light_color;
+uniform vec3 view_Pos;
 
 in vec2 f_texcoord;
 in vec3 f_normal;
@@ -14,6 +15,10 @@ out vec4 frag_color;
 
 void main()
 {
+	//Phong reflection model
+
+	float specular_strength = 0.5;
+
 	//Ambient
 	float ambient_strength = 0.1f;
 	vec3 ambient = ambient_strength * light_color;
@@ -21,12 +26,17 @@ void main()
 	//Diffuse
 	vec3 norm = normalize(f_normal);
 	vec3 light_dir = normalize(light_pos - f_frag_pos.xyz);
-
 	float diff = max(dot(light_dir, norm), 0.0);
 	vec3 diff_color = diff * light_color;
 
+	//Specular
+	vec3 view_dir = normalize(view_Pos - f_frag_pos.xyz);
+	vec3 reflect_dir = reflect(-light_dir, norm);
+	float spec = pow(max(dot(view_dir, reflect_dir), 0.0), 32);
+	vec3 specular = specular_strength * spec * light_color;  
+
 	vec4 color = texture(diffuse, f_texcoord);
-	vec3 result =  (ambient + diff_color) * color.rgb;
+	vec3 result =  (ambient + diff_color + specular) * color.rgb;
 
 	frag_color = vec4(result, 1.0);
 }

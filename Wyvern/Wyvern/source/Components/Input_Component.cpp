@@ -26,20 +26,20 @@ void Input_Component::Update()
 	Vector2 velocity = Vector2(0, 0);
 	float speed = 300.0f;
 
-	if (Keyboard::Key_State(SDL_SCANCODE_A))
+	if (Service<Keyboard>::Get()->Key_State(SDL_SCANCODE_A))
 	{
 		velocity += Vector2(-1, 0);
 	}
-	if (Keyboard::Key_State(SDL_SCANCODE_D))
+	if (Service<Keyboard>::Get()->Key_State(SDL_SCANCODE_D))
 	{
 		velocity += Vector2(1, 0);
 	}
 
-	if (Keyboard::Key_State(SDL_SCANCODE_W))
+	if (Service<Keyboard>::Get()->Key_State(SDL_SCANCODE_W))
 	{
 		velocity += Vector2(0, -1);
 	}
-	if (Keyboard::Key_State(SDL_SCANCODE_S))
+	if (Service<Keyboard>::Get()->Key_State(SDL_SCANCODE_S))
 	{
 		velocity += Vector2(0, 1);
 	}

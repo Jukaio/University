@@ -3,11 +3,8 @@
 #ifndef __ENTITY__
 #define __ENTITY__
 
-struct Wyvern_Game;
-
 struct Entity 
 {
-	Wyvern_Game* game_;
 	Entity() {};
 
 	virtual void Update() = 0;

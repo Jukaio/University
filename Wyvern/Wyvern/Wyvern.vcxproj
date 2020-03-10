@@ -178,7 +178,7 @@
     <ClCompile Include="source\Input\Mouse.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Player.cpp" />
-    <ClCompile Include="source\Texture_Manager.cpp" />
+    <ClCompile Include="source\Engine\Texture_Manager.cpp" />
     <ClCompile Include="source\Time.cpp" />
     <ClCompile Include="source\Vector2.cpp" />
     <ClCompile Include="source\World.cpp" />
@@ -187,7 +187,7 @@
     <ClCompile Include="source\Components\Transform_Component.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\Cache.h" />
+    <ClInclude Include="header\Engine\Cache.h" />
     <ClInclude Include="header\Camera.h" />
     <ClInclude Include="header\Collision_Detection\Collider.h" />
     <ClInclude Include="header\Collision_Detection\Collision.h" />
@@ -200,7 +200,7 @@
     <ClInclude Include="header\Input\Mouse.h" />
     <ClInclude Include="header\Player.h" />
     <ClInclude Include="header\Service.h" />
-    <ClInclude Include="header\Texture_Manager.h" />
+    <ClInclude Include="header\Engine\Texture_Manager.h" />
     <ClInclude Include="header\Time.h" />
     <ClInclude Include="header\Vector2.h" />
     <ClInclude Include="header\World.h" />

@@ -19,7 +19,6 @@ Player::Player(Wyvern_Game* game)
 	// Input
 	Add_Component<Input_Component>();
 
-
 	///////// SET SET ////////
 	Get_Component<Transform_Component>()->Set_Size(Vector2(64, 64));
 	Get_Component<Transform_Component>()->Set_Origin(Vector2(32, 32));

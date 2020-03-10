@@ -47,12 +47,27 @@ namespace neon
 		glm::vec3 scale_;
 		glm::vec3 position_;
 
+
 		float rotation_Parent_;
 		float rotation_Self_;
 		float mod_ = 0;
 
 		float velocity_; //Distance per frame to travel
 		float travel_Angle_;
+
+		void Set_Light_Pos(glm::vec3 position)
+		{
+			light_Pos_ = position;
+		}
+
+		void Set_Light_Color(glm::vec3 color)
+		{
+			light_Color_ = color;
+		}
+
+	private:
+		glm::vec3 light_Pos_;
+		glm::vec3 light_Color_;
 	};
 };
 

@@ -13,6 +13,8 @@ namespace neon
 		, rotation_Self_(0.0f)
 		, velocity_(1.0f)
 		, travel_Angle_(0)
+		, light_Color_(glm::vec3(1.0f, 1.0f, 1.0f))
+		, light_Pos_(glm::vec3(0.0f, 0.0f, 0.0f))
 	{
 		
 	}
@@ -87,8 +89,8 @@ namespace neon
 
 		program_.bind();
 		program_.set_uniform_vec4("mod_color", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-		program_.set_uniform_vec3("light_color", glm::vec3(1.0f, 1.0f, 1.0f));
-		program_.set_uniform_vec3("light_pos", glm::vec3(0.0f, 0.0f, 5.0f));
+		program_.set_uniform_vec3("light_color", light_Color_);
+		program_.set_uniform_vec3("light_pos", light_Pos_);
 
 		format_.add_attribute(0, 3, GL_FLOAT, false);
 		format_.add_attribute(1, 2, GL_FLOAT, false);
@@ -137,15 +139,15 @@ namespace neon
 
 		position_ = glm::vec3(world[3][0], world[3][1], world[3][2]);
 
-		glm::vec3 light_pos = glm::vec3(0.0f, 0.0f, 15.0f);
+		glm::vec3 light_pos = light_Pos_;
 
 		program_.bind();
 		program_.set_uniform_mat4("projection", camera_->projection_); // new matrices
 		program_.set_uniform_mat4("view", camera_->view_);
 		program_.set_uniform_mat4("world", world);
 
-
-
+		program_.set_uniform_vec3("light_color", light_Color_);
+		program_.set_uniform_vec3("view_Pos", camera_->position_);
 		program_.set_uniform_vec3("light_pos", light_pos);
 
 		vbo_.bind();

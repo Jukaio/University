@@ -57,7 +57,7 @@ namespace neon
 
 	  Celestial moon_;
 
-	  Celestial celestials_[10];
+	  Celestial celestials_[4];
    };
 
    

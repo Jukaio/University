@@ -10,7 +10,7 @@ struct Wyvern_Game
 {
 
 	Wyvern_Game();
-	void Initialise();
+	void Enter();
 	void Update();
 	void Render();
 	void Exit();
@@ -18,6 +18,9 @@ struct Wyvern_Game
 
 	Camera* Get_Camera();
 private:
+	void Create_Interface();
+	void Create_World();
+
 	World* world_;
 	Camera* camera_;
 };

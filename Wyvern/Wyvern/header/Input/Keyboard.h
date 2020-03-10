@@ -13,22 +13,18 @@ to exist) and then you can call the wished method through Keyboard::(Insert Meth
 
 struct Keyboard
 {
-	//Call this in an Initialisation 
-	static void Initialise();
+	Keyboard();
+	~Keyboard();
 
 	//Call those in an Input Handler method for every frame
-	static void Update();
-	static void Update_Key(SDL_Scancode key, bool value);
+	void Update_Last_Frame();
+	void Update_Key(SDL_Scancode key, bool value);
 
-	static bool Key_State(SDL_Scancode key);
-	static bool Key_Pressed(SDL_Scancode key);
-	static bool Key_Released(SDL_Scancode key);
+	bool Key_State(SDL_Scancode key);
+	bool Key_Pressed(SDL_Scancode key);
+	bool Key_Released(SDL_Scancode key);
 
-	static void Clean();
 private:
-	Keyboard();
-	static Keyboard* instance_;
-
 	bool current_Frame_[SDL_NUM_SCANCODES] = { false };
 	bool last_Frame_[SDL_NUM_SCANCODES] = { false };
 };

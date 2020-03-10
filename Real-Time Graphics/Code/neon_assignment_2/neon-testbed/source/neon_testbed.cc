@@ -73,6 +73,13 @@ namespace neon {
 							  glm::vec3(0.0f, 32.0f, 0.0f),
 							  glm::vec3(4.0f, 4.0f, 4.0f), 1.0f);
 
+		// Change light color and position
+		for (auto&& celestial : celestials_)
+		{
+			celestial.Set_Light_Pos(glm::vec3(0.0f, 0.0f, 15.0f));
+			celestial.Set_Light_Color(glm::vec3(1.0f, 1.0f, 1.0f));
+		}
+
 		return true;
 	}
 
@@ -89,7 +96,7 @@ namespace neon {
         string mouseX = std::to_string(mouse_.x_); // just me getting debug data
         string mouseY = std::to_string(mouse_.y_);
 
-        string text = "dt: " + std::to_string((int)dt.as_milliseconds());
+        string text = "FPS: " + std::to_string((int)(1.0f / dt.as_seconds()));
 
         font_.render(2.0f, 2.0f, text);
 
@@ -99,28 +106,8 @@ namespace neon {
         skybox_.render(camera_); // Render skybox
 
 
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 4; i++)
 			celestials_[i].render(dt.as_seconds());
-
-        //program_.bind();
-        //program_.set_uniform_mat4("projection", camera_.projection_); // new matrices
-        //program_.set_uniform_mat4("view", camera_.view_);
-        //program_.set_uniform_mat4("world", world);
-        //vbo_.bind();
-        //format_.bind();
-        //texture_.bind();
-        //sampler_.bind();
-
-        //glEnable(GL_DEPTH_TEST);
-
-        //glEnable(GL_CULL_FACE); // remove this to render the inside of the cube, or comment it out
-        //glCullFace(GL_BACK);
-        //glFrontFace(GL_CW);
-
-        //glEnable(GL_BLEND);
-        //glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
-        //glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
-        //glDrawArrays(GL_TRIANGLES, 0, 99);
 
         font_.flush();
 
