@@ -9,8 +9,6 @@
 #include <unordered_map>
 #include "Components/Component.h"
 
-struct game_;
-
 struct Game_Object : Entity
 {
 	Game_Object() { }

@@ -41,6 +41,7 @@ void Wyvern_Game::Render()
 void Wyvern_Game::Exit()
 {
 	delete world_;
+	delete camera_;
 }
 
 Camera* Wyvern_Game::Get_Camera()

@@ -8,7 +8,7 @@ struct Wyvern_Game;
 struct Entity 
 {
 	Wyvern_Game* game_;
-	Entity() {};
+	Entity() : game_(nullptr) {};
 
 	virtual void Update() = 0;
 	virtual void Render() = 0;

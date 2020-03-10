@@ -32,11 +32,9 @@
 // Parameter variable = parameter_variable
 // Class variable = class_Variable_
 
-Wyvern_Engine* engine = nullptr;
-
 int main(int argc, char* argv[])
 {
-	engine = new Wyvern_Engine();
+	Wyvern_Engine* engine = new Wyvern_Engine();
 	
 	engine->Initialise();
 	engine->Run();
