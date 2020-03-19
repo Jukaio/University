@@ -5,6 +5,7 @@
 
 #include "World.h"
 #include "Camera.h"
+#include "Grid/Grid.h"
 
 struct Wyvern_Game
 {
@@ -15,12 +16,12 @@ struct Wyvern_Game
 	void Render();
 	void Exit();
 
-
+	World* Get_World();
 	Camera* Get_Camera();
+	Grid* Get_Grid();
 private:
-	void Create_Interface();
-	void Create_World();
 
+	Grid* grid_;
 	World* world_;
 	Camera* camera_;
 };

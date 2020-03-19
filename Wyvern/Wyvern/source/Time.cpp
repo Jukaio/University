@@ -9,7 +9,7 @@ void Time::Update()
 {
 	Ticks dt;
 	{
-		Ticks new_Tp = SDL_GetTicks();
+		const Ticks new_Tp = SDL_GetTicks();
 		dt = new_Tp.tick_Rate_ - tp_.tick_Rate_;
 		tp_ = new_Tp;
 	}
@@ -22,9 +22,15 @@ Time::~Time()
 
 }
 
-Ticks Time::Get_Delta_Time()
+Ticks Time::Delta_Time()
 {
 	return dt_;
+}
+
+Ticks Time::Run_Time()
+{
+	Ticks total = SDL_GetTicks();
+	return total;
 }
 
 

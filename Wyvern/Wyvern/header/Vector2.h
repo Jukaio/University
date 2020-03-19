@@ -9,6 +9,8 @@ struct Vector2
 {
 	float x_, y_;
 
+	Vector2 As_Grid();
+
 	Vector2();
 	Vector2(const Vector2& rhs);
 	Vector2(const float x, const float y);
@@ -32,6 +34,7 @@ struct Vector2
 	friend Vector2& operator*=(Vector2& lhs, const float rhs);
 	friend Vector2& operator/=(Vector2& lhs, const Vector2& rhs);
 	friend Vector2& operator/=(Vector2& lhs, const float rhs);
+	friend bool operator==(const Vector2& lhs, const Vector2& rhs);
 
 	float Length_Sqrt() const;
 	float Length() const;

@@ -1,176 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="source\Camera.cpp" />
+    <ClCompile Include="source\Components\Input_Component.cpp" />
+    <ClCompile Include="source\Components\Component.cpp" />
+    <ClCompile Include="source\Components\Render_Component.cpp" />
+    <ClCompile Include="source\Engine\SDL_Pipeline.cpp" />
+    <ClCompile Include="source\Entity.cpp" />
+    <ClCompile Include="source\Game_Object.cpp" />
+    <ClCompile Include="source\Grass.cpp" />
+    <ClCompile Include="source\Input\Input_Handler.cpp" />
+    <ClCompile Include="source\Input\Keyboard.cpp" />
+    <ClCompile Include="source\Input\Mouse.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Player.cpp" />
+    <ClCompile Include="source\Sheep.cpp" />
+    <ClCompile Include="source\Time.cpp" />
+    <ClCompile Include="source\Vector2.cpp" />
+    <ClCompile Include="source\Wolf.cpp" />
+    <ClCompile Include="source\World.cpp" />
+    <ClCompile Include="source\Wyvern_Engine.cpp" />
+    <ClCompile Include="source\Wyvern_Game.cpp" />
+    <ClCompile Include="source\Components\Transform_Component.cpp" />
+    <ClCompile Include="source\Engine\Texture_Manager.cpp" />
+    <ClCompile Include="source\Grid\Grid.cpp" />
+    <ClCompile Include="source\Components\AI_Component.cpp" />
+    <ClCompile Include="source\Components\AI_Grass_Component.cpp" />
+    <ClCompile Include="source\Components\AI_Sheep_Component.cpp" />
+    <ClCompile Include="source\Lehmer32.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Wyvern_Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Input\Input_Handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Input\Keyboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Vector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Game_Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Time.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Input\Mouse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Wyvern_Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Components\Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Components\Render_Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Components\Input_Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Components\Transform_Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Engine\SDL_Pipeline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="source\Engine\Texture_Manager.cpp">
-=======
-    <ClCompile Include="source\Grass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Sheep.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Wolf.cpp">
->>>>>>> master
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="header\Wyvern_Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Input\Input_Handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Input\Keyboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Vector2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Game_Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Time.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\World.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Input\Mouse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Collision_Detection\Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Collision_Detection\Collider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Wyvern_Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Components\Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Components\Render_Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Components\Input_Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Components\Transform_Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Service.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Engine\SDL_Pipeline.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Engine\Cache.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Engine\Texture_Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Grass..h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Agent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Grid\Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Grid\Grid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Wolf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Sheep.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\Settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="header\Cache.h" />
+    <ClInclude Include="header\Camera.h" />
+    <ClInclude Include="header\Collision_Detection\Collider.h" />
+    <ClInclude Include="header\Collision_Detection\Collision.h" />
+    <ClInclude Include="header\Components\Component.h" />
+    <ClInclude Include="header\Engine\SDL_Pipeline.h" />
+    <ClInclude Include="header\Entity.h" />
+    <ClInclude Include="header\Game_Object.h" />
+    <ClInclude Include="header\Grid\Grid.h" />
+    <ClInclude Include="header\Input\Input_Handler.h" />
+    <ClInclude Include="header\Input\Keyboard.h" />
+    <ClInclude Include="header\Input\Mouse.h" />
+    <ClInclude Include="header\Player.h" />
+    <ClInclude Include="header\Service.h" />
+    <ClInclude Include="header\Settings.h" />
+    <ClInclude Include="header\Sheep.h" />
+    <ClInclude Include="header\Texture_Manager.h" />
+    <ClInclude Include="header\Time.h" />
+    <ClInclude Include="header\Vector2.h" />
+    <ClInclude Include="header\Wolf.h" />
+    <ClInclude Include="header\World.h" />
+    <ClInclude Include="header\Wyvern_Engine.h" />
+    <ClInclude Include="header\Wyvern_Game.h" />
+    <ClInclude Include="header\Components\Transform_Component.h" />
+    <ClInclude Include="header\Components\Render_Component.h" />
+    <ClInclude Include="header\Components\Input_Component.h" />
+    <ClInclude Include="header\Engine\Texture_Manager.h" />
+    <ClInclude Include="header\Engine\Cache.h" />
+    <ClInclude Include="header\Grass.h" />
+    <ClInclude Include="header\Components\AI_Component.h" />
+    <ClInclude Include="header\Components\AI_Grass_Component.h" />
+    <ClInclude Include="header\Lehmer32.h" />
+    <ClInclude Include="header\Components\AI_Sheep_Component.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

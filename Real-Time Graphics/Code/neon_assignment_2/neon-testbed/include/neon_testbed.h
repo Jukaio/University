@@ -25,6 +25,11 @@ namespace neon
       virtual bool enter() final;
       virtual void exit() final;
       virtual bool tick(const time &dt) final;
+	  void Change_Light_Color(glm::vec3 color);
+	  void Change_Light_Position(glm::vec3 pos);
+	  void Do_Action(keycode key, float& variable_to_change, bool go_up, bool has_normalised_bound = true);
+	  float red_, green_, blue_;
+	  float light_x_, light_y_, light_z_;
 
 	  vertex_buffer vbo_;
 	  shader_program program_;

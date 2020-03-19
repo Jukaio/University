@@ -2,6 +2,12 @@
 
 #include "Vector2.h"
 #include <math.h>
+#include "Grid/Grid.h"
+
+Vector2 Vector2::As_Grid()
+{
+	return Vector2(x_, y_) / Grid::TILE_DIMENSION;
+}
 
 Vector2::Vector2()
 	: x_(0)
@@ -144,6 +150,10 @@ Vector2& operator/=(Vector2& lhs, const float rhs)
 	return lhs;
 }
 
+bool operator==(const Vector2& lhs, const Vector2& rhs)
+{
+	return (lhs.x_ == rhs.x_ && lhs.y_ == rhs.y_);
+}
 
 float Vector2::Length_Sqrt() const
 {

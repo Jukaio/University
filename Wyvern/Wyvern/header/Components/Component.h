@@ -7,18 +7,16 @@ struct Game_Object;
 
 struct Component
 {
-	Game_Object& game_Object_;
+	Game_Object* game_Object_;
 
-	Component(Game_Object& game_Object_)
-		: game_Object_(game_Object_)
+	Component(Game_Object* game_object)
+		: game_Object_(game_object)
 	{
 
 	}
 
-	virtual ~Component()
-	{
+	virtual ~Component() = default;
 
-	}
 };
 
 

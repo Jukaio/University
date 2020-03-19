@@ -2,6 +2,7 @@
 
 #include "neon_testbed.h"
 #include <cassert>
+#include <math.h>
 
 
 namespace neon {
@@ -73,14 +74,76 @@ namespace neon {
 							  glm::vec3(0.0f, 32.0f, 0.0f),
 							  glm::vec3(4.0f, 4.0f, 4.0f), 1.0f);
 
+		Change_Light_Color(glm::vec3(1.0f, 1.0f, 1.0f));
+		Change_Light_Position(glm::vec3(0.0f, 0.0f, 15.0f));
+		return true;
+	}
+
+	void testbed::Change_Light_Color(glm::vec3 color)
+	{
 		// Change light color and position
 		for (auto&& celestial : celestials_)
 		{
-			celestial.Set_Light_Pos(glm::vec3(0.0f, 0.0f, 15.0f));
-			celestial.Set_Light_Color(glm::vec3(1.0f, 1.0f, 1.0f));
+			celestial.Set_Light_Color(color);
+			red_ = color.x;
+			green_ = color.y;
+			blue_ = color.b;
 		}
+	}
+	void testbed::Change_Light_Position(glm::vec3 pos)
+	{
+		// Change light color and position
+		for (auto&& celestial : celestials_)
+		{
+			celestial.Set_Light_Pos(pos);
+			light_x_ = pos.x;
+			light_y_ = pos.y;
+			light_z_ = pos.z;
+		}
+	}
 
-		return true;
+	void testbed::Do_Action(keycode key, float& variable_to_change, bool go_up, bool is_color) // 1 or -1
+	{
+		if (keyboard_.is_down(key))
+		{
+			switch (is_color)
+			{
+				case true:
+					if (go_up)
+					{
+						if (variable_to_change <= 1)
+						{
+							variable_to_change += 0.02f;
+							Change_Light_Color(glm::vec3(red_, green_, blue_));
+						}
+					}
+					else
+					{
+						if (variable_to_change >= 0)
+						{
+							variable_to_change -= 0.02f;
+							Change_Light_Color(glm::vec3(red_, green_, blue_));
+						}
+					}
+					break;
+
+				case false:
+					if (go_up)
+					{
+						variable_to_change += 0.5f;
+						Change_Light_Position(glm::vec3(light_x_, light_y_, light_z_));
+
+					}
+					else
+					{
+
+						variable_to_change -= 0.5f;
+						Change_Light_Position(glm::vec3(light_x_, light_y_, light_z_));
+
+					}
+					break;
+			}
+		}
 	}
 
     void testbed::exit() {
@@ -90,6 +153,29 @@ namespace neon {
         if (keyboard_.is_pressed(KEYCODE_ESCAPE)) {
             return false;
         }
+		/* Change Light Data */
+		// Change Color
+		// Red
+		Do_Action(KEYCODE_F, red_, true);
+		Do_Action(KEYCODE_V, red_, false);
+		// Green
+		Do_Action(KEYCODE_G, green_, true);
+		Do_Action(KEYCODE_B, green_, false);
+		// Blue
+		Do_Action(KEYCODE_H, blue_, true);
+		Do_Action(KEYCODE_N, blue_, false);
+
+		// Change Position
+		// x
+		Do_Action(KEYCODE_LEFT, light_x_, false, false);
+		Do_Action(KEYCODE_RIGHT, light_x_, true, false);
+		// y
+		Do_Action(KEYCODE_SPACE, light_y_, true, false);
+		Do_Action(KEYCODE_C, light_y_, false, false);
+		// z
+		Do_Action(KEYCODE_UP, light_z_, false, false);
+		Do_Action(KEYCODE_DOWN, light_z_, true, false);
+	    /* End Change Light Data */
 
         controller_.update(dt); // run controller update, duh
 

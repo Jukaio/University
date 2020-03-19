@@ -10,10 +10,10 @@ Player::Player(Wyvern_Game* game)
 	: game_(game)
 {
 	// Basic Transform
-	Add_Component<Transform_Component>();
+	Transform_Component* transform = Add_Component<Transform_Component>();
 
 	// Render
-	Add_Component<Render_Component>();
+	Add_Component<Render_Component, Transform_Component>(transform);
 	Get_Component<Render_Component>()->Set_Camera(game_->Get_Camera());
 
 	// Input
@@ -23,7 +23,7 @@ Player::Player(Wyvern_Game* game)
 	Get_Component<Transform_Component>()->Set_Size(Vector2(64, 64));
 	Get_Component<Transform_Component>()->Set_Origin(Vector2(32, 32));
 
-	Get_Component<Render_Component>()->Set_Texture_ID("Test_Animation");
+	Get_Component<Render_Component>()->Set_Texture("Test_Animation");
 	Get_Component<Render_Component>()->Set_Src_Rect(SDL_Rect({ 64, 0, 64, 64 }));
 	Get_Component<Render_Component>()->Set_Dst_Rect(SDL_Rect({ 0, 0, 64, 64 }));
 }

@@ -3,21 +3,17 @@
 #ifndef __WOLF__
 #define __WOLF__
 
-#include "Agent.h"
+#include "Game_Object.h"
 
-struct Wolf : Agent
+struct Wolf : Game_Object
 {
-	Wolf();
+	Wolf(Wyvern_Game* game);
 	~Wolf();
 
 	// Loop
 	virtual void Update() override;
 	virtual void Render() override;
 
-	// AI
-	virtual void Sense() override;
-	virtual void Decide() override;
-	virtual void Act() override;
 };
 
 #endif // !__WOLF__

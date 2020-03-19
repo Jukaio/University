@@ -7,7 +7,7 @@
 
 struct Input_Component : Component
 {
-	Input_Component(Game_Object& game_object);
+	Input_Component(Game_Object* game_object);
 	~Input_Component();
 
 	void Update();

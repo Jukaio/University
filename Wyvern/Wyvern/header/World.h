@@ -3,10 +3,13 @@
 #ifndef __WORLD__
 #define __WORLD__
 
-#include "Game_Object.h"
+
 #include <vector>
+#include "Grass.h"
+#include "Grid/Grid.h"
 
 struct Wyvern_Game;
+
 
 struct World
 {
@@ -15,14 +18,16 @@ struct World
 	World(Wyvern_Game* game);
 	~World();
 
-	void Add(Game_Object* obj);
+	void Add(Game_Object* obj); 
+	Grass* Get_Grass_Field();
 
 	void Update();
 	void Render();
 
 private:
-	std::vector<Game_Object*> game_Objects_;
+	Grass* grass_Field_;
 
+	std::vector<Game_Object*> game_Objects_;
 };
 
 

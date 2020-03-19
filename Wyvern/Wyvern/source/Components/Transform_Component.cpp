@@ -2,7 +2,7 @@
 
 #include "Components/Transform_Component.h"
 
-Transform_Component::Transform_Component(Game_Object& game_object)
+Transform_Component::Transform_Component(Game_Object* game_object)
 	: Component(game_object)
 	, x_(0)
 	, y_(0)
@@ -31,6 +31,11 @@ Vector2 Transform_Component::Get_Size()
 Vector2 Transform_Component::Get_Origin()
 {
 	return Vector2(ori_x_, ori_y_);
+}
+
+Vector2 Transform_Component::Get_Position_With_Origin()
+{
+	return Vector2(x_ + ori_x_, y_ + ori_y_);
 }
 
 void Transform_Component::Set_Position(Vector2 position)

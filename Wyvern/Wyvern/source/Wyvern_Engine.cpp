@@ -7,6 +7,7 @@
 #include "Engine/Texture_Manager.h"
 #include "Service.h"
 #include "Engine/SDL_Pipeline.h"
+#include <iostream>
 
 Wyvern_Engine::Wyvern_Engine()
 {
@@ -28,19 +29,28 @@ void Wyvern_Engine::Initialise()
 
 void Wyvern_Engine::Run()
 {
+	const int FPS = 60;
+	const int DELAY = 1000 / 60;
+
+	int start = 0;
+	int delta = 0;
+
 	bool running = true;
 	while (running)
 	{
 		Service<Time>::Get()->Update();
+		start = Service<Time>::Get()->Run_Time().As_Miliseconds();
 		if (!Service<Input_Handler>::Get()->Handle_Input_Events())
 			running = false;
 
 		game_.Update();
 		game_.Render();
-		
-		// FIX FPS!
-		if (1000 / 60 > Service<Time>::Get()->Get_Delta_Time().As_Miliseconds())
-			SDL_Delay((1000 / 60) - Service<Time>::Get()->Get_Delta_Time().As_Miliseconds());
+	
+
+		delta = Service<Time>::Get()->Run_Time().As_Miliseconds() - start;
+		std::cout << 1000 / Service<Time>::Get()->Delta_Time().As_Miliseconds() << "\n";
+		if (DELAY > delta)
+			SDL_Delay(DELAY - delta);
 	}
 }
 

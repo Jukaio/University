@@ -9,12 +9,12 @@ struct Ticks
 {
 	Uint32 tick_Rate_;
 
-	float As_Seconds()
+	float As_Seconds() const
 	{
 		return tick_Rate_ / 1000.0f;
 	}
 
-	int As_Miliseconds()
+	int As_Miliseconds() const
 	{
 		return tick_Rate_;
 	}
@@ -47,11 +47,11 @@ struct Time
 {
 	Time();
 	void Update();
-	Ticks Get_Delta_Time();
+	Ticks Delta_Time();
+	Ticks Run_Time();
 	~Time();
 
 private:
-	
 	Ticks tp_;
 	Ticks dt_;
 };
